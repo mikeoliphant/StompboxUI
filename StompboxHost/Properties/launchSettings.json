@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "StompboxSimHost": {
+      "commandName": "Project",
+      "nativeDebugging": true
+    }
+  }
+}

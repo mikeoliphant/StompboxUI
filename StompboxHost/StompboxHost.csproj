@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<ApplicationIcon>Icon.ico</ApplicationIcon>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Content Include="Icon.ico" />
+	</ItemGroup>
+	<ItemGroup>
+		<TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
+		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
+		<PackageReference Include="NVorbis" Version="0.10.5" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\StompboxPlugin\StompboxPlugin.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Reference Include="AudioPlugSharp, Culture=neutral, processorArchitecture=MSIL">
+			<SpecificVersion>False</SpecificVersion>
+			<HintPath>..\..\AudioPlugSharp\x64\Release\AudioPlugSharp.dll</HintPath>
+		</Reference>
+		<Reference Include="AudioPlugSharpHost, Culture=neutral, processorArchitecture=MSIL">
+			<SpecificVersion>False</SpecificVersion>
+			<HintPath>..\..\AudioPlugSharp\AudioPlugSharpHost\bin\Release\net6.0-windows\AudioPlugSharpHost.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+</Project>

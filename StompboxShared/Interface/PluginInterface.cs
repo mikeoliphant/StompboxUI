@@ -42,7 +42,6 @@ namespace Stompbox
 
             mainHStack.Children.Add(addPluginButton = new TextButton("Add\n" + Name + "\nPlugin")
             {
-                //Font = PixGame.Instance.GetFont("SmallFont"),
                 DesiredWidth = 150,
                 DesiredHeight = PluginInterface.DefaultHeight,
                 VerticalAlignment = EVerticalAlignment.Stretch,

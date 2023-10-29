@@ -33,12 +33,22 @@ namespace Stompbox
             LoadImageManifest("ImageManifest.xml");
 
             GraphicsContext.SingleWhitePixelImage = GetImage("SingleWhitePixel");
-            GraphicsContext.SamplerState = Microsoft.Xna.Framework.Graphics.SamplerState.AnisotropicClamp;
+            GraphicsContext.SamplerState = new Microsoft.Xna.Framework.Graphics.SamplerState()
+            {
+                AddressU = Microsoft.Xna.Framework.Graphics.TextureAddressMode.Clamp,
+                AddressV = Microsoft.Xna.Framework.Graphics.TextureAddressMode.Clamp,
+                Filter = Microsoft.Xna.Framework.Graphics.TextureFilter.Anisotropic,
+                MipMapLevelOfDetailBias = -10
+            };
 
-            UIFont.DefaultFont = GetFont("MainFont");
-            UIFont.DefaultFont.SpriteFont.Spacing = 1;
+            //Microsoft.Xna.Framework.Graphics.SamplerState.LinearClamp;
+
+            DefaultFont = GetFont("MainFont");
+            DefaultFont.SpriteFont.Spacing = 1;
 
             GetFont("SmallFont").SpriteFont.Spacing = 0;
+
+            DefaultForegroundColor = UIColor.White;
 
             DefaultOutlineNinePatch = GetImage("PopupBackground");
 

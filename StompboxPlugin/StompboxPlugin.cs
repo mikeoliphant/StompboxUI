@@ -19,12 +19,12 @@ namespace Stompbox
 		public int CurrentProgram { get; private set; }
 
 		public StompboxClient StompboxClient { get; private set; }
+        public MonoGameHost GameHost { get; private set; } = null;
 
-		AudioIOPort monoInput;
+        AudioIOPort monoInput;
 		AudioIOPort monoOutput;
 		IntPtr bitConvertBuffer = IntPtr.Zero;
 		uint bitConvertBufferSize = 0;
-        MonoGameHost gameHost = null;
 
         public StompboxPlugin()
 		{
@@ -140,19 +140,19 @@ namespace Stompbox
 
                 //game.SetScreenScale(scale, resizeScreen: true);
 
-                using (gameHost = new MonoGameHost(screenWidth, screenHeight, fullscreen: false))
+                using (GameHost = new MonoGameHost(screenWidth, screenHeight, fullscreen: false))
                 {
-                    gameHost.IsMouseVisible = true;
+                    GameHost.IsMouseVisible = true;
 
 					if (parentWindow != IntPtr.Zero)
 					{
-						gameHost.Window.Position = new Microsoft.Xna.Framework.Point(0, 0);
-						gameHost.Window.IsBorderless = true;
+						GameHost.Window.Position = new Microsoft.Xna.Framework.Point(0, 0);
+						GameHost.Window.IsBorderless = true;
 
-						SetParent(gameHost.Window.Handle, parentWindow);
+						SetParent(GameHost.Window.Handle, parentWindow);
 					}
 
-                    gameHost.StartGame(game);
+                    GameHost.StartGame(game);
 
 					StompboxClient.Instance.NeedUIReload = true;
 				}
@@ -169,9 +169,9 @@ namespace Stompbox
 		{
 			base.ResizeEditor(newWidth, newHeight);
 
-			if (gameHost != null)
+			if (GameHost != null)
 			{
-                gameHost.RequestResize((int)newWidth, (int)newHeight);
+                GameHost.RequestResize((int)newWidth, (int)newHeight);
 			}
 		}
 
@@ -180,7 +180,7 @@ namespace Stompbox
         {
             base.HideEditor();
 
-            gameHost.Exit();
+            GameHost.Exit();
         }
 
         string SaveChainEffects(AudioPluginChain chain)

@@ -17,7 +17,7 @@ namespace StompboxImageProcessor
             BeginSpriteSheetGroup("UISheet");
 
             AddFont("MainFont", "Calibri", FontStyle.Bold, 36);
-            AddFont("SmallFont", "Calibri", 28);
+            AddFont("SmallFont", "Calibri", FontStyle.Bold, 30);
 
             PushDirectory("UserInterface");
 
@@ -30,6 +30,10 @@ namespace StompboxImageProcessor
             //processor.DoSquaredSprites = false;
 
             Add("StompboxLogo");
+
+            Add("InputChain");
+            Add("OutputChain");
+            Add("FxLoopChain");
 
             AddWithShadow("HoverTextOutline");
 

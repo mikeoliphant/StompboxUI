@@ -29,6 +29,8 @@ namespace Stompbox
             HorizontalStack mainHStack = new HorizontalStack() { VerticalAlignment = EVerticalAlignment.Stretch };
             Children.Add(mainHStack);
 
+            mainHStack.Children.Add(new ImageElement(name + "Chain") {  VerticalAlignment = EVerticalAlignment.Center });
+
             pluginStack = new HorizontalStack() { ChildSpacing = 0, VerticalAlignment = EVerticalAlignment.Stretch };
             mainHStack.Children.Add(pluginStack);
 
@@ -40,7 +42,7 @@ namespace Stompbox
 
             dragDropHandler.DragCompleteAction = delegate (object dropObject) { UpdateChain(); };
 
-            mainHStack.Children.Add(addPluginButton = new TextButton("Add\n" + Name + "\nPlugin")
+            mainHStack.Children.Add(addPluginButton = new TextButton("Add\nPlugin")
             {
                 DesiredWidth = 150,
                 DesiredHeight = PluginInterface.DefaultHeight,
@@ -282,19 +284,23 @@ namespace Stompbox
             }
             else if ((parameter.ParameterType == EParameterType.VSlider) || (parameter.ParameterType == EParameterType.Knob))
             {
-                float strWidth;
-                float strHeight;
+                float strWidthMax;
+                float strHeightMax;
 
-                Layout.Current.GetFont("SmallFont").MeasureString(String.Format(parameter.ValueFormat, parameter.MaxValue), out strWidth, out strHeight);
+                Layout.Current.GetFont("SmallFont").MeasureString(String.Format(parameter.ValueFormat, parameter.MaxValue), out strWidthMax, out strHeightMax);
+
+                float strWidthMin;
+                float strHeightMin;
+
+                Layout.Current.GetFont("SmallFont").MeasureString(String.Format(parameter.ValueFormat, parameter.MinValue), out strWidthMin, out strHeightMin);
 
                 ParameterValueDisplay valueDisplay = new ParameterValueDisplay()
                 {
                     HorizontalAlignment = EHorizontalAlignment.Absolute,
                     VerticalAlignment = EVerticalAlignment.Absolute,
-                    Margin = new LayoutPadding(-strWidth, -strHeight),
+                    Margin = new LayoutPadding(-Math.Max(strWidthMin, strWidthMax), -Math.Max(strHeightMin, strHeightMax)),
                     ValueFormat = parameter.ValueFormat
                 };
-                controlDock.Children.Add(valueDisplay);
 
                 if (parameter.ParameterType == EParameterType.VSlider)
                 {
@@ -378,6 +384,8 @@ namespace Stompbox
                     }
 
                 }
+
+                controlDock.Children.Add(valueDisplay);
             }
 
             return controlVStack;
@@ -1000,7 +1008,7 @@ namespace Stompbox
             {
                 TextColor = UIColor.Black,
                 TextFont = Layout.Current.GetFont("SmallFont"),
-                Margin = new LayoutPadding(20, 10),
+                Margin = new LayoutPadding(5, 5),
                 HorizontalAlignment = EHorizontalAlignment.Center,
                 VerticalAlignment = EVerticalAlignment.Center
             };
@@ -1276,21 +1284,20 @@ namespace Stompbox
                     break;
             }
 
+            if (IsDoubleTap(touch))
+            {
+                SetValue(DefaultValue);
+
+                if (ValueChangedAction != null)
+                    ValueChangedAction(DefaultValue);
+            }
+
             return true;
         }
 
         //public override bool HandleGesture(PixGesture gesture)
         //{
-        //    if (gesture.GestureType == EPixGestureType.DoubleTap)
-        //    {
-        //        SetValue(DefaultValue);
-
-        //        if (ValueChangedAction != null)
-        //            ValueChangedAction(DefaultValue);
-
-        //        return true;
-        //    }
-        //    else if (gesture.GestureType == EPixGestureType.Hold)
+        //    if (gesture.GestureType == EPixGestureType.Hold)
         //    {
         //        if (HoldAction != null)
         //        {

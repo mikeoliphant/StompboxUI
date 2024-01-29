@@ -38,10 +38,9 @@ namespace Stompbox
                 AddressU = Microsoft.Xna.Framework.Graphics.TextureAddressMode.Clamp,
                 AddressV = Microsoft.Xna.Framework.Graphics.TextureAddressMode.Clamp,
                 Filter = Microsoft.Xna.Framework.Graphics.TextureFilter.Anisotropic,
-                MipMapLevelOfDetailBias = -10
+                MipMapLevelOfDetailBias = -0.8f
             };
 
-            //Microsoft.Xna.Framework.Graphics.SamplerState.LinearClamp;
 
             DefaultFont = GetFont("MainFont");
             DefaultFont.SpriteFont.Spacing = 1;

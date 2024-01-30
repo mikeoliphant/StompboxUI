@@ -293,7 +293,7 @@ namespace Stompbox
 
             double offset = (step / 2);
 
-            double range = .03;
+            double range = .03 / (currentPitchCenter / 83.0);   // Set range based on pitch (smaller range for higher frequencies)
 
             int lastX = -1;
             int lastY = -1;

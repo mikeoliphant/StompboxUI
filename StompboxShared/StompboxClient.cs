@@ -380,11 +380,11 @@ namespace Stompbox
 
             InputGain = PluginFactory.CreatePlugin("Input");
 
-            Amp = CreateSlotPlugin("Amp");
+            Amp = CreateSlotPlugin("Amp", "NAM");
 
-            Tonestack = CreateSlotPlugin("Tonestack");
+            Tonestack = CreateSlotPlugin("Tonestack", "EQ-7");
 
-            CabConvolver = CreateSlotPlugin("Cabinet");
+            CabConvolver = CreateSlotPlugin("Cabinet", "CabConvolver");
 
             MasterVolume = PluginFactory.CreatePlugin("Master");
 
@@ -403,16 +403,20 @@ namespace Stompbox
             NeedUIReload = true;
         }
 
-        IAudioPlugin CreateSlotPlugin(string slotName)
+        IAudioPlugin CreateSlotPlugin(string slotName, string defaultPlugin)
         {
             string pluginID = processorWrapper.GetPluginSlot(slotName);
 
-            if (pluginID != null)
+            if (pluginID == null)
             {
-                return PluginFactory.CreatePlugin(pluginID);
+                pluginID = defaultPlugin;
+
+                string cmd = "SetPluginSlot " + slotName + " " + pluginID;
+
+                StompboxClient.Instance.SendCommand(cmd);
             }
 
-            return null;
+            return PluginFactory.CreatePlugin(pluginID);
         }
 
         void LoadChainEffects(List<IAudioPlugin> chain, IEnumerable<String> plugins)

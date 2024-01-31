@@ -381,9 +381,9 @@ namespace Stompbox
 
             ampStack.Children.Clear();
 
-            AddAmpPlugin(StompboxClient.Instance.Amp);
-            AddAmpPlugin(StompboxClient.Instance.Tonestack);
-            AddAmpPlugin(StompboxClient.Instance.CabConvolver);
+            AddAmpPlugin(StompboxClient.Instance.Amp, "Amp");
+            AddAmpPlugin(StompboxClient.Instance.Tonestack, "Tonestack");
+            AddAmpPlugin(StompboxClient.Instance.CabConvolver, "Cabinet");
 
             if (StompboxGame.DAWMode)
             {
@@ -420,14 +420,14 @@ namespace Stompbox
             currentProgramInterface.SetSelectedIndex(StompboxClient.Instance.CurrentPresetIndex);
         }
 
-        void AddAmpPlugin(IAudioPlugin plugin)
+        void AddAmpPlugin(IAudioPlugin plugin, string slotName)
         {
             if (plugin == null)
                 return;
 
             if (StompboxGame.DAWMode)
             {
-                ampStack.Children.Add(new PluginInterface(plugin) { VerticalAlignment = EVerticalAlignment.Stretch });
+                ampStack.Children.Add(new PluginInterface(plugin, slotName) { VerticalAlignment = EVerticalAlignment.Stretch });
             }
             else
             {

@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Numerics;
 using UILayout;
+using SharpDX.MediaFoundation;
 
 namespace Stompbox
 {
@@ -51,7 +52,7 @@ namespace Stompbox
             });
         }
 
-        void UpdateChain()
+        public void UpdateChain()
         {
             plugins.Clear();
 
@@ -551,6 +552,7 @@ namespace Stompbox
         public float MinWidth { get; set; }
 
         PluginChainDisplay chainDisplay;
+        string slotName;
         HorizontalStack controlStack;
         Menu menu = new Menu();
         List<MenuItem> menuItems = new List<MenuItem>();
@@ -558,8 +560,14 @@ namespace Stompbox
         protected bool showAdvancedControls = false;
 
         public PluginInterface(IAudioPlugin plugin)
-            : this(plugin, null)
+            : this(plugin, new UIColor(200, 200, 200), null)
         {
+        }
+
+        public PluginInterface(IAudioPlugin plugin, string slotName)
+            : this(plugin)
+        {
+            this.slotName = slotName;
         }
 
         public PluginInterface(IAudioPlugin plugin, PluginChainDisplay chainDisplay)
@@ -569,25 +577,21 @@ namespace Stompbox
 
         public PluginInterface(IAudioPlugin plugin, UIColor defaultBackgroundColor, PluginChainDisplay chainDisplay)
         {
-            SetPlugin(plugin, defaultBackgroundColor, chainDisplay);
+            this.chainDisplay = chainDisplay;
+
+            SetPlugin(plugin, defaultBackgroundColor);
         }
 
         void SetPlugin(IAudioPlugin plugin)
         {
-            SetPlugin(plugin, null);
+            SetPlugin(plugin, new UIColor(200, 200, 200));
         }
 
-        void SetPlugin(IAudioPlugin plugin, PluginChainDisplay chainDisplay)
-        {
-            SetPlugin(plugin, new UIColor(200, 200, 200), chainDisplay);
-        }
-
-        void SetPlugin(IAudioPlugin plugin, UIColor defaultBackgroundColor, PluginChainDisplay chainDisplay)
+        void SetPlugin(IAudioPlugin plugin, UIColor defaultBackgroundColor)
         {
             base.SetPlugin(plugin);
 
             this.DefaultBackgroundColor = defaultBackgroundColor;
-            this.chainDisplay = chainDisplay;
 
             MinWidth = (StompboxGame.DAWMode) ? 320 : 420;
             DesiredHeight = DefaultHeight;
@@ -808,6 +812,17 @@ namespace Stompbox
                                 newPlugin.Enabled = enabled;
 
                                 SetPlugin(newPlugin);
+
+                                if (slotName != null)
+                                {
+                                    string cmd = "SetPluginSlot " + slotName + " " + Plugin.ID;
+
+                                    StompboxClient.Instance.SendCommand(cmd);
+                                }
+                                else if (chainDisplay != null)
+                                {
+                                    chainDisplay.UpdateChain();
+                                }
 
                                 UpdateContentLayout();
                             }

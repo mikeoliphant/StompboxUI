@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
-#if !ANDROID
+#if !STOMPBOXREMOTE
 using UnmanagedPlugins;
 #endif
 
@@ -71,7 +71,7 @@ namespace Stompbox
         NetworkClient networkClient;
         ProtocolClient protocolClient;
 
-#if !ANDROID
+#if !STOMPBOXREMOTE
         PluginProcessorWrapper processorWrapper;
 #endif
 
@@ -114,7 +114,7 @@ namespace Stompbox
             }
             else
             {
-#if !ANDROID
+#if !STOMPBOXREMOTE
                 Debug("Load process wrapper");
 
                 processorWrapper = new PluginProcessorWrapper(PluginPath, inDAWMode);
@@ -130,7 +130,7 @@ namespace Stompbox
 
         public void StartServer()
         {
-#if !ANDROID
+#if !STOMPBOXREMOTE
             processorWrapper.StartServer();
 #endif
         }
@@ -172,7 +172,7 @@ namespace Stompbox
 
         public void UpdatePresets()
         {
-#if !ANDROID
+#if !STOMPBOXREMOTE
             SetPresetNames(new List<String>(processorWrapper.GetPresets().Trim().Split(' ')));
 
             SuppressCommandUpdates = true;
@@ -216,7 +216,7 @@ namespace Stompbox
                 return protocolClient.PluginNames;
             }
 
-#if ANDROID
+#if STOMPBOXREMOTE
             return null;
 #else
             return processorWrapper.GetAllPlugins();
@@ -245,7 +245,7 @@ namespace Stompbox
             }
             else
             {
-#if !ANDROID
+#if !STOMPBOXREMOTE
                 PluginWrapper wrapper = processorWrapper.CreatePlugin(pluginID);
 
                 if (wrapper == null)
@@ -334,7 +334,7 @@ namespace Stompbox
                 }
                 else
                 {
-#if !ANDROID
+#if !STOMPBOXREMOTE
                     processorWrapper.HandleCommand(command);
 #endif
                 }
@@ -393,7 +393,7 @@ namespace Stompbox
 
             if (!InClientMode)
             {
-#if !ANDROID
+#if !STOMPBOXREMOTE
                 LoadChainEffects(InputPlugins, processorWrapper.GetInputPlugins());
                 LoadChainEffects(FxLoopPlugins, processorWrapper.GetFxLoopPlugins());
                 LoadChainEffects(OutputPlugins, processorWrapper.GetOutputPlugins());
@@ -405,8 +405,11 @@ namespace Stompbox
 
         IAudioPlugin CreateSlotPlugin(string slotName, string defaultPlugin)
         {
-            string pluginID = processorWrapper.GetPluginSlot(slotName);
+            string pluginID = null;
 
+#if !STOMPBOXREMOTE
+           pluginID = processorWrapper.GetPluginSlot(slotName);
+#endif
             if (pluginID == null)
             {
                 pluginID = defaultPlugin;
@@ -431,14 +434,14 @@ namespace Stompbox
 
         public void Init(double sampleRate)
         {
-#if !ANDROID
+#if !STOMPBOXREMOTE
             processorWrapper.Init(sampleRate);
 #endif
         }
 
         public String GetProgramState()
         {
-#if !ANDROID
+#if !STOMPBOXREMOTE
             String settingsString = processorWrapper.DumpSettings();
             String programString = processorWrapper.DumpProgram();
 
@@ -456,7 +459,7 @@ namespace Stompbox
 
         public void Process(double* input, double* output, uint bufferSize)
         {
-#if !ANDROID
+#if !STOMPBOXREMOTE
             processorWrapper.Process(input, output, bufferSize);
 #endif
         }
@@ -466,7 +469,7 @@ namespace Stompbox
 
         public void SimulateAudio()
         {
-#if !ANDROID
+#if !STOMPBOXREMOTE
             int bufferSize = 1024;
             int sampleRate = 44100;
 

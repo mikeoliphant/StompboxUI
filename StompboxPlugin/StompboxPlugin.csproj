@@ -10,7 +10,6 @@
 		<PlatformTarget>AnyCPU</PlatformTarget>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\UILayout\UILayout.MonoGame\UILayout.MonoGame.csproj" />
 		<ProjectReference Include="..\UnmanagedBridge\UnmanagedBridge.vcxproj" />
 	</ItemGroup>
 	<ItemGroup>
@@ -32,4 +31,6 @@
 		<DefineConstants>TRACE;XNA</DefineConstants>
 	</PropertyGroup>
 	<Import Project="..\StompboxShared\StompboxShared.projitems" Label="Shared" />
+	<Import Project="..\..\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems" Label="Shared" />
+	<Import Project="..\..\UILayout\UILayout\UILayout.projitems" Label="Shared" />
 </Project>

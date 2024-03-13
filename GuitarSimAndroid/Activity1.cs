@@ -3,9 +3,9 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Microsoft.Xna.Framework;
-using PixelEngine;
+using Stompbox;
 
-namespace GuitarSim
+namespace StompboxAndroid
 {
     [Activity(
         Label = "@string/app_name",
@@ -20,8 +20,8 @@ namespace GuitarSim
     public class Activity1 : AndroidGameActivity
     {
         View view;
-        GuitarClient guitarClient;
-        XNAGame game;
+        StompboxClient guitarClient;
+        Mono game;
 
         protected override void OnCreate(Bundle bundle)
         {

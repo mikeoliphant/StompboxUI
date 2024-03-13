@@ -26,7 +26,7 @@ namespace Stompbox
         UIElementWrapper tunerWrapper;
         UIElementWrapper audioFilePlayerWrapper;
 
-        bool clientConnected = false;
+        bool clientConnected = true;
 
         public MainInterface()
         {
@@ -67,12 +67,14 @@ namespace Stompbox
                     {
                         int currentPreset = currentProgramInterface.SelectedIndex;
 
-                        if (currentPreset != -1)
-                        {
-                            StompboxClient.Instance.SendCommand("LoadPreset " + currentProgramInterface.EnumValues[currentPreset]);
+                        StompboxClient.Instance.CurrentPresetIndex = currentPreset;
 
-                            StompboxClient.Instance.UpdateProgram();
-                        }
+                        //if (currentPreset != -1)
+                        //{
+                        //    StompboxClient.Instance.SendCommand("LoadPreset " + currentProgramInterface.EnumValues[currentPreset]);
+
+                        //    StompboxClient.Instance.UpdateProgram();
+                        //}
                     }
                 };
                 programHStack.Children.Add(currentProgramInterface);
@@ -290,7 +292,7 @@ namespace Stompbox
         //    Connect();
         //}
 
-        void Connect()
+        public void Connect()
         {
             clientConnected = false;
 

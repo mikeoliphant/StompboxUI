@@ -143,6 +143,12 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Values\ic_launcher_background.xml" />
   </ItemGroup>
-  <Import Project="..\GuitarSimShared\GuitarSimShared.projitems" Label="Shared" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\UILayout\UILayout.MonoGame\UILayout.MonoGame.csproj">
+      <Project>{79464dea-be20-4283-b8aa-7c085d5be04f}</Project>
+      <Name>UILayout.MonoGame</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\StompboxShared\StompboxShared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

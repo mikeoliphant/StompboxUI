@@ -231,6 +231,8 @@ Global
 		..\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{428f3d8a-d221-4f75-b1d6-f409b91fb7df}*SharedItemsImports = 5
 		..\UILayout\UILayout\UILayout.projitems*{428f3d8a-d221-4f75-b1d6-f409b91fb7df}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{44e9e33c-ccf9-4d03-9094-25a47c4c34c0}*SharedItemsImports = 4
+		..\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{44e9e33c-ccf9-4d03-9094-25a47c4c34c0}*SharedItemsImports = 4
+		..\UILayout\UILayout\UILayout.projitems*{44e9e33c-ccf9-4d03-9094-25a47c4c34c0}*SharedItemsImports = 4
 		..\UILayout\UILayout\UILayout.projitems*{7da2b397-a39f-4e5b-96ed-f206329982c9}*SharedItemsImports = 13
 		StompboxShared\StompboxShared.projitems*{96f4600b-d3da-4ac3-89ed-67ce6f9c9578}*SharedItemsImports = 5
 		..\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{96f4600b-d3da-4ac3-89ed-67ce6f9c9578}*SharedItemsImports = 5

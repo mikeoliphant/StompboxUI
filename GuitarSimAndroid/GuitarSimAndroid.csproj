@@ -30,7 +30,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;ANDROID; XNA</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;ANDROID; XNA;STOMPBOXREMOTE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
@@ -45,7 +45,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\$(MonoGamePlatform)\$(Platform)\$(Configuration)\</OutputPath>
-    <DefineConstants>TRACE;ANDROID; XNA</DefineConstants>
+    <DefineConstants>TRACE;ANDROID; XNA;STOMPBOXREMOTE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
@@ -61,6 +61,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml" />
     <Reference Include="Mono.Android" />
   </ItemGroup>
@@ -143,12 +144,8 @@
   <ItemGroup>
     <AndroidResource Include="Resources\Values\ic_launcher_background.xml" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\UILayout\UILayout.MonoGame\UILayout.MonoGame.csproj">
-      <Project>{79464dea-be20-4283-b8aa-7c085d5be04f}</Project>
-      <Name>UILayout.MonoGame</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="..\StompboxShared\StompboxShared.projitems" Label="Shared" />
+  <Import Project="..\..\UILayout\UILayout\UILayout.projitems" Label="Shared" />
+  <Import Project="..\..\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

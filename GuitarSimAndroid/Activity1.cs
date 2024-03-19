@@ -3,6 +3,7 @@ using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Microsoft.Xna.Framework;
+using UILayout;
 using Stompbox;
 
 namespace StompboxAndroid
@@ -21,32 +22,31 @@ namespace StompboxAndroid
     {
         View view;
         StompboxClient guitarClient;
-        Mono game;
+        MonoGameHost GameHost;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            GuitarGame.DAWMode = false;
+            StompboxGame.DAWMode = false;
 
-            guitarClient = new GuitarClient(inClientMode: true, GuitarGame.DAWMode);
+            guitarClient = new StompboxClient(inClientMode: true, StompboxGame.DAWMode);
 
-            game = new XNAGame();
+            StompboxGame game = new StompboxGame();
 
-            GuitarGame pixGame = new GuitarGame(game.ScreenWidth, game.ScreenHeight);
+            //game.SetScreenScale(scale, resizeScreen: true);
 
-            GuitarClient.DebugAction = PixGame.Debug;
+            using (GameHost = new MonoGameHost(0, 0, fullscreen: true))
+            {
+                GameHost.IsMouseVisible = true;
 
-            view = game.Services.GetService(typeof(View)) as View;
-            view.KeepScreenOn = true;
+                view = GameHost.Services.GetService(typeof(View)) as View;
+                view.KeepScreenOn = true;
 
-            SetContentView(view);
+                SetContentView(view);
 
-            game.Window.AllowUserResizing = true;
-
-            game.IsMouseVisible = true;
-
-            game.StartGame(pixGame);
+                GameHost.StartGame(game);
+            }
         }
     }
 }

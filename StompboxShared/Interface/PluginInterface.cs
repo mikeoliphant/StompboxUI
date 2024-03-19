@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Collections.Generic;
 using System.Numerics;
 using UILayout;
-using SharpDX.MediaFoundation;
 
 namespace Stompbox
 {

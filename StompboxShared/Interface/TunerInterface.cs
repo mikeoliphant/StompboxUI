@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Numerics;
 using UILayout;
 using Stompbox;
-using SharpDX.DirectWrite;
 using System.Dynamic;
 
 namespace Stompbox

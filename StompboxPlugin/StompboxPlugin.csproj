@@ -13,7 +13,7 @@
 		<ProjectReference Include="..\UnmanagedBridge\UnmanagedBridge.vcxproj" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="AudioPlugSharp" Version="0.5.10" />
+		<PackageReference Include="AudioPlugSharp" Version="0.5.12" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
 		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />

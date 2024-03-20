@@ -27,6 +27,4 @@
     <Exec Command="dotnet tool restore" />
   </Target>
   <Import Project="..\StompboxShared\StompboxShared.projitems" Label="Shared" />
-  <Import Project="..\..\UILayout\UILayout\UILayout.projitems" Label="Shared" />
-  <Import Project="..\..\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems" Label="Shared" />
 </Project>

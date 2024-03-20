@@ -31,6 +31,6 @@
 		<DefineConstants>TRACE;XNA</DefineConstants>
 	</PropertyGroup>
 	<Import Project="..\StompboxShared\StompboxShared.projitems" Label="Shared" />
-	<Import Project="..\..\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems" Label="Shared" />
-	<Import Project="..\..\UILayout\UILayout\UILayout.projitems" Label="Shared" />
+	<Import Project="..\Dependencies\UILayout\UILayout\UILayout.projitems" Label="Shared" />
+	<Import Project="..\Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems" Label="Shared" />
 </Project>

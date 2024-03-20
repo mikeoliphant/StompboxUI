@@ -20,3 +20,6 @@ jobs:
       run: |
         cmake.exe -G "Visual Studio 17 2022" -A x64  ..
         
+    - name: Run MSBuild
+      working-directory: ${{github.workspace}}
+      run: msbuild .\StompboxUI.sln

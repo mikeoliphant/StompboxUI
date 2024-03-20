@@ -1,3 +1,6 @@
 [submodule "Dependencies/stompbox"]
 	path = Dependencies/stompbox
 	url = https://github.com/mikeoliphant/stompbox
+[submodule "Dependencies/UILayout"]
+	path = Dependencies/UILayout
+	url = https://github.com/mikeoliphant/UILayout

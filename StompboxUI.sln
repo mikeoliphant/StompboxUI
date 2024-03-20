@@ -8,8 +8,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnmanagedBridge", "Unmanage
 		{BE9B53F4-8541-3C32-A1F0-00E92F0C4290} = {BE9B53F4-8541-3C32-A1F0-00E92F0C4290}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuitarSimAndroid", "GuitarSimAndroid\GuitarSimAndroid.csproj", "{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StompboxImageProcessor", "StompboxImageProcessor\StompboxImageProcessor.csproj", "{30B0161E-88A1-4F41-BC00-9293D6EE09D5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StompboxHost", "StompboxHost\StompboxHost.csproj", "{F5CDB85D-70BC-46DD-BE8B-8E483000DC99}"
@@ -68,42 +66,6 @@ Global
 		{96D32851-ABB6-46A9-85FD-FD46C680DE8A}.RelWithDebInfo|x64.Build.0 = Release|x64
 		{96D32851-ABB6-46A9-85FD-FD46C680DE8A}.RelWithDebInfo|x86.ActiveCfg = Release|Win32
 		{96D32851-ABB6-46A9-85FD-FD46C680DE8A}.RelWithDebInfo|x86.Build.0 = Release|Win32
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|x64.Build.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|x64.Deploy.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|x86.Build.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|x86.Deploy.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|Any CPU.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|Any CPU.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|Any CPU.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|x64.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|x64.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|x64.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|x86.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|x86.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|x86.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|x64.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|x64.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|x64.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|x86.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|x86.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|x86.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|Any CPU.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|Any CPU.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|Any CPU.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|x64.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|x64.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|x64.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|x86.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|x86.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|x86.Deploy.0 = Release|Any CPU
 		{30B0161E-88A1-4F41-BC00-9293D6EE09D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{30B0161E-88A1-4F41-BC00-9293D6EE09D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30B0161E-88A1-4F41-BC00-9293D6EE09D5}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -259,9 +221,6 @@ Global
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{428f3d8a-d221-4f75-b1d6-f409b91fb7df}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{428f3d8a-d221-4f75-b1d6-f409b91fb7df}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{428f3d8a-d221-4f75-b1d6-f409b91fb7df}*SharedItemsImports = 5
-		StompboxShared\StompboxShared.projitems*{44e9e33c-ccf9-4d03-9094-25a47c4c34c0}*SharedItemsImports = 4
-		..\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{44e9e33c-ccf9-4d03-9094-25a47c4c34c0}*SharedItemsImports = 4
-		..\UILayout\UILayout\UILayout.projitems*{44e9e33c-ccf9-4d03-9094-25a47c4c34c0}*SharedItemsImports = 4
 		Dependencies\UILayout\UILayout\UILayout.projitems*{7da2b397-a39f-4e5b-96ed-f206329982c9}*SharedItemsImports = 13
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{8f0c191b-da0c-4af6-9e0b-c325d48a1a42}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{8f0c191b-da0c-4af6-9e0b-c325d48a1a42}*SharedItemsImports = 5

@@ -28,6 +28,9 @@
     <ProjectReference Include="..\..\stompbox\build\stompbox\stompbox.vcxproj">
       <Project>{7366176f-75c2-35b7-8c6f-794540570eb5}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Dependencies\stompbox\build\stompbox\stompbox.vcxproj">
+      <Project>{608f8ad4-a640-3b84-9227-ff1e440b9612}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -111,7 +114,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Code\stompbox\stompbox</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Dependencies\stompbox\stompbox</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

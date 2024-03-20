@@ -1,1 +1,1 @@
-![stompbox](https://github.com/mikeoliphant/StompboxUI/assets/6710799/b11a77e0-32d3-484a-821c-4c45deb2cc26)
+![stompbox](https://github.com/mikeoliphant/StompboxUI/assets/6710799/dd6e9349-ff0d-4437-af42-ef62f1096496)

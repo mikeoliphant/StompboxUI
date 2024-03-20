@@ -1,0 +1,3 @@
+[submodule "Dependencies/stompbox"]
+	path = Dependencies/stompbox
+	url = https://github.com/mikeoliphant/stompbox

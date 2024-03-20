@@ -10,13 +10,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\UILayout\UILayout.MonoGame\UILayout.MonoGame.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Reference Include="ImageSheetProcessor">
-			<HintPath>..\..\UILayout\ImageSheetProcessor\bin\Debug\net6.0-windows\ImageSheetProcessor.dll</HintPath>
-		</Reference>
+	  <ProjectReference Include="..\..\..\..\..\..\Code\StompboxUI\Dependencies\UILayout\ImageSheetProcessor\ImageSheetProcessor.csproj" />
 	</ItemGroup>
 
 </Project>

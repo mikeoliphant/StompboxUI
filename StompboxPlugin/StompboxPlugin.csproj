@@ -10,7 +10,6 @@
 		<PlatformTarget>AnyCPU</PlatformTarget>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\..\..\Code\StompboxUI\Dependencies\UILayout\ImageSheetProcessor\ImageSheetProcessor.csproj" />
 		<ProjectReference Include="..\UnmanagedBridge\UnmanagedBridge.vcxproj" />
 	</ItemGroup>
 	<ItemGroup>

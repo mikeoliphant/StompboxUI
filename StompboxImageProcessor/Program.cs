@@ -1,4 +1,7 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
+using System.IO;
+using System.Reflection;
 
 namespace StompboxImageProcessor
 {
@@ -115,10 +118,15 @@ namespace StompboxImageProcessor
         {
             var processor = new StompboxImageProcessor();
 
-            processor.SrcPath = @"..\..\..\..\SrcTextures";
+            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"..\..\..\..");
+
+            Console.WriteLine(path);
+
             processor.ForceRegen = false;
 
-            processor.RenderImages(@"..\..\..\..\StompboxShared\Content\Textures");
+            processor.SrcPath = Path.Combine(path, "SrcTextures");
+
+            processor.RenderImages(Path.Combine(path, @"StompboxShared\Content\Textures"));
         }
 
     }

@@ -10,7 +10,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\..\..\..\..\Code\StompboxUI\Dependencies\UILayout\ImageSheetProcessor\ImageSheetProcessor.csproj" />
+	  <ProjectReference Include="..\..\..\Code\StompboxUI\Dependencies\UILayout\ImageSheetProcessor\ImageSheetProcessor.csproj" />
 	</ItemGroup>
 
 </Project>

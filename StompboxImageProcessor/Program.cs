@@ -115,10 +115,10 @@ namespace StompboxImageProcessor
         {
             var processor = new StompboxImageProcessor();
 
-            processor.SrcPath = @"C:\Code\StompboxUI\SrcTextures";
+            processor.SrcPath = @"..\..\..\..\SrcTextures";
             processor.ForceRegen = false;
 
-            processor.RenderImages(@"C:\Code\StompboxUI\StompboxShared\Content\Textures");
+            processor.RenderImages(@"..\..\..\..\StompboxShared\Content\Textures");
         }
 
     }

@@ -22,7 +22,13 @@ jobs:
 
     - name: Setup MSBuild and add to PATH
       uses: microsoft/setup-msbuild@v1.3.1
-      
+
+    - name: Run Image Processor
+      working-directory: ${{github.workspace}}
+      run:
+        msbuild .\StompboxUI.sln /t:StompboxImageProcessor /p:Configuration="Release" 
+        StompboxImageProcessor\bin\Release\net6.0-windows\StompboxImageProcessor.exe
+        
     - name: Run MSBuild
       working-directory: ${{github.workspace}}
-      run: msbuild .\StompboxUI.sln
+      run: msbuild .\StompboxUI.sln /p:Configuration=Release

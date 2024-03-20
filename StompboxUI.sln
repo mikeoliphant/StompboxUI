@@ -26,7 +26,10 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UILayout", "Dependencies\UI
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UILayout.MonoGame", "Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.shproj", "{D7307594-237F-43DA-BD6B-D0BC2BD9B276}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageSheetProcessor", "..\..\Code\StompboxUI\Dependencies\UILayout\ImageSheetProcessor\ImageSheetProcessor.csproj", "{C7020471-5106-4F80-8AE4-ED68CF09E7E6}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{68899E41-DCEB-4BD6-8B52-34075893FCBC}"
+	ProjectSection(SolutionItems) = preProject
+		Dependencies\UILayout\ImageSheetProcessor\ImageSheetProcessor.csproj = Dependencies\UILayout\ImageSheetProcessor\ImageSheetProcessor.csproj
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -224,30 +227,6 @@ Global
 		{BE9B53F4-8541-3C32-A1F0-00E92F0C4290}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
 		{BE9B53F4-8541-3C32-A1F0-00E92F0C4290}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|x64
 		{BE9B53F4-8541-3C32-A1F0-00E92F0C4290}.RelWithDebInfo|x86.Build.0 = RelWithDebInfo|x64
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.Debug|x64.Build.0 = Debug|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.Debug|x86.Build.0 = Debug|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.MinSizeRel|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.MinSizeRel|Any CPU.Build.0 = Debug|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.MinSizeRel|x64.ActiveCfg = Debug|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.MinSizeRel|x64.Build.0 = Debug|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.MinSizeRel|x86.ActiveCfg = Debug|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.MinSizeRel|x86.Build.0 = Debug|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.Release|x64.ActiveCfg = Release|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.Release|x64.Build.0 = Release|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.Release|x86.ActiveCfg = Release|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.Release|x86.Build.0 = Release|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.RelWithDebInfo|Any CPU.ActiveCfg = Release|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.RelWithDebInfo|Any CPU.Build.0 = Release|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.RelWithDebInfo|x64.ActiveCfg = Release|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.RelWithDebInfo|x64.Build.0 = Release|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.RelWithDebInfo|x86.ActiveCfg = Release|Any CPU
-		{C7020471-5106-4F80-8AE4-ED68CF09E7E6}.RelWithDebInfo|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -265,8 +244,6 @@ Global
 		Dependencies\UILayout\UILayout\UILayout.projitems*{96f4600b-d3da-4ac3-89ed-67ce6f9c9578}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{96f4600b-d3da-4ac3-89ed-67ce6f9c9578}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{a0cdbd0e-3a41-42b7-9425-a838bc2c7383}*SharedItemsImports = 13
-		..\..\Code\StompboxUI\Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{c7020471-5106-4f80-8ae4-ed68cf09e7e6}*SharedItemsImports = 5
-		..\..\Code\StompboxUI\Dependencies\UILayout\UILayout\UILayout.projitems*{c7020471-5106-4f80-8ae4-ed68cf09e7e6}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{d7307594-237f-43da-bd6b-d0bc2bd9b276}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal

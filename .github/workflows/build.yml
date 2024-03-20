@@ -23,7 +23,7 @@ jobs:
     - name: Setup MSBuild and add to PATH
       uses: microsoft/setup-msbuild@v1.3.1
 
-    - name: Restore NuGetPackages
+    - name: Restore NuGet Packages
       run: dotnet restore
 
     - name: Run Image Processor
@@ -35,3 +35,9 @@ jobs:
     - name: Run MSBuild
       working-directory: ${{github.workspace}}
       run: msbuild .\StompboxUI.sln /p:Configuration=Release
+
+    - name: Create Plugin Archive
+      uses: actions/upload-artifact@v1
+      with:
+        name: StompboxVST3Pugin\StompboxPlugin\bin\Release\net6.0-windows
+        path: ${{github.workspace}}/build/neural_amp_modeler.lv2

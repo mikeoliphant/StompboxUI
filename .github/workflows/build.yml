@@ -2,9 +2,6 @@ name: Build
 
 on:
   [workflow_dispatch, push, pull_request]
-
-env:
-  BUILD_TYPE: Release
   
 jobs:
   build-windows:

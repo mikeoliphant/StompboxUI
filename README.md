@@ -13,6 +13,7 @@ This is what it looks like:
 * Pedalboard-style layout (Amp/Cab with input chain and FX loop)
 * [Neural Amp Modeler](https://github.com/sdatkinson/neural-amp-modeler) support
 * Cabinet impulse responses
+* Tonestack/EQ
 * Time-based effects
   - Delay
   - Reverb (algorithmic and convolution)

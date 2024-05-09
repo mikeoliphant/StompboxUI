@@ -152,7 +152,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
-      <AdditionalIncludeDirectories>C:\Code\stompbox\Dependencies\NeuralAmpModelerCore\NAM;C:\Code\stompbox\Dependencies\Eigen;C:\Code\stompbox\stompbox\Stomps;C:\Code\stompbox\stompbox</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Dependencies\stompbox\stompbox</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

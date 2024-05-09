@@ -145,7 +145,7 @@
     <AndroidResource Include="Resources\Values\ic_launcher_background.xml" />
   </ItemGroup>
   <Import Project="..\StompboxShared\StompboxShared.projitems" Label="Shared" />
-  <Import Project="..\..\UILayout\UILayout\UILayout.projitems" Label="Shared" />
-  <Import Project="..\..\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems" Label="Shared" />
+  <Import Project="..\Dependencies\UILayout\UILayout\UILayout.projitems" Label="Shared" />
+  <Import Project="..\Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

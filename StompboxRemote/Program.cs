@@ -2,7 +2,7 @@
 using Stompbox;
 using UILayout;
 
-StompboxGame.DAWMode = true;
+StompboxGame.DAWMode = false;
 
 StompboxClient client = new StompboxClient(inClientMode: true, StompboxGame.DAWMode);
 
@@ -12,7 +12,7 @@ StompboxGame game = new StompboxGame();
 
 //game.SetScreenScale(scale, resizeScreen: true);
 
-using (MonoGameHost GameHost = new MonoGameHost(1280, 800, fullscreen: false))
+using (MonoGameHost GameHost = new MonoGameHost(540, 960, fullscreen: false))
 {
     GameHost.IsMouseVisible = true;
     GameHost.StartGame(game);

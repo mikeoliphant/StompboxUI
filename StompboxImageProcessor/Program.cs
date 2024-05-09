@@ -120,8 +120,6 @@ namespace StompboxImageProcessor
 
             string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"..\..\..\..");
 
-            Console.WriteLine(path);
-
             processor.ForceRegen = false;
 
             processor.SrcPath = Path.Combine(path, "SrcTextures");

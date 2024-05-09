@@ -22,13 +22,7 @@ jobs:
 
     - name: Restore NuGet Packages
       run: dotnet restore
-
-    - name: Setup Java
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'microsoft'
-        java-version: '11'
-
+      
     - name: Run Image Processor
       working-directory: ${{github.workspace}}
       run: |
@@ -37,7 +31,7 @@ jobs:
         
     - name: Run MSBuild
       working-directory: ${{github.workspace}}
-      run: msbuild .\StompboxUI.sln /p:Configuration=Release
+      run: msbuild .\StompboxUI.sln /t:StompboxPlugin/p:Configuration=Release
 
     - name: Create Plugin Archive
       uses: actions/upload-artifact@v1

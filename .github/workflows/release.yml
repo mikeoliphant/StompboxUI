@@ -53,7 +53,7 @@ jobs:
         
     - name: Run MSBuild
       working-directory: ${{github.workspace}}
-      run: msbuild .\StompboxUI.sln /p:Configuration=Release
+      run: msbuild .\StompboxUI.sln /t:StompboxPlugin /p:Configuration=Release
 
     - name: Add Plugin Archive
       run: Compress-Archive -Path ${{github.workspace}}\StompboxPlugin\bin\Release\net6.0-windows\* -Destination StompboxVST3Plugin.zip

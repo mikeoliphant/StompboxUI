@@ -26,3 +26,23 @@ This is what it looks like:
   - Wah/Auto-Wah
 * Tuner
 * Audio file player
+
+# Platform Support
+
+Stompbox currently can be run in the following ways:
+
+* Headless on Linux (I use it on a [Raspberry Pi based pedalboard](https://www.youtube.com/watch?v=2I_bxxzQs2s)
+* Remote UI on Windows or Android (Android currently not functional, but will be fixed soon)
+* Standalone app on Windows
+* VST3 plugin on Windows
+
+# Installation
+
+To run it as a VST3, you can simply download it from [the releases section of this repo](https://github.com/mikeoliphant/StompboxUI/releases/latest).
+
+Simply extract the .zip file and copy the resulting folder to "C:\Program Files\Common Files\VST3".
+
+# User Data Location
+
+Files, such as NAM models, impulse responses, etc. go in your local user roaming AppData folder. Go to "%APPDATA%" in file explorer, and you should see a "stompbox" folder after the VST has been loaded at least once.
+

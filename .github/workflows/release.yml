@@ -1,0 +1,69 @@
+name: Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  create_release:
+    name: Create release
+    runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{steps.create_release.outputs.upload_url}}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3.3.0
+        with:
+          submodules: recursive
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        with:
+          draft: true
+          tag_name: ${{github.ref}}
+          release_name: Release ${{github.ref}}
+          
+  build-windows:
+    name: Build Windows
+    needs: create_release
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v3.3.0
+      with:
+        submodules: recursive
+
+    - name: Configure stompbox
+      working-directory: ${{github.workspace}}/Dependencies/stompbox/build
+      run: |
+        cmake.exe -G "Visual Studio 17 2022" -A x64  ..
+
+    - name: Setup MSBuild and add to PATH
+      uses: microsoft/setup-msbuild@v1.3.1
+
+    - name: Restore NuGet Packages
+      run: dotnet restore
+
+    - name: Run Image Processor
+      working-directory: ${{github.workspace}}
+      run: |
+        msbuild .\StompboxUI.sln /t:StompboxImageProcessor /p:Configuration="Release" 
+        StompboxImageProcessor\bin\Release\net6.0-windows\StompboxImageProcessor.exe
+        
+    - name: Run MSBuild
+      working-directory: ${{github.workspace}}
+      run: msbuild .\StompboxUI.sln /p:Configuration=Release
+
+    - name: Add Plugin Archive
+      run: Compress-Archive -Path ${{github.workspace}}\StompboxPlugin\bin\Release\net6.0-windows\* -Destination StompboxVST3Plugin.zip
+    
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.create_release.outputs.upload_url }}
+        asset_path: ./StompboxVST3Plugin.zip
+        asset_name: StompboxVST3Plugin.zip
+        asset_content_type: application/zip

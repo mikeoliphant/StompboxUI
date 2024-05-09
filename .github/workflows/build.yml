@@ -2,9 +2,6 @@ name: Build
 
 on:
   [workflow_dispatch, push, pull_request]
-
-env:
-  BUILD_TYPE: Release
   
 jobs:
   build-windows:
@@ -39,5 +36,5 @@ jobs:
     - name: Create Plugin Archive
       uses: actions/upload-artifact@v1
       with:
-        name: StompboxVST3Pugin
+        name: StompboxVST3Plugin
         path: ${{github.workspace}}\StompboxPlugin\bin\Release\net6.0-windows

@@ -23,6 +23,12 @@ jobs:
     - name: Restore NuGet Packages
       run: dotnet restore
 
+    - name: Setup Java
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'microsoft'
+        java-version: '11'
+
     - name: Run Image Processor
       working-directory: ${{github.workspace}}
       run: |

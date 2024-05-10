@@ -49,14 +49,14 @@ jobs:
       working-directory: ${{github.workspace}}
       run: |
         msbuild .\StompboxUI.sln /t:StompboxImageProcessor /p:Configuration="Release" 
-        StompboxImageProcessor\bin\Release\net6.0-windows\StompboxImageProcessor.exe
+        StompboxImageProcessor\bin\Release\net8.0-windows\StompboxImageProcessor.exe
         
     - name: Run MSBuild
       working-directory: ${{github.workspace}}
       run: msbuild .\StompboxUI.sln /t:StompboxPlugin /p:Configuration=Release
 
     - name: Add Plugin Archive
-      run: Compress-Archive -Path ${{github.workspace}}\StompboxPlugin\bin\Release\net6.0-windows\* -Destination StompboxVST3Plugin.zip
+      run: Compress-Archive -Path ${{github.workspace}}\StompboxPlugin\bin\Release\net8.0-windows\* -Destination StompboxVST3Plugin.zip
     
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1

@@ -545,7 +545,7 @@ namespace Stompbox
 
     public class PluginInterface : PluginInterfaceBase
     {
-        public static float DefaultHeight = (StompboxGame.DAWMode)? 500 : 0;
+        public static float DefaultHeight = 500;
 
         public UIColor DefaultBackgroundColor { get; private set; }
         public float MinWidth { get; set; }

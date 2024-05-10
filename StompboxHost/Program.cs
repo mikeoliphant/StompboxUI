@@ -8,7 +8,11 @@ namespace Stompbox
         [STAThread]
         static void Main(string[] args)
         {
-            WindowsFormsHost<StompboxPlugin> host = new WindowsFormsHost<StompboxPlugin>(new StompboxPlugin());
+            StompboxGame.DAWMode = true;
+
+            StompboxPlugin plugin = new StompboxPlugin();
+
+            WindowsFormsHost<StompboxPlugin> host = new WindowsFormsHost<StompboxPlugin>(plugin);
 
             host.Run();
         }

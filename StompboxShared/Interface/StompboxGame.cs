@@ -8,7 +8,7 @@ namespace Stompbox
     {
         public static StompboxGame Instance { get; private set; }
 
-        public static bool DAWMode { get; set; }
+        public static bool DAWMode { get; set; } = true;
 
         public StompboxGame()
         {

@@ -38,16 +38,14 @@ namespace Stompbox
 			PluginID = 0x43D53D93648B49CA;
 
 			HasUserInterface = true;
-			EditorWidth = 1000;
-			EditorHeight = 540;
 
 			Logger.ImmediateMode = true;
 
-			//Logger.ImmediateMode = true;
-			//Logger.WriteToStdErr = true;
-		}
+            //Logger.ImmediateMode = true;
+            //Logger.WriteToStdErr = true;
+        }
 
-		public override void Initialize()
+        public override void Initialize()
 		{
 			base.Initialize();
 
@@ -56,19 +54,29 @@ namespace Stompbox
 			InputPorts = new AudioIOPort[] { monoInput = new AudioIOPort("Mono Input", EAudioChannelConfiguration.Mono) };
 			OutputPorts = new AudioIOPort[] { monoOutput = new AudioIOPort("Mono Output", EAudioChannelConfiguration.Mono) };
 
-			//SampleFormatsSupported = EAudioBitsPerSample.Bits64;
+			if (StompboxGame.DAWMode)
+			{
+                EditorWidth = 1000;
+                EditorHeight = 540;
+            }
+			else
+			{
+                EditorWidth = 540;
+                EditorHeight = 960;
+            }
 
-			//string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-			//UriBuilder uri = new UriBuilder(codeBase);
-			//string path = Uri.UnescapeDataString(uri.Path);
-			//PluginPath = Path.GetDirectoryName(path);
+
+            //SampleFormatsSupported = EAudioBitsPerSample.Bits64;
+
+            //string codeBase = Assembly.GetExecutingAssembly().CodeBase;
+            //UriBuilder uri = new UriBuilder(codeBase);
+            //string path = Uri.UnescapeDataString(uri.Path);
+            //PluginPath = Path.GetDirectoryName(path);
 
 
-			//GCSettings.LatencyMode = GCLatencyMode.LowLatency;// GCLatencyMode.Batch; // SustainedLowLatency;
+            //GCSettings.LatencyMode = GCLatencyMode.LowLatency;// GCLatencyMode.Batch; // SustainedLowLatency;
 
-			StompboxClient.DebugAction = Debug;
-
-			StompboxGame.DAWMode = true;
+            StompboxClient.DebugAction = Debug;
 
 			StompboxClient = new StompboxClient(inClientMode: false, StompboxGame.DAWMode);
 

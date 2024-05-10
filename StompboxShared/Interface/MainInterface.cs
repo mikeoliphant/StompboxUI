@@ -161,7 +161,7 @@ namespace Stompbox
                 };
                 Children.Add(vStack);
 
-                topUIStack = new HorizontalStack { HorizontalAlignment = EHorizontalAlignment.Stretch, DesiredHeight = 400 };
+                topUIStack = new HorizontalStack { HorizontalAlignment = EHorizontalAlignment.Stretch};
                 vStack.Children.Add(topUIStack);
 
                 programStack = new VerticalStack { HorizontalAlignment = EHorizontalAlignment.Stretch, VerticalAlignment = EVerticalAlignment.Center };
@@ -433,7 +433,7 @@ namespace Stompbox
             }
             else
             {
-                ampStack.Children.Add(new MiniPluginButton(plugin)
+                ampStack.Children.Add(new MiniPluginInterface(plugin)
                 {
                     ClickAction = delegate { MainInterface.Instance.SetSelectedPlugin(plugin, null); }
                 });

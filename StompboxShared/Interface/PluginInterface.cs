@@ -84,7 +84,7 @@ namespace Stompbox
                 }
                 else
                 {
-                    pluginStack.Children.Add(new MiniPluginButton(plugin) { ClickAction = delegate { MainInterface.Instance.SetSelectedPlugin(plugin, this); } });
+                    pluginStack.Children.Add(new MiniPluginInterface(plugin) { ClickAction = delegate { MainInterface.Instance.SetSelectedPlugin(plugin, this); } });
                 }
             }
         }
@@ -144,7 +144,7 @@ namespace Stompbox
                     }
                     else
                     {
-                        pluginStack.Children.Add(new MiniPluginButton(newPlugin)
+                        pluginStack.Children.Add(new MiniPluginInterface(newPlugin)
                         {
                             ClickAction = delegate
                             {
@@ -178,7 +178,7 @@ namespace Stompbox
 
             foreach (IAudioPlugin plugin in plugins)
             {
-                Children.Add(new MiniPluginButton(plugin)
+                Children.Add(new MiniPluginInterface(plugin)
                 {
                     ClickAction = delegate
                     {
@@ -456,20 +456,10 @@ namespace Stompbox
         }
     }
 
-    public class MiniPluginButton : Button
-    {
-        public MiniPluginButton(IAudioPlugin plugin)
-        {
-            VerticalAlignment = EVerticalAlignment.Stretch;
-
-            MiniPluginInterface pluginInterface = new MiniPluginInterface(plugin);
-
-            PressedElement = UnpressedElement = pluginInterface;
-        }
-    }
-
     public class MiniPluginInterface : PluginInterfaceBase
     {
+        public Action ClickAction { get; set; }
+
         protected float minWidth = 220;
 
         public MiniPluginInterface(IAudioPlugin plugin)
@@ -540,6 +530,19 @@ namespace Stompbox
                     }
                 }
             }
+        }
+
+        public override bool HandleTouch(in Touch touch)
+        {
+            if (touch.TouchState == ETouchState.Released)
+            {
+                if (ClickAction != null)
+                    ClickAction();
+
+                return true;
+            }
+
+            return base.HandleTouch(touch);
         }
     }
 

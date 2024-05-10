@@ -61,8 +61,8 @@ namespace Stompbox
             }
 			else
 			{
-                EditorWidth = 540;
-                EditorHeight = 960;
+                EditorWidth = 378;
+                EditorHeight = 672;
             }
 
 

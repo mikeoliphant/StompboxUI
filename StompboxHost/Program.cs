@@ -8,7 +8,7 @@ namespace Stompbox
         [STAThread]
         static void Main(string[] args)
         {
-            StompboxGame.DAWMode = true;
+            StompboxGame.DAWMode = false;
 
             StompboxPlugin plugin = new StompboxPlugin();
 

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<UseWPF>true</UseWPF>
 		<ApplicationIcon>Icon.ico</ApplicationIcon>
 	</PropertyGroup>
@@ -12,8 +12,8 @@
 		<TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="AudioPlugSharp" Version="0.5.12" />
-		<PackageReference Include="AudioPlugSharpHost" Version="0.5.12" />
+		<PackageReference Include="AudioPlugSharp" Version="0.6.0" />
+		<PackageReference Include="AudioPlugSharpHost" Version="0.6.0" />
 		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
 	</ItemGroup>

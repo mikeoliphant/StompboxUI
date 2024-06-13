@@ -51,14 +51,14 @@ jobs:
         msbuild .\StompboxUI.sln /t:StompboxImageProcessor /p:Configuration="Release" 
         StompboxImageProcessor\bin\Release\net8.0-windows\StompboxImageProcessor.exe
         
-    - name: Run MSBuild
+    - name: Run MSBuild for VST Plugin
       working-directory: ${{github.workspace}}
       run: msbuild .\StompboxUI.sln /t:StompboxPlugin /p:Configuration=Release
 
     - name: Add Plugin Archive
       run: Compress-Archive -Path ${{github.workspace}}\StompboxPlugin\bin\Release\net8.0-windows\* -Destination StompboxVST3Plugin.zip
     
-    - name: Upload Release Asset
+    - name: Upload Plugin Asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -67,3 +67,20 @@ jobs:
         asset_path: ./StompboxVST3Plugin.zip
         asset_name: StompboxVST3Plugin.zip
         asset_content_type: application/zip
+
+    - name: Run MSBuild for Windows Remote
+      working-directory: ${{github.workspace}}
+      run: msbuild .\StompboxUI.sln /t:StompboxRemote /p:Configuration=Release
+
+    - name: Add Windows Remote Archive
+      run: Compress-Archive -Path ${{github.workspace}}\StompboxRemote\bin\Release\net8.0-windows\* -Destination StompboxRemote.zip
+    
+    - name: Upload Windows Remote Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.create_release.outputs.upload_url }}
+        asset_path: ./StompboxRemote.zip
+        asset_name: StompboxRemote.zip
+        asset_content_type: application/zip        

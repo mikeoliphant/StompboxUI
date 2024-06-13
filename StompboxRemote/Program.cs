@@ -22,6 +22,6 @@ using (MonoGameHost GameHost = new MonoGameHost(width, height, fullscreen: false
     GameHost.IsMouseVisible = true;
     GameHost.StartGame(game);
 
-    StompboxClient.Instance.NeedUIReload = true;
+    client.Disconnect();
 }
 

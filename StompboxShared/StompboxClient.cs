@@ -149,6 +149,14 @@ namespace Stompbox
             }
         }
 
+        public void Disconnect()
+        {
+            if (InClientMode)
+            {
+                networkClient.Stop();
+            }
+        }
+
         void ConnectCallback(bool result)
         {
             if (result)

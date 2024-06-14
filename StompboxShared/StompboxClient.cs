@@ -476,7 +476,6 @@ namespace Stompbox
     }
 #endif
 
-
         long samplePos = 0;
 
         public void SimulateAudio()

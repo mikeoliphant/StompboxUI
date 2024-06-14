@@ -9,7 +9,11 @@ using UnmanagedPlugins;
 
 namespace Stompbox
 {
+#if STOMPBOXREMOTE
+    public class StompboxClient : IStompboxClient
+#else
     public unsafe class StompboxClient : IStompboxClient
+#endif
     {
         public static StompboxClient Instance { get; private set; }
 
@@ -465,12 +469,12 @@ namespace Stompbox
                 MidiCallback(midiCommand, midiData1, midiData2);
         }
 
+#if !STOMPBOXREMOTE
         public void Process(double* input, double* output, uint bufferSize)
         {
-#if !STOMPBOXREMOTE
             processorWrapper.Process(input, output, bufferSize);
+    }
 #endif
-        }
 
 
         long samplePos = 0;

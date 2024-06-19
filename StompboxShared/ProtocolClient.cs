@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Stompbox
 {
@@ -108,8 +109,13 @@ namespace Stompbox
         public ProtocolClient(IStompboxClient StompboxClient)
         {
             this.StompboxClient = StompboxClient;
-
+             
             PluginNames = new List<string>();
+
+            // Force invariant locale so we don't have issues parsing decimal places in locales that use ','
+            var culture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
         }
 
         public IAudioPlugin GetPluginDefinition(string pluginName)

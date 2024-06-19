@@ -25,11 +25,8 @@
     <ClInclude Include="PluginWrapper.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\stompbox\build\stompbox\stompbox.vcxproj">
-      <Project>{7366176f-75c2-35b7-8c6f-794540570eb5}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\Dependencies\stompbox\build\stompbox\stompbox.vcxproj">
-      <Project>{608f8ad4-a640-3b84-9227-ff1e440b9612}</Project>
+      <Project>{52430493-9bde-33e4-bfd1-af849171c1fe}</Project>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">

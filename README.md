@@ -32,7 +32,7 @@ This is what it looks like:
 Stompbox currently can be run in the following ways:
 
 * Headless on Linux (I use it on a [Raspberry Pi based pedalboard](https://www.youtube.com/watch?v=2I_bxxzQs2s))
-* Remote UI on Windows or Android
+* Remote UI on Windows, Linux or Android
 * Standalone app on Windows
 * VST3 plugin on Windows
 

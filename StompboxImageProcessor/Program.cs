@@ -17,6 +17,8 @@ namespace StompboxImageProcessor
 
         public void Render()
         {
+            MaxImageSheetSize = 2048;
+
             BeginSpriteSheetGroup("UISheet");
 
             AddFont("MainFont", "Calibri", FontStyle.Bold, 36);

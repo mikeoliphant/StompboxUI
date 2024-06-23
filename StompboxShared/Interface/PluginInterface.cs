@@ -913,10 +913,16 @@ namespace Stompbox
         }
     }
 
-    public class MidiCCMapPopup : VerticalStack
+    public class MidiCCMapPopup : NinePatchWrapper, IPopup
     {
+        public Action CloseAction { get; set; }
+
         public MidiCCMapPopup(string pluginID, string parameterName)
+            : base(Layout.Current.DefaultOutlineNinePatch)
         {
+            VerticalStack vStack = new VerticalStack();
+            Child = vStack;
+
             HorizontalStack hStack = null;
 
             for (int i = 0; i < 127; i++)
@@ -924,7 +930,7 @@ namespace Stompbox
                 if ((i % 8) == 0)
                 {
                     if (hStack != null)
-                        Children.Add(hStack);
+                        vStack.Children.Add(hStack);
 
                     hStack = new HorizontalStack();
                 }
@@ -939,13 +945,20 @@ namespace Stompbox
                     {
                         StompboxClient.Instance.SendCommand("MapController " + controller + " " + pluginID + " " + parameterName);
 
-                        Layout.Current.ClosePopup(this);
+                        if (CloseAction != null)
+                        {
+                            CloseAction();
+                        }
                     }
                 });
             }
 
             if (hStack != null)
-                Children.Add(hStack);
+                vStack.Children.Add(hStack);
+        }
+
+        public void Opened()
+        {
         }
     }
 

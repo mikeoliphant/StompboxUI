@@ -14,6 +14,7 @@ This is what it looks like:
 * [Neural Amp Modeler](https://github.com/sdatkinson/neural-amp-modeler) support
 * Cabinet impulse responses
 * Tonestack/EQ
+* Noise Gate
 * Time-based effects
   - Delay
   - Reverb (algorithmic and convolution)

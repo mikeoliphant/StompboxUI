@@ -138,6 +138,8 @@ namespace Stompbox
                 {
                     IAudioPlugin newPlugin = StompboxClient.Instance.PluginFactory.CreateNewPlugin(pluginName);
 
+                    newPlugin.Enabled = true;
+
                     if (StompboxGame.DAWMode)
                     {
                         pluginStack.Children.Add(new PluginInterface(newPlugin, this) { VerticalAlignment = EVerticalAlignment.Stretch });

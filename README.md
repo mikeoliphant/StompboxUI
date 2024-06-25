@@ -15,8 +15,9 @@ This is what it looks like:
 * Cabinet impulse responses
 * Tonestack/EQ
 * Noise Gate
+* Drive (clean boost, tube screamer)
 * Time-based effects
-  - Delay
+  - Delay  
   - Reverb (algorithmic and convolution)
   - Compressor
   - Chorus

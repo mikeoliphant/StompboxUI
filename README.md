@@ -2,7 +2,7 @@
 
 Stompbox is a guitar amplification and effects application, arranged as a digital version of a guitar pedalboard.
 
-This github repository is the front-end for the software (the core codebase is [here](https://github.com/mikeoliphant/stompbox)), to be used either as a remote interface to an actual pedalboard implementation, or as a standalone VST plugin.
+This github repository is the front-end for the software (the core codebase is [stompbox](https://github.com/mikeoliphant/stompbox)), to be used either as a remote interface to an actual pedalboard implementation, or as a standalone VST plugin.
 
 This is what it looks like:
 
@@ -14,6 +14,7 @@ This is what it looks like:
 * [Neural Amp Modeler](https://github.com/sdatkinson/neural-amp-modeler) support
 * Cabinet impulse responses
 * Tonestack/EQ
+* Noise Gate
 * Time-based effects
   - Delay
   - Reverb (algorithmic and convolution)

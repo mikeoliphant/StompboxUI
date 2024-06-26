@@ -38,3 +38,13 @@ jobs:
       with:
         name: StompboxVST3Plugin
         path: ${{github.workspace}}\StompboxPlugin\bin\Release\net8.0-windows
+
+    - name: Run MSBuild for Windows Remote
+      working-directory: ${{github.workspace}}
+      run: msbuild .\StompboxUI.sln /t:StompboxRemote /p:Configuration=Release
+
+    - name: Create Windows Remote Archive
+      uses: actions/upload-artifact@v1
+      with:
+        name: StompboxVST3Plugin
+        path: ${{github.workspace}}\StompboxRemote\bin\Release\net8.0-windows

@@ -14,6 +14,8 @@ namespace Stompbox
         {
             Instance = this;
 
+            Scale = 0.35f;
+
             //PixGame.Debug("Guitar Game Created");
 
             //if (DAWMode)

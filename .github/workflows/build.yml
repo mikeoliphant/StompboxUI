@@ -46,5 +46,5 @@ jobs:
     - name: Create Windows Remote Archive
       uses: actions/upload-artifact@v1
       with:
-        name: StompboxVST3Plugin
+        name: StompboxRemote
         path: ${{github.workspace}}\StompboxRemote\bin\Release\net8.0-windows

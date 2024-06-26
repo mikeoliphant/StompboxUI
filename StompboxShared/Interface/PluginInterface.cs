@@ -19,17 +19,13 @@ namespace Stompbox
         {
             this.Name = name;
 
-            if (!StompboxGame.DAWMode)
-            {
-                DesiredHeight = 190;
-            }
-
             VerticalAlignment = EVerticalAlignment.Top;
 
             HorizontalStack mainHStack = new HorizontalStack() { VerticalAlignment = EVerticalAlignment.Stretch };
             Children.Add(mainHStack);
 
-            mainHStack.Children.Add(new ImageElement(name + "Chain") {  VerticalAlignment = EVerticalAlignment.Center });
+            if (StompboxGame.DAWMode)
+                mainHStack.Children.Add(new ImageElement(name + "Chain") {  VerticalAlignment = EVerticalAlignment.Center });
 
             pluginStack = new HorizontalStack() { ChildSpacing = 0, VerticalAlignment = EVerticalAlignment.Stretch };
             mainHStack.Children.Add(pluginStack);
@@ -42,7 +38,7 @@ namespace Stompbox
 
             dragDropHandler.DragCompleteAction = delegate (object dropObject) { UpdateChain(); };
 
-            mainHStack.Children.Add(addPluginButton = new TextButton("Add\nPlugin")
+            mainHStack.Children.Add(addPluginButton = new TextButton("Add\n" + name)
             {
                 DesiredWidth = 150,
                 DesiredHeight = PluginInterface.DefaultHeight,
@@ -84,7 +80,10 @@ namespace Stompbox
                 }
                 else
                 {
-                    pluginStack.Children.Add(new MiniPluginInterface(plugin) { ClickAction = delegate { MainInterface.Instance.SetSelectedPlugin(plugin, this); } });
+                    MiniPluginInterface miniPlug = new MiniPluginInterface(plugin);
+                    miniPlug.ClickAction = delegate { MainInterface.Instance.SetSelectedPlugin(miniPlug, this); };
+
+                    pluginStack.Children.Add(miniPlug);
                 }
             }
         }
@@ -146,15 +145,15 @@ namespace Stompbox
                     }
                     else
                     {
-                        pluginStack.Children.Add(new MiniPluginInterface(newPlugin)
+                        MiniPluginInterface miniPlug = new MiniPluginInterface(newPlugin);
+                        miniPlug.ClickAction = delegate
                         {
-                            ClickAction = delegate
-                            {
-                                MainInterface.Instance.SetSelectedPlugin(newPlugin, this);
-                            }
-                        });
+                            MainInterface.Instance.SetSelectedPlugin(miniPlug, this);
+                        };
 
-                        MainInterface.Instance.SetSelectedPlugin(newPlugin, this);
+                        pluginStack.Children.Add(miniPlug);
+
+                        MainInterface.Instance.SetSelectedPlugin(miniPlug, this);
                     }
 
                     UpdateChain();
@@ -182,6 +181,8 @@ namespace Stompbox
             {
                 Children.Add(new MiniPluginInterface(plugin)
                 {
+                    MinWidth = 220,
+
                     ClickAction = delegate
                     {
                         if (SelectAction != null)
@@ -227,7 +228,7 @@ namespace Stompbox
             SetPlugin(plugin);
         }
 
-        public void SetPlugin(IAudioPlugin plugin)
+        public virtual void SetPlugin(IAudioPlugin plugin)
         {
             this.Plugin = plugin;
 
@@ -462,12 +463,20 @@ namespace Stompbox
     {
         public Action ClickAction { get; set; }
 
-        protected float minWidth = 220;
+        public float MinWidth { get; set; } = 0;
 
         public MiniPluginInterface(IAudioPlugin plugin)
             : base(plugin)
         {
+            HorizontalAlignment = EHorizontalAlignment.Center;
             VerticalAlignment = EVerticalAlignment.Stretch;
+
+            SetPlugin(plugin);
+        }
+
+        public override void SetPlugin(IAudioPlugin plugin)
+        {
+            base.SetPlugin(plugin);
 
             Dock controlDock = new Dock();
 
@@ -480,8 +489,8 @@ namespace Stompbox
         {
             base.GetContentSize(out width, out height);
 
-            if (width < minWidth)
-                width = minWidth;
+            if (width < MinWidth)
+                width = MinWidth;
         }
 
         protected override void AddControls(Dock dock)
@@ -554,6 +563,7 @@ namespace Stompbox
 
         public UIColor DefaultBackgroundColor { get; private set; }
         public float MinWidth { get; set; }
+        public MiniPluginInterface MiniPlugin { get; set; }
 
         PluginChainDisplay chainDisplay;
         string slotName;
@@ -819,6 +829,11 @@ namespace Stompbox
 
                                 if (slotName != null)
                                 {
+                                    if (MiniPlugin != null)
+                                    {
+                                        MiniPlugin.SetPlugin(newPlugin);
+                                    }
+
                                     string cmd = "SetPluginSlot " + slotName + " " + Plugin.ID;
 
                                     StompboxClient.Instance.SendCommand(cmd);

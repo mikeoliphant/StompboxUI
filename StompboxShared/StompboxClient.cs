@@ -396,7 +396,7 @@ namespace Stompbox
 
             Tonestack = CreateSlotPlugin("Tonestack", "EQ-7");
 
-            CabConvolver = CreateSlotPlugin("Cabinet", "CabConvolver");
+            CabConvolver = CreateSlotPlugin("Cabinet", "Cabinet");
 
             MasterVolume = PluginFactory.CreatePlugin("Master");
 

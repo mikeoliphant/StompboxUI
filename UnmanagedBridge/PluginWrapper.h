@@ -253,6 +253,11 @@ namespace UnmanagedPlugins
 			return gcnew System::String(processor->DumpSettings().c_str());
 		}
 
+		System::String^ DumpVersion()
+		{
+			return gcnew System::String(processor->GetVersion().c_str());
+		}
+
 		void HandleCommand(System::String^ cmd)
 		{
 			char* cmdChars = (char*)(void*)Marshal::StringToHGlobalAnsi(cmd);

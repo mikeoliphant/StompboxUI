@@ -155,7 +155,7 @@ namespace Stompbox
             {
                 VerticalStack vStack = new VerticalStack
                 {
-                    ChildSpacing = 10,
+                    ChildSpacing = 5,
                     HorizontalAlignment = EHorizontalAlignment.Stretch,
                     VerticalAlignment = EVerticalAlignment.Stretch
                 };
@@ -165,6 +165,12 @@ namespace Stompbox
                 vStack.Children.Add(topUIStack);
 
                 programStack = new VerticalStack { HorizontalAlignment = EHorizontalAlignment.Stretch, VerticalAlignment = EVerticalAlignment.Center };
+
+                programStack.Children.Add(new ImageElement("StompboxLogo")
+                {
+                    HorizontalAlignment = EHorizontalAlignment.Center,
+                    VerticalAlignment = EVerticalAlignment.Center
+                });
 
                 HorizontalStack programHStack = new HorizontalStack() { ChildSpacing = 10, HorizontalAlignment = EHorizontalAlignment.Stretch };
                 programStack.Children.Add(programHStack);
@@ -254,16 +260,14 @@ namespace Stompbox
                     }
                 });
 
-                ampStack = new HorizontalStack { HorizontalAlignment = EHorizontalAlignment.Center, DesiredHeight = 190 }; //, BackgroundColor = UIColor.FromHex("#b5893c") };
+                int plugHeight = 170;
+
+                ampStack = new HorizontalStack { HorizontalAlignment = EHorizontalAlignment.Center, DesiredHeight = plugHeight };
                 vStack.Children.Add(ampStack);
 
-                vStack.Children.Add(inputChainDisplay = new PluginChainDisplay("Input") { HorizontalAlignment = EHorizontalAlignment.Center });
-
-                HorizontalStack loopOutputStack = new HorizontalStack { HorizontalAlignment = EHorizontalAlignment.Center, ChildSpacing = 50 };
-                vStack.Children.Add(loopOutputStack);
-
-                loopOutputStack.Children.Add(fxLoopDisplay = new PluginChainDisplay("FxLoop") { HorizontalAlignment = EHorizontalAlignment.Left });
-                loopOutputStack.Children.Add(outputChainDisplay = new PluginChainDisplay("Output") { HorizontalAlignment = EHorizontalAlignment.Left });
+                vStack.Children.Add(inputChainDisplay = new PluginChainDisplay("Input") { HorizontalAlignment = EHorizontalAlignment.Center, DesiredHeight = plugHeight });
+                vStack.Children.Add(fxLoopDisplay = new PluginChainDisplay("FxLoop") { HorizontalAlignment = EHorizontalAlignment.Center, DesiredHeight = plugHeight });
+                vStack.Children.Add(outputChainDisplay = new PluginChainDisplay("Output") { HorizontalAlignment = EHorizontalAlignment.Center, DesiredHeight = plugHeight });
 
                 selectedPluginDock = new Dock();
                 vStack.Children.Add(selectedPluginDock);
@@ -284,13 +288,6 @@ namespace Stompbox
                 }
             }
         }
-
-        //public override void Start()
-        //{
-        //    base.Start();
-
-        //    Connect();
-        //}
 
         public void Connect()
         {
@@ -433,14 +430,15 @@ namespace Stompbox
             }
             else
             {
-                ampStack.Children.Add(new MiniPluginInterface(plugin)
-                {
-                    ClickAction = delegate { MainInterface.Instance.SetSelectedPlugin(plugin, null); }
-                });
+                MiniPluginInterface miniPlug = new MiniPluginInterface(plugin);
+
+                miniPlug.ClickAction = delegate { MainInterface.Instance.SetSelectedPlugin(miniPlug, slotName); };
+
+                ampStack.Children.Add(miniPlug);
             }
         }
 
-        public void SetSelectedPlugin(IAudioPlugin plugin, PluginChainDisplay chainDisplay)
+        public void SetSelectedPlugin(MiniPluginInterface plugin, PluginChainDisplay chainDisplay)
         {
             if (plugin == null)
             {
@@ -448,13 +446,36 @@ namespace Stompbox
             }
             else
             {
-                PluginInterface pluginInterface = new PluginInterface(plugin, new UIColor(200, 200, 200), chainDisplay);
+                PluginInterface pluginInterface = new PluginInterface(plugin.Plugin, new UIColor(200, 200, 200), chainDisplay)
+                {
+                    MiniPlugin = plugin
+                };
 
                 SetSelectedPlugin(pluginInterface);
             }
 
             UpdateContentLayout();
         }
+
+        public void SetSelectedPlugin(MiniPluginInterface plugin, string slotName)
+        {
+            if (plugin == null)
+            {
+                SetSelectedPlugin(null);
+            }
+            else
+            {
+                PluginInterface pluginInterface = new PluginInterface(plugin.Plugin, slotName)
+                {
+                    MiniPlugin = plugin
+                };
+
+                SetSelectedPlugin(pluginInterface);
+            }
+
+            UpdateContentLayout();
+        }
+
 
         public void SetSelectedPlugin(PluginInterface pluginInterface)
         {

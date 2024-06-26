@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using AudioPlugSharp;
+using SharpDX.Direct2D1.Effects;
 using UILayout;
 using UnmanagedPlugins;
 
@@ -139,14 +140,15 @@ namespace Stompbox
 
 			try
 			{				
-				float scale = 0.3f;
-
 				int screenWidth = (int)EditorWidth;
 				int screenHeight = (int)EditorHeight;
 
                 StompboxGame game = new StompboxGame();
 
-                //game.SetScreenScale(scale, resizeScreen: true);
+				if (StompboxGame.DAWMode)
+					game.Scale = 0.35f;
+				else
+					game.Scale = (float)EditorWidth / 1080;
 
                 using (GameHost = new MonoGameHost(screenWidth, screenHeight, fullscreen: false))
                 {

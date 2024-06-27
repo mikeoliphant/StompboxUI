@@ -49,5 +49,11 @@ jobs:
         name: StompboxRemote
         path: ${{github.workspace}}\StompboxRemote\bin\Release\net8.0-windows
 
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'microsoft'
+        java-version: '17'
+    
     - name: run MSBuild for Android Remote
       run: msbuild .\StompboxAndroid\StompboxAndroid.csproj /t:PackageForAndroid /p:Configuration=Debug

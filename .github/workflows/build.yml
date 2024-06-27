@@ -58,7 +58,7 @@ jobs:
 
     - name: run MSBuild for Android Remote
       run: |
-        echo -n ${{ secrets.KEYSTORE }} | base64 --decode --output android.keystore
+        echo -n ${{ secrets.KEYSTORE }} | base64 --decode android.keystore
         msbuild .\StompboxAndroid\StompboxAndroid.csproj /p:Configuration=RELEASE /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias=stompboxkeystore  /p:AndroidSigningKeyStore="android.keystore" /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASS }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASS }}"
       
     - name: Create Android Remote Artifact

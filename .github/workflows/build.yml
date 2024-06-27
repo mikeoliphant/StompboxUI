@@ -22,7 +22,7 @@ jobs:
 
     - name: Restore NuGet Packages
       run:
-        dotnet restore
+        msbuild /t:restore .\StompboxUI.sln /p:RestoreProjectFilterMode="inclusionlist"
         
     - name: Run Image Processor
       working-directory: ${{github.workspace}}
@@ -56,8 +56,5 @@ jobs:
         distribution: 'microsoft'
         java-version: '17'
 
-    - name: Install MGCB
-      run: dotnet tool install -g dotnet-mgcb
-      
     - name: run MSBuild for Android Remote
       run: msbuild .\StompboxAndroid\StompboxAndroid.csproj /t:PackageForAndroid /p:Configuration=Debug

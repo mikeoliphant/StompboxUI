@@ -16,7 +16,7 @@ namespace StompboxAndroid
         Icon = "@mipmap/ic_launcher",
         AlwaysRetainTaskState = true,
         LaunchMode = LaunchMode.SingleInstance,
-        ScreenOrientation = ScreenOrientation.FullUser,        
+        ScreenOrientation = ScreenOrientation.FullUser,
         ConfigurationChanges = ConfigChanges.Orientation | ConfigChanges.Keyboard | ConfigChanges.KeyboardHidden | ConfigChanges.ScreenSize
     )]
 

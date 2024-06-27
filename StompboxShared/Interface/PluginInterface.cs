@@ -596,7 +596,7 @@ namespace Stompbox
             SetPlugin(plugin, defaultBackgroundColor);
         }
 
-        void SetPlugin(IAudioPlugin plugin)
+        public override void SetPlugin(IAudioPlugin plugin)
         {
             SetPlugin(plugin, new UIColor(200, 200, 200));
         }

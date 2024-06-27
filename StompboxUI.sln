@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UnmanagedBridge", "UnmanagedBridge\UnmanagedBridge.vcxproj", "{96D32851-ABB6-46A9-85FD-FD46C680DE8A}"
 	ProjectSection(ProjectDependencies) = postProject
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE} = {52430493-9BDE-33E4-BFD1-AF849171C1FE}
+		{608F8AD4-A640-3B84-9227-FF1E440B9612} = {608F8AD4-A640-3B84-9227-FF1E440B9612}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StompboxImageProcessor", "StompboxImageProcessor\StompboxImageProcessor.csproj", "{30B0161E-88A1-4F41-BC00-9293D6EE09D5}"
@@ -18,7 +18,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "StompboxShared", "StompboxS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StompboxRemote", "StompboxRemote\StompboxRemote.csproj", "{428F3D8A-D221-4F75-B1D6-F409B91FB7DF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "stompbox", "Dependencies\stompbox\build\stompbox\stompbox.vcxproj", "{52430493-9BDE-33E4-BFD1-AF849171C1FE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "stompbox", "Dependencies\stompbox\build\stompbox\stompbox.vcxproj", "{608F8AD4-A640-3B84-9227-FF1E440B9612}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UILayout", "Dependencies\UILayout\UILayout\UILayout.shproj", "{7DA2B397-A39F-4E5B-96ED-F206329982C9}"
 EndProject
@@ -26,13 +26,13 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "UILayout.MonoGame", "Depend
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImageSheetProcessor", "Dependencies\UILayout\ImageSheetProcessor\ImageSheetProcessor.csproj", "{8F0C191B-DA0C-4AF6-9E0B-C325D48A1A42}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StompboxAndroid", "StompboxAndroid\StompboxAndroid.csproj", "{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StompboxRemoteGL", "StompboxRemoteGL\StompboxRemoteGL.csproj", "{49305251-662E-459A-9ADF-9866CEB6C4D2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UILayout.MonoGame.DesktopGL", "Dependencies\UILayout\UILayout.MonoGame.DesktopGL\UILayout.MonoGame.DesktopGL.csproj", "{05648042-001B-477C-A7AF-AA38D8B0106C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UILayout.MonoGame.WindowsDX", "Dependencies\UILayout\UILayout.MonoGame.WindowsDX\UILayout.MonoGame.WindowsDX.csproj", "{D13A3CB1-9948-4942-BDDC-6A5153C9FED9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StompboxAndroid", "StompboxAndroid\StompboxAndroid.csproj", "{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -170,30 +170,30 @@ Global
 		{428F3D8A-D221-4F75-B1D6-F409B91FB7DF}.RelWithDebInfo|x64.Build.0 = Release|Any CPU
 		{428F3D8A-D221-4F75-B1D6-F409B91FB7DF}.RelWithDebInfo|x86.ActiveCfg = Release|Any CPU
 		{428F3D8A-D221-4F75-B1D6-F409B91FB7DF}.RelWithDebInfo|x86.Build.0 = Release|Any CPU
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.Debug|Any CPU.Build.0 = Debug|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.Debug|x64.ActiveCfg = Debug|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.Debug|x64.Build.0 = Debug|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.Debug|x86.ActiveCfg = Debug|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.Debug|x86.Build.0 = Debug|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.MinSizeRel|Any CPU.ActiveCfg = MinSizeRel|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.MinSizeRel|Any CPU.Build.0 = MinSizeRel|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.MinSizeRel|x64.Build.0 = MinSizeRel|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.MinSizeRel|x86.ActiveCfg = MinSizeRel|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.MinSizeRel|x86.Build.0 = MinSizeRel|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.Release|Any CPU.ActiveCfg = Release|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.Release|Any CPU.Build.0 = Release|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.Release|x64.ActiveCfg = Release|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.Release|x64.Build.0 = Release|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.Release|x86.ActiveCfg = Release|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.Release|x86.Build.0 = Release|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.RelWithDebInfo|Any CPU.ActiveCfg = RelWithDebInfo|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.RelWithDebInfo|Any CPU.Build.0 = RelWithDebInfo|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|x64
-		{52430493-9BDE-33E4-BFD1-AF849171C1FE}.RelWithDebInfo|x86.Build.0 = RelWithDebInfo|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.Debug|Any CPU.Build.0 = Debug|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.Debug|x64.ActiveCfg = Debug|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.Debug|x64.Build.0 = Debug|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.Debug|x86.ActiveCfg = Debug|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.Debug|x86.Build.0 = Debug|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.MinSizeRel|Any CPU.ActiveCfg = MinSizeRel|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.MinSizeRel|Any CPU.Build.0 = MinSizeRel|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.MinSizeRel|x64.ActiveCfg = MinSizeRel|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.MinSizeRel|x64.Build.0 = MinSizeRel|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.MinSizeRel|x86.ActiveCfg = MinSizeRel|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.MinSizeRel|x86.Build.0 = MinSizeRel|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.Release|Any CPU.ActiveCfg = Release|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.Release|Any CPU.Build.0 = Release|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.Release|x64.ActiveCfg = Release|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.Release|x64.Build.0 = Release|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.Release|x86.ActiveCfg = Release|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.Release|x86.Build.0 = Release|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.RelWithDebInfo|Any CPU.ActiveCfg = RelWithDebInfo|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.RelWithDebInfo|Any CPU.Build.0 = RelWithDebInfo|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.RelWithDebInfo|x64.ActiveCfg = RelWithDebInfo|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.RelWithDebInfo|x64.Build.0 = RelWithDebInfo|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.RelWithDebInfo|x86.ActiveCfg = RelWithDebInfo|x64
+		{608F8AD4-A640-3B84-9227-FF1E440B9612}.RelWithDebInfo|x86.Build.0 = RelWithDebInfo|x64
 		{8F0C191B-DA0C-4AF6-9E0B-C325D48A1A42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8F0C191B-DA0C-4AF6-9E0B-C325D48A1A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F0C191B-DA0C-4AF6-9E0B-C325D48A1A42}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -218,42 +218,6 @@ Global
 		{8F0C191B-DA0C-4AF6-9E0B-C325D48A1A42}.RelWithDebInfo|x64.Build.0 = Release|Any CPU
 		{8F0C191B-DA0C-4AF6-9E0B-C325D48A1A42}.RelWithDebInfo|x86.ActiveCfg = Release|Any CPU
 		{8F0C191B-DA0C-4AF6-9E0B-C325D48A1A42}.RelWithDebInfo|x86.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|x64.Build.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|x64.Deploy.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|x86.Build.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Debug|x86.Deploy.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|Any CPU.ActiveCfg = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|Any CPU.Build.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|Any CPU.Deploy.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|x64.ActiveCfg = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|x64.Build.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|x64.Deploy.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|x86.ActiveCfg = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|x86.Build.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.MinSizeRel|x86.Deploy.0 = Debug|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|x64.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|x64.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|x64.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|x86.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|x86.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.Release|x86.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|Any CPU.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|Any CPU.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|Any CPU.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|x64.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|x64.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|x64.Deploy.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|x86.ActiveCfg = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|x86.Build.0 = Release|Any CPU
-		{44E9E33C-CCF9-4D03-9094-25A47C4C34C0}.RelWithDebInfo|x86.Deploy.0 = Release|Any CPU
 		{49305251-662E-459A-9ADF-9866CEB6C4D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{49305251-662E-459A-9ADF-9866CEB6C4D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{49305251-662E-459A-9ADF-9866CEB6C4D2}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -326,6 +290,31 @@ Global
 		{D13A3CB1-9948-4942-BDDC-6A5153C9FED9}.RelWithDebInfo|x64.Build.0 = Release|Any CPU
 		{D13A3CB1-9948-4942-BDDC-6A5153C9FED9}.RelWithDebInfo|x86.ActiveCfg = Release|Any CPU
 		{D13A3CB1-9948-4942-BDDC-6A5153C9FED9}.RelWithDebInfo|x86.Build.0 = Release|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Debug|x64.Build.0 = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Debug|x86.Build.0 = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.MinSizeRel|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.MinSizeRel|Any CPU.Build.0 = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.MinSizeRel|x64.ActiveCfg = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.MinSizeRel|x64.Build.0 = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.MinSizeRel|x86.ActiveCfg = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.MinSizeRel|x86.Build.0 = Debug|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Release|x64.ActiveCfg = Release|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Release|x64.Build.0 = Release|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Release|x86.ActiveCfg = Release|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.Release|x86.Build.0 = Release|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.RelWithDebInfo|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.RelWithDebInfo|Any CPU.Build.0 = Release|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.RelWithDebInfo|x64.ActiveCfg = Release|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.RelWithDebInfo|x64.Build.0 = Release|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.RelWithDebInfo|x86.ActiveCfg = Release|Any CPU
+		{1FF3B5C3-44E2-464A-A15F-55AD4B41CEA0}.RelWithDebInfo|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -336,10 +325,10 @@ Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{05648042-001b-477c-a7af-aa38d8b0106c}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{05648042-001b-477c-a7af-aa38d8b0106c}*SharedItemsImports = 5
+		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{1ff3b5c3-44e2-464a-a15f-55ad4b41cea0}*SharedItemsImports = 5
+		Dependencies\UILayout\UILayout\UILayout.projitems*{1ff3b5c3-44e2-464a-a15f-55ad4b41cea0}*SharedItemsImports = 5
+		StompboxShared\StompboxShared.projitems*{1ff3b5c3-44e2-464a-a15f-55ad4b41cea0}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{428f3d8a-d221-4f75-b1d6-f409b91fb7df}*SharedItemsImports = 5
-		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{44e9e33c-ccf9-4d03-9094-25a47c4c34c0}*SharedItemsImports = 4
-		Dependencies\UILayout\UILayout\UILayout.projitems*{44e9e33c-ccf9-4d03-9094-25a47c4c34c0}*SharedItemsImports = 4
-		StompboxShared\StompboxShared.projitems*{44e9e33c-ccf9-4d03-9094-25a47c4c34c0}*SharedItemsImports = 4
 		StompboxShared\StompboxShared.projitems*{49305251-662e-459a-9adf-9866ceb6c4d2}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{7da2b397-a39f-4e5b-96ed-f206329982c9}*SharedItemsImports = 13
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{8f0c191b-da0c-4af6-9e0b-c325d48a1a42}*SharedItemsImports = 5

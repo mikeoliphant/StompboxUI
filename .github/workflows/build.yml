@@ -57,11 +57,13 @@ jobs:
         java-version: '17'
 
     - name: run MSBuild for Android Remote
-      run: msbuild .\StompboxAndroid\StompboxAndroid.csproj /t:PackageForAndroid /p:Configuration=Debug
-
+      run: |
+        echo -n ${{ secrets.KEYSTORE }} | base64 --decode --output android.keystore
+        msbuild .\StompboxAndroid\StompboxAndroid.csproj /p:Configuration=RELEASE /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias=stompboxkeystore  /p:AndroidSigningKeyStore="android.keystore" /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASS }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASS }}"
+      
     - name: Create Android Remote Artifact
       uses: actions/upload-artifact@v4
       with:
         name: AndroidRemote
-        path: ${{github.workspace}}\StompboxAndroid\bin\Debug\net8.0-android\StompboxAndroid.StompboxAndroid-Signed.apk
+        path: ${{github.workspace}}\StompboxAndroid\bin\Release\net8.0-android\StompboxAndroid.StompboxAndroid-Signed.apk
 

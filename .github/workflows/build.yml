@@ -22,7 +22,7 @@ jobs:
 
     - name: Restore NuGet Packages
       run:
-        msbuild /t:restore .\StompboxUI.sln /p:RestoreProjectFilterMode="inclusionlist"
+        dotnet restore
         
     - name: Run Image Processor
       working-directory: ${{github.workspace}}

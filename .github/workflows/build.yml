@@ -21,7 +21,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.3.1
 
     - name: Restore NuGet Packages
-      run:
+      run: |
         dotnet restore
         dotnet restore .\StompboxAndroid\StompboxAndroid.csproj
     - name: Run Image Processor

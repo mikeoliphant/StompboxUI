@@ -34,7 +34,7 @@ jobs:
       working-directory: ${{github.workspace}}
       run: msbuild .\StompboxUI.sln /t:StompboxPlugin /p:Configuration=Release
 
-    - name: Create Plugin Archive
+    - name: Create Plugin Artifact
       uses: actions/upload-artifact@v1
       with:
         name: StompboxVST3Plugin
@@ -44,7 +44,7 @@ jobs:
       working-directory: ${{github.workspace}}
       run: msbuild .\StompboxUI.sln /t:StompboxRemote /p:Configuration=Release
 
-    - name: Create Windows Remote Archive
+    - name: Create Windows Remote Artifact
       uses: actions/upload-artifact@v1
       with:
         name: StompboxRemote
@@ -58,3 +58,10 @@ jobs:
 
     - name: run MSBuild for Android Remote
       run: msbuild .\StompboxAndroid\StompboxAndroid.csproj /t:PackageForAndroid /p:Configuration=Debug
+
+    - name: Create Android Remote Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: AndroidRemote
+        path: ${{github.workspace}}\StompboxAndroid\bin\Debug\net8.0-android\StompboxAndroid.StompboxAndroid-Signed.apk
+

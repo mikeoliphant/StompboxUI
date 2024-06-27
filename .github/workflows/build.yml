@@ -21,15 +21,16 @@ jobs:
       uses: microsoft/setup-msbuild@v1.3.1
 
     - name: Restore NuGet Packages
-      run: dotnet restore
-      
+      run:
+        dotnet restore
+        
     - name: Run Image Processor
       working-directory: ${{github.workspace}}
       run: |
         msbuild .\StompboxUI.sln /t:StompboxImageProcessor /p:Configuration="Release" 
         StompboxImageProcessor\bin\Release\net8.0-windows\StompboxImageProcessor.exe
         
-    - name: Run MSBuild
+    - name: Run MSBuild for Plugin
       working-directory: ${{github.workspace}}
       run: msbuild .\StompboxUI.sln /t:StompboxPlugin /p:Configuration=Release
 
@@ -48,3 +49,12 @@ jobs:
       with:
         name: StompboxRemote
         path: ${{github.workspace}}\StompboxRemote\bin\Release\net8.0-windows
+
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'microsoft'
+        java-version: '17'
+
+    - name: run MSBuild for Android Remote
+      run: msbuild .\StompboxAndroid\StompboxAndroid.csproj /t:PackageForAndroid /p:Configuration=Debug

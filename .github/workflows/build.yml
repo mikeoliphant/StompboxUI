@@ -35,7 +35,7 @@ jobs:
       run: msbuild .\StompboxUI.sln /t:StompboxPlugin /p:Configuration=Release
 
     - name: Create Plugin Artifact
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: StompboxVST3Plugin
         path: ${{github.workspace}}\StompboxPlugin\bin\Release\net8.0-windows
@@ -45,7 +45,7 @@ jobs:
       run: msbuild .\StompboxUI.sln /t:StompboxRemote /p:Configuration=Release
 
     - name: Create Windows Remote Artifact
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: StompboxRemote
         path: ${{github.workspace}}\StompboxRemote\bin\Release\net8.0-windows

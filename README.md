@@ -4,9 +4,13 @@ Stompbox is a guitar amplification and effects application, arranged as a digita
 
 This github repository is the front-end for the software (the core codebase is [stompbox](https://github.com/mikeoliphant/stompbox)), to be used either as a remote interface to an actual pedalboard implementation, or as a standalone VST plugin.
 
-This is what it looks like:
+This is what it looks like running a Windows/Linux remote or as a VST plugin:
 
 ![stompbox](https://github.com/mikeoliphant/StompboxUI/assets/6710799/dd6e9349-ff0d-4437-af42-ef62f1096496)
+
+This is what it looks like running an Android remote:
+
+![StompboxAndroid](https://github.com/mikeoliphant/StompboxUI/assets/6710799/3189e769-a28c-4e3b-8629-6846fb32de6c)
 
 # Features
 

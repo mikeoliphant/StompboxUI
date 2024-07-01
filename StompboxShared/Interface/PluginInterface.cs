@@ -249,7 +249,11 @@ namespace Stompbox
 
         protected UIElement CreateControl(PluginParameter parameter)
         {
-            VerticalStack controlVStack = new VerticalStack();
+            VerticalStack controlVStack = new VerticalStack()
+            {
+                HorizontalAlignment = EHorizontalAlignment.Stretch,
+                VerticalAlignment = EVerticalAlignment.Stretch
+            };
 
             controlVStack.Children.Add(new TextBlock(parameter.Name)
             {
@@ -265,8 +269,6 @@ namespace Stompbox
             {
                 PowerButton paramButton = new PowerButton()
                 {
-                    DesiredWidth = 100,
-                    DesiredHeight = 100,
                     HorizontalAlignment = EHorizontalAlignment.Center,
                     VerticalAlignment = EVerticalAlignment.Center,
                 };
@@ -283,7 +285,12 @@ namespace Stompbox
                     paramButton.SetPressed(val > 0);
                 };
 
-                controlVStack.Children.Add(paramButton);
+                controlVStack.Children.Add(new UIElementWrapper()
+                {
+                    Child = paramButton,
+                    HorizontalAlignment = EHorizontalAlignment.Stretch,
+                    VerticalAlignment = EVerticalAlignment.Stretch,
+                });
             }
             else if ((parameter.ParameterType == EParameterType.VSlider) || (parameter.ParameterType == EParameterType.Knob))
             {

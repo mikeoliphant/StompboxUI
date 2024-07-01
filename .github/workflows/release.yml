@@ -84,3 +84,24 @@ jobs:
         asset_path: ./StompboxRemote.zip
         asset_name: StompboxRemote.zip
         asset_content_type: application/zip        
+
+    - name: Setup Java
+      uses: actions/setup-java@v3
+      with:
+        distribution: 'microsoft'
+        java-version: '17'
+
+    - name: run MSBuild for Android Remote
+      run: |
+        echo -n ${{ secrets.KEYSTORE }} | base64 --ignore-garbage --decode > ${{github.workspace}}\android.keystore
+        msbuild .\StompboxAndroid\StompboxAndroid.csproj /p:Configuration=RELEASE /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias=stompboxkeystore  /p:AndroidSigningKeyStore="${{github.workspace}}\android.keystore" /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASS }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASS }}"
+
+    - name: Upload Android Remote Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.create_release.outputs.upload_url }}
+        asset_path: ${{github.workspace}}\StompboxAndroid\bin\Release\net8.0-android\StompboxAndroid.StompboxAndroid-Signed.apk
+        asset_name: StompboxAndroid.StompboxAndroid-Signed.apk
+        asset_content_type: application/zip         

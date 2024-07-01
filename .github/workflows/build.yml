@@ -34,8 +34,8 @@ jobs:
       working-directory: ${{github.workspace}}
       run: msbuild .\StompboxUI.sln /t:StompboxPlugin /p:Configuration=Release
 
-    - name: Create Plugin Archive
-      uses: actions/upload-artifact@v1
+    - name: Create Plugin Artifact
+      uses: actions/upload-artifact@v4
       with:
         name: StompboxVST3Plugin
         path: ${{github.workspace}}\StompboxPlugin\bin\Release\net8.0-windows
@@ -44,8 +44,8 @@ jobs:
       working-directory: ${{github.workspace}}
       run: msbuild .\StompboxUI.sln /t:StompboxRemote /p:Configuration=Release
 
-    - name: Create Windows Remote Archive
-      uses: actions/upload-artifact@v1
+    - name: Create Windows Remote Artifact
+      uses: actions/upload-artifact@v4
       with:
         name: StompboxRemote
         path: ${{github.workspace}}\StompboxRemote\bin\Release\net8.0-windows
@@ -57,4 +57,13 @@ jobs:
         java-version: '17'
 
     - name: run MSBuild for Android Remote
-      run: msbuild .\StompboxAndroid\StompboxAndroid.csproj /t:PackageForAndroid /p:Configuration=Debug
+      run: |
+        echo -n ${{ secrets.KEYSTORE }} | base64 --ignore-garbage --decode > ${{github.workspace}}\android.keystore
+        msbuild .\StompboxAndroid\StompboxAndroid.csproj /p:Configuration=RELEASE /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias=stompboxkeystore  /p:AndroidSigningKeyStore="${{github.workspace}}\android.keystore" /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASS }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASS }}"
+      
+    - name: Create Android Remote Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: AndroidRemote
+        path: ${{github.workspace}}\StompboxAndroid\bin\Release\net8.0-android\StompboxAndroid.StompboxAndroid-Signed.apk
+

@@ -315,7 +315,7 @@ namespace Stompbox
                 // Wait to make sure UI is active
                 Thread.Sleep(1000);
 
-                string serverName = await Layout.Current.GetKeyboardInputAsync("Enter server:", "Enter server");
+                string serverName = await Layout.Current.GetKeyboardInputAsync("Enter server:", "raspberrypi");
 
                 //PixSaveState.SetString("ServerName", serverName);
                 //PixSaveState.Save();

@@ -1,25 +1,31 @@
 ﻿using System;
+using System.Threading.Tasks;
+using System.Threading;
 using Microsoft.Xna.Framework;
 using UILayout;
 
 namespace Stompbox
 {
+    public enum EStompboxInterfaceType
+    {
+        DAW,
+        Mobile,
+        Pedalboard
+    }
+
     public class StompboxGame : MonoGameLayout
     {
         public static StompboxGame Instance { get; private set; }
+        public static float BaseScale { get; set; } = 1.0f;
+        public static EStompboxInterfaceType InterfaceType { get; set; } = EStompboxInterfaceType.DAW;
 
-        public static bool DAWMode { get; set; } = true;
+        bool clientConnected = true;
 
         public StompboxGame()
         {
             Instance = this;
 
-            Scale = 0.35f;
-
-            //PixGame.Debug("Guitar Game Created");
-
-            //if (DAWMode)
-            //    PixGame.Debug("Runing in DAW mode");
+            Scale = BaseScale;
         }
 
         public override void SetHost(Game host)
@@ -41,7 +47,6 @@ namespace Stompbox
                 MipMapLevelOfDetailBias = -0.8f
             };
 
-
             DefaultFont = GetFont("MainFont");
             DefaultFont.SpriteFont.Spacing = 1;
 
@@ -50,13 +55,6 @@ namespace Stompbox
             DefaultForegroundColor = UIColor.White;
 
             DefaultOutlineNinePatch = GetImage("PopupBackground");
-
-            float padding = DAWMode ? 12 : 20;
-
-            //TextTouchButton.DefaultTextHorizontalPadding = padding;
-            //TextTouchButton.DefaultTextVerticalPadding = padding;
-            //ImageTouchButton.DefaultImageHorizontalPadding = padding;
-            //ImageTouchButton.DefaultImageVerticalPadding = padding;
 
             DefaultPressedNinePatch = GetImage("ButtonPressed");
             DefaultUnpressedNinePatch = GetImage("ButtonUnpressed");
@@ -68,12 +66,85 @@ namespace Stompbox
             InputManager.AddMapping("Stomp2", new KeyMapping(InputKey.D3));
             InputManager.AddMapping("Stomp3", new KeyMapping(InputKey.D4));
 
-            RootUIElement = new MainInterface();
+            SetInterfaceType(InterfaceType);
+        }
+
+        public void SetInterfaceType(EStompboxInterfaceType interfaceType)
+        {
+            StompboxGame.InterfaceType = interfaceType;
+
+            switch (InterfaceType)
+            {
+                case EStompboxInterfaceType.DAW:
+                    RootUIElement = new DAWInterface();
+                    break;
+                case EStompboxInterfaceType.Mobile:
+#if ANDROID
+                    Activity1.Instance.RequestedOrientation = Android.Content.PM.ScreenOrientation.UserPortrait;
+#endif
+                    RootUIElement = new MobileInterface();
+                    break;
+                case EStompboxInterfaceType.Pedalboard:
+#if ANDROID
+                    Activity1.Instance.RequestedOrientation = Android.Content.PM.ScreenOrientation.UserLandscape;
+#endif
+                    RootUIElement = new PedalboardInterface();
+                    break;
+            }
+        }
+
+        public void Connect()
+        {
+            clientConnected = false;
+
+            string serverName = "raspberrypi";
+
+            //PixSaveState.TryGetString("ServerName", ref serverName);
+
+            StompboxClient.Instance.Connect(serverName, 24639, ConnectCallback);
+        }
+
+        void ConnectCallback(bool connected)
+        {
+            if (!connected)
+            {
+                Task.Run(GetServerName);
+            }
+            else
+                clientConnected = true;
+        }
+
+        async Task GetServerName()
+        {
+            try
+            {
+                // Wait to make sure UI is active
+                Thread.Sleep(1000);
+
+                string serverName = await Layout.Current.GetKeyboardInputAsync("Enter server:", "raspberrypi");
+
+                //PixSaveState.SetString("ServerName", serverName);
+                //PixSaveState.Save();
+
+                StompboxClient.Instance.Connect(serverName, 24639, ConnectCallback);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
 
         public override void Update(float secondsElapsed)
         {
             base.Update(secondsElapsed);
+
+            if (StompboxClient.Instance.InClientMode)
+            {
+                if (clientConnected && !StompboxClient.Instance.Connected)
+                {
+                    Connect();
+                }
+            }
 
             if (InputManager.WasClicked("StompMode", this))
             {
@@ -91,6 +162,8 @@ namespace Stompbox
             {
                 StompboxClient.Instance.SendCommand("HandleMidi " + (0xb0).ToString() + " 35 127");
             }
+
+
         }
     }
 }

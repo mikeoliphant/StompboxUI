@@ -61,6 +61,8 @@ namespace StompboxImageProcessor
 
             Add("MoreButton");
 
+            Add("StompOutline");
+
             Add("Play");
             Add("Stop");
             Add("Restart");

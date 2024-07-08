@@ -9,22 +9,25 @@ namespace Stompbox
     public class PluginChainDisplay : Dock
     {
         public string Name { get; private set; }
+        public Action<PluginChainDisplay, PluginInterfaceBase> PluginClickAction { get; set; }
 
         HorizontalStack pluginStack;
 
         List<IAudioPlugin> plugins = new List<IAudioPlugin>();
         TextButton addPluginButton;
+        bool miniMode;
 
-        public PluginChainDisplay(string name)
+        public PluginChainDisplay(string name, bool miniMode)
         {
             this.Name = name;
+            this.miniMode = miniMode;
 
             VerticalAlignment = EVerticalAlignment.Top;
 
             HorizontalStack mainHStack = new HorizontalStack() { VerticalAlignment = EVerticalAlignment.Stretch };
             Children.Add(mainHStack);
 
-            if (StompboxGame.DAWMode)
+            if (!miniMode)
                 mainHStack.Children.Add(new ImageElement(name + "Chain") {  VerticalAlignment = EVerticalAlignment.Center });
 
             pluginStack = new HorizontalStack() { ChildSpacing = 0, VerticalAlignment = EVerticalAlignment.Stretch };
@@ -74,17 +77,36 @@ namespace Stompbox
 
             foreach (IAudioPlugin plugin in plugins)
             {
-                if (StompboxGame.DAWMode)
-                {
-                    pluginStack.Children.Add(new PluginInterface(plugin, this) { VerticalAlignment = EVerticalAlignment.Stretch });
-                }
-                else
-                {
-                    MiniPluginInterface miniPlug = new MiniPluginInterface(plugin);
-                    miniPlug.ClickAction = delegate { MainInterface.Instance.SetSelectedPlugin(miniPlug, this); };
+                AddPluginToChain(plugin);
+            }
+        }
 
-                    pluginStack.Children.Add(miniPlug);
-                }
+        void AddPluginToChain(IAudioPlugin newPlugin)
+        {
+            PluginInterfaceBase pluginInterface;
+
+            if (!miniMode)
+            {
+                pluginInterface = new PluginInterface(newPlugin, this) { VerticalAlignment = EVerticalAlignment.Stretch };
+            }
+            else
+            {
+                pluginInterface = new MiniPluginInterface(newPlugin);
+            }
+
+            pluginInterface.ClickAction = delegate
+            {
+                PluginClicked(pluginInterface);
+            };
+
+            pluginStack.Children.Add(pluginInterface);
+        }
+
+        void PluginClicked(PluginInterfaceBase pluginInterface)
+        {
+            if (PluginClickAction != null)
+            {
+                PluginClickAction(this, pluginInterface);
             }
         }
 
@@ -108,8 +130,8 @@ namespace Stompbox
                     {
                         pluginStack.Children.Remove(toDelete);
 
-                        if (!StompboxGame.DAWMode)
-                            MainInterface.Instance.SetSelectedPlugin(null, this);
+                        if (PluginClickAction != null)
+                            PluginClickAction(this, null);
 
                         UpdateContentLayout();
 
@@ -139,22 +161,7 @@ namespace Stompbox
 
                     newPlugin.Enabled = true;
 
-                    if (StompboxGame.DAWMode)
-                    {
-                        pluginStack.Children.Add(new PluginInterface(newPlugin, this) { VerticalAlignment = EVerticalAlignment.Stretch });
-                    }
-                    else
-                    {
-                        MiniPluginInterface miniPlug = new MiniPluginInterface(newPlugin);
-                        miniPlug.ClickAction = delegate
-                        {
-                            MainInterface.Instance.SetSelectedPlugin(miniPlug, this);
-                        };
-
-                        pluginStack.Children.Add(miniPlug);
-
-                        MainInterface.Instance.SetSelectedPlugin(miniPlug, this);
-                    }
+                    AddPluginToChain(newPlugin);
 
                     UpdateChain();
                     UpdateContentLayout();
@@ -214,6 +221,7 @@ namespace Stompbox
     public class PluginInterfaceBase : UIElementWrapper
     {
         public IAudioPlugin Plugin { get; private set; }
+        public Action ClickAction { get; set; }
 
         protected UIColor backgroundColor;
         protected UIColor foregroundColor;
@@ -468,8 +476,6 @@ namespace Stompbox
 
     public class MiniPluginInterface : PluginInterfaceBase
     {
-        public Action ClickAction { get; set; }
-
         public float MinWidth { get; set; } = 0;
 
         public MiniPluginInterface(IAudioPlugin plugin)
@@ -569,7 +575,7 @@ namespace Stompbox
         public static float DefaultHeight = 500;
 
         public UIColor DefaultBackgroundColor { get; private set; }
-        public float MinWidth { get; set; }
+        public float MinWidth { get; set; } = 320;
         public MiniPluginInterface MiniPlugin { get; set; }
 
         PluginChainDisplay chainDisplay;
@@ -614,7 +620,6 @@ namespace Stompbox
 
             this.DefaultBackgroundColor = defaultBackgroundColor;
 
-            MinWidth = (StompboxGame.DAWMode) ? 320 : 420;
             DesiredHeight = DefaultHeight;
 
             Dock controlDock = new Dock();

@@ -6,7 +6,7 @@
     <SharedGUID>6efba8a9-a407-4029-bdd0-651d22a87386</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>GuitarSim</Import_RootNamespace>
+    <Import_RootNamespace>Stompbox</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
@@ -16,7 +16,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)AudioPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\AudioFilePlayerInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\AudioFileRecorderInterface.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Interface\MainInterface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\DAWInterface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\MobileInterface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\PedalboardInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\PluginInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\StompboxGame.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\TunerInterface.cs" />

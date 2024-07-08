@@ -40,7 +40,7 @@ namespace Stompbox
 
 			HasUserInterface = true;
 
-			Logger.ImmediateMode = true;
+			//Logger.ImmediateMode = true;
 
             //Logger.ImmediateMode = true;
             //Logger.WriteToStdErr = true;
@@ -55,16 +55,16 @@ namespace Stompbox
 			InputPorts = new AudioIOPort[] { monoInput = new AudioIOPort("Mono Input", EAudioChannelConfiguration.Mono) };
 			OutputPorts = new AudioIOPort[] { monoOutput = new AudioIOPort("Mono Output", EAudioChannelConfiguration.Mono) };
 
-			if (StompboxGame.DAWMode)
-			{
+			//if (StompboxGame.DAWMode)
+			//{
                 EditorWidth = 1000;
                 EditorHeight = 540;
-            }
-			else
-			{
-                EditorWidth = 378;
-                EditorHeight = 672;
-            }
+   //         }
+			//else
+			//{
+   //             EditorWidth = 378;
+   //             EditorHeight = 672;
+   //         }
 
 
             //SampleFormatsSupported = EAudioBitsPerSample.Bits64;
@@ -79,7 +79,7 @@ namespace Stompbox
 
             StompboxClient.DebugAction = Debug;
 
-			StompboxClient = new StompboxClient(inClientMode: false, StompboxGame.DAWMode);
+			StompboxClient = new StompboxClient(inClientMode: false);
 
 			StompboxClient.MidiCallback = SendMidiCommand;
 		}
@@ -145,10 +145,10 @@ namespace Stompbox
 
                 StompboxGame game = new StompboxGame();
 
-				if (StompboxGame.DAWMode)
+				//if (StompboxGame.DAWMode)
 					game.Scale = 0.35f;
-				else
-					game.Scale = (float)EditorWidth / 1080;
+				//else
+				//	game.Scale = (float)EditorWidth / 1080;
 
                 using (GameHost = new MonoGameHost(screenWidth, screenHeight, fullscreen: false))
                 {

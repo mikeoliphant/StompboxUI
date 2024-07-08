@@ -8,8 +8,6 @@ namespace Stompbox
         [STAThread]
         static void Main(string[] args)
         {
-            StompboxGame.DAWMode = false;
-
             StompboxPlugin plugin = new StompboxPlugin();
 
             WindowsFormsHost<StompboxPlugin> host = new WindowsFormsHost<StompboxPlugin>(plugin);

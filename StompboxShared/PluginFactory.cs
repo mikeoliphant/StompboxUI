@@ -8,9 +8,9 @@ namespace Stompbox
         public List<String> PluginIDs { get; private set; }
         Dictionary<string, IAudioPlugin> loadedPlugins = new Dictionary<string, IAudioPlugin>();
 
-        IStompboxClient StompboxClient;
+        StompboxClient StompboxClient;
 
-        public PluginFactory(IStompboxClient StompboxClient)
+        public PluginFactory(StompboxClient StompboxClient)
         {
             this.StompboxClient = StompboxClient;
 

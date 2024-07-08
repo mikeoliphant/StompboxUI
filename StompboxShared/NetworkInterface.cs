@@ -10,6 +10,7 @@ namespace Stompbox
     {
         public bool Running { get; private set; }
         public bool Connected { get; private set; }
+        public string LastError { get; private set; }
 
         TcpClient client;
         NetworkStream stream;
@@ -62,7 +63,9 @@ namespace Stompbox
             }
             catch (Exception ex)
             {
-                Debug("** Connect failed with: " + ex.ToString());
+                LastError = ex.ToString();
+
+                Debug("** Connect failed with: " + LastError);
 
                 resultCallback(false);
             }

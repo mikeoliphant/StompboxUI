@@ -90,7 +90,7 @@ namespace Stompbox
 
     public interface IAudioPlugin
     {
-        IStompboxClient StompboxClient { get; set; }
+        StompboxClient StompboxClient { get; set; }
         String Name { get; set; }
         String ID { get; }
         bool Enabled { get; set; }
@@ -111,7 +111,7 @@ namespace Stompbox
 
     public class AudioPluginBase : IAudioPlugin
     {
-        public IStompboxClient StompboxClient { get; set; }
+        public StompboxClient StompboxClient { get; set; }
         public String Name { get; set; }
         public String ID { get; set; }
         public virtual bool Enabled

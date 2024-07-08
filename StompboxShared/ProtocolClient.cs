@@ -80,33 +80,15 @@ namespace Stompbox
         }
     }
 
-    public interface IStompboxClient
-    {
-        double BPM { get; }
-        void Debug(string debugStr);
-        bool SuppressCommandUpdates { get; set; }
-        bool InClientMode { get; }
-        PluginFactory PluginFactory { get; set; }
-        IAudioPlugin CreatePlugin(string pluginName, string pluginID);
-        void SetPresetNames(List<string> presetNames);
-        void SetSelectedPreset(string presetName);
-        void SetInputChain(List<IAudioPlugin> plugins);
-        void SetFxLoop(List<IAudioPlugin> plugins);
-        void SetOutputChain(List<IAudioPlugin> plugins);
-        void ReportDSPLoad(float maxDSPLoad, float minDSPLoad);
-        void UpdateUI();
-        void SendCommand(string command);
-    }
-
     public class ProtocolClient
     {
         public List<String> PluginNames { get; private set; }
 
         Dictionary<string, IAudioPlugin> pluginDefs = new Dictionary<string, IAudioPlugin>();
 
-        IStompboxClient StompboxClient;
+        StompboxClient StompboxClient;
 
-        public ProtocolClient(IStompboxClient StompboxClient)
+        public ProtocolClient(StompboxClient StompboxClient)
         {
             this.StompboxClient = StompboxClient;
              
@@ -228,6 +210,8 @@ namespace Stompbox
                         case "SetPreset":
                             if (cmdWords.Length > 1)
                             {
+                                StompboxClient.MidiCCMap.Clear();
+
                                 StompboxClient.SuppressCommandUpdates = true;
                                 StompboxClient.SetSelectedPreset(cmdWords[1]);
                                 StompboxClient.SuppressCommandUpdates = false;
@@ -504,6 +488,35 @@ namespace Stompbox
                                         }
                                     }
                                 }
+                            }
+                            break;
+
+                        case "MapController":
+                            if (cmdWords.Length > 3)
+                            {
+                                StompboxClient.Instance.MidiCCMap.Add(new MidiCCMapEntry()
+                                {
+                                    CCNumber = int.Parse(cmdWords[1]),
+                                    PluginName = cmdWords[2],
+                                    PluginParameter = cmdWords[3]
+                                });
+                            }
+                            break;
+
+                        case "MapModeController":
+                            if (cmdWords.Length > 1)
+                            {
+                                StompboxClient.MidiModeCC = int.Parse(cmdWords[1]);
+                            }
+                            break;
+
+                        case "MapStompController":
+                            if (cmdWords.Length > 2)
+                            {
+                                int stomp = int.Parse(cmdWords[1]);
+                                int cc = int.Parse(cmdWords[2]);
+
+                                StompboxClient.MidiStompCCMap[cc] = stomp;
                             }
                             break;
 

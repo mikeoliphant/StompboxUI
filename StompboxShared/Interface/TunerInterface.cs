@@ -81,7 +81,7 @@ namespace Stompbox
                 targetNotes[pos++] = new TargetNote(NoteUtil.GetNoteName(n), NoteUtil.GetNoteOctave(n));
             }
 
-            if (!StompboxGame.DAWMode)
+            if (StompboxClient.Instance.InClientMode)
             {
                 plugin.Enabled = true;
                 StompboxClient.Instance.SendCommand("SetParam " + Plugin.ID + " Enabled " + (plugin.Enabled ? "1" : "0"));
@@ -110,8 +110,8 @@ namespace Stompbox
 
             dock.Children.Add(new TextBlock(Plugin.Name) { HorizontalAlignment = EHorizontalAlignment.Center, TextColor = foregroundColor });
 
-            float width = ((StompboxGame.DAWMode) ? PluginInterface.DefaultHeight : 480) * 0.8f;
-            float height = ((StompboxGame.DAWMode) ? PluginInterface.DefaultHeight : 480) * 0.5f;
+            float width = PluginInterface.DefaultHeight * 0.8f;
+            float height = PluginInterface.DefaultHeight * 0.5f;
 
             VerticalStack pitchStack = new VerticalStack
             {

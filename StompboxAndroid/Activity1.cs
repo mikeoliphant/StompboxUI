@@ -8,7 +8,7 @@ using Stompbox;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
-namespace StompboxAndroid
+namespace Stompbox
 {
     [Activity(
         Label = "@string/app_name",
@@ -22,6 +22,8 @@ namespace StompboxAndroid
 
     public class Activity1 : AndroidGameActivity
     {
+        public static Activity1 Instance { get; private set; }
+
         View view;
         StompboxClient guitarClient;
         MonoGameHost GameHost;
@@ -30,13 +32,15 @@ namespace StompboxAndroid
         {
             base.OnCreate(bundle);
 
-            StompboxGame.DAWMode = false;
+            Instance = this;
 
-            guitarClient = new StompboxClient(inClientMode: true, StompboxGame.DAWMode);
+            //StompboxGame.DAWMode = false;
+
+            guitarClient = new StompboxClient(inClientMode: true);
+
+            StompboxGame.InterfaceType = EStompboxInterfaceType.Mobile;
 
             StompboxGame game = new StompboxGame();
-
-            game.Scale = 1.0f;
 
             //game.SetScreenScale(scale, resizeScreen: true);
 

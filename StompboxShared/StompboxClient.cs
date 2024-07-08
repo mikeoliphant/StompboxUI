@@ -9,10 +9,17 @@ using UnmanagedPlugins;
 
 namespace Stompbox
 {
+    public class MidiCCMapEntry
+    {
+        public int CCNumber { get; set; }
+        public string PluginName { get; set; }
+        public string PluginParameter { get; set; }
+    }
+
 #if STOMPBOXREMOTE
-    public class StompboxClient : IStompboxClient
+    public class StompboxClient
 #else
-    public unsafe class StompboxClient : IStompboxClient
+    public unsafe class StompboxClient
 #endif
     {
         public static StompboxClient Instance { get; private set; }
@@ -31,14 +38,44 @@ namespace Stompbox
         public List<IAudioPlugin> InputPlugins { get; set; }
         public List<IAudioPlugin> FxLoopPlugins { get; set; }
         public List<IAudioPlugin> OutputPlugins { get; set; }
+        public IEnumerable<IAudioPlugin> AllActivePlugins
+        {
+            get
+            {
+                yield return InputGain;
+
+                if (Amp != null)
+                    yield return Amp;
+
+                foreach (IAudioPlugin plugin in InputPlugins)
+                    yield return plugin;
+
+                if (Tonestack != null)
+                    yield return Tonestack;
+
+                foreach (IAudioPlugin plugin in FxLoopPlugins)
+                    yield return plugin;
+
+                if (Cabinet != null)
+                    yield return Cabinet;
+
+                foreach (IAudioPlugin plugin in OutputPlugins)
+                    yield return plugin;
+
+                yield return MasterVolume;
+            }
+        }
         public IAudioPlugin InputGain { get; private set; }
         public IAudioPlugin MasterVolume { get; private set; }
         public IAudioPlugin Amp { get; private set; }
         public IAudioPlugin Tonestack { get; private set; }
-        public IAudioPlugin CabConvolver { get; private set; }
+        public IAudioPlugin Cabinet { get; private set; }
         public IAudioPlugin AudioRecorder { get; private set; }
         public float MaxDSPLoad { get; private set; }
         public float MinDSPLoad { get; private set; }
+        public List<MidiCCMapEntry> MidiCCMap { get; private set; } = new List<MidiCCMapEntry>();
+        public int MidiModeCC { get; set; } = -1;
+        public Dictionary<int, int> MidiStompCCMap { get; private set; } = new Dictionary<int, int>();
         public bool StopSimulateAudio { get; set; }
         public bool Connected
         {
@@ -79,7 +116,7 @@ namespace Stompbox
         PluginProcessorWrapper processorWrapper;
 #endif
 
-        public StompboxClient(bool inClientMode, bool inDAWMode)
+        public StompboxClient(bool inClientMode)
         {
             Instance = this;
 
@@ -121,7 +158,7 @@ namespace Stompbox
 #if !STOMPBOXREMOTE
                 Debug("Load process wrapper");
 
-                processorWrapper = new PluginProcessorWrapper(PluginPath, inDAWMode);
+                processorWrapper = new PluginProcessorWrapper(PluginPath, true);
                 processorWrapper.SetMidiCallback(HandleMidi);
 
                 PluginFactory.SetPlugins(processorWrapper.GetAllPlugins());
@@ -396,11 +433,11 @@ namespace Stompbox
 
             Tonestack = CreateSlotPlugin("Tonestack", "EQ-7");
 
-            CabConvolver = CreateSlotPlugin("Cabinet", "Cabinet");
+            Cabinet = CreateSlotPlugin("Cabinet", "Cabinet");
 
             MasterVolume = PluginFactory.CreatePlugin("Master");
 
-            if (!StompboxGame.DAWMode)
+            if (StompboxClient.Instance.InClientMode)
                 AudioRecorder = PluginFactory.CreatePlugin("AudioFileRecorder");
 
             if (!InClientMode)

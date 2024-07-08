@@ -2,9 +2,7 @@
 using Stompbox;
 using UILayout;
 
-StompboxGame.DAWMode = true;
-
-StompboxClient client = new StompboxClient(inClientMode: true, StompboxGame.DAWMode);
+StompboxClient client = new StompboxClient(inClientMode: true);
 
 //client.MidiCallback = SendMidiCommand;
 

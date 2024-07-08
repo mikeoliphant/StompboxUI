@@ -18,8 +18,8 @@ if (StompboxGame.InterfaceType == EStompboxInterfaceType.Mobile)
 }
 else if (StompboxGame.InterfaceType == EStompboxInterfaceType.Pedalboard)
 {
-    width = 320;
-    height = 240;
+    width = 960;
+    height = 540;
 }
 
 using (MonoGameHost GameHost = new MonoGameHost(width, height, fullscreen: false))

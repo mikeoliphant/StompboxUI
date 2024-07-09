@@ -61,48 +61,78 @@ namespace Stompbox
 
             foreach (MidiCCMapEntry ccMap in stomps)
             {
+                bool addedStomp = false;
+
                 if (ccMap != null)
                 {
-                    NinePatchButton button = new NinePatchButton(Layout.Current.GetImage("StompOutline"))
-                    {
-                        HorizontalAlignment = EHorizontalAlignment.Stretch
-                    };
-
-                    button.IsToggleButton = true;
-
-                    Dock dock = new Dock()
-                    {
-                        HorizontalAlignment = EHorizontalAlignment.Stretch,
-                        VerticalAlignment = EVerticalAlignment.Stretch
-                    };
-
                     IAudioPlugin plugin = StompboxClient.Instance.AllActivePlugins.Where(p => (p.ID == ccMap.PluginName)).FirstOrDefault();
 
-                    dock.Children.Add(GetStack(plugin, ccMap.PluginParameter));
-                    dock.Children.Add(new UIElement()
+                    if (plugin != null)
                     {
-                        HorizontalAlignment = EHorizontalAlignment.Stretch,
-                        VerticalAlignment = EVerticalAlignment.Stretch,
-                        BackgroundColor = new UIColor(0, 0, 0, 200)
-                    });
+                        PluginParameter parameter = plugin.Parameters.Where(p => (p.Name == ccMap.PluginParameter)).FirstOrDefault();
 
-                    button.SetElements(GetStack(plugin, ccMap.PluginParameter), dock);
+                        if (((parameter != null) && (parameter.ParameterType == EParameterType.Bool)) || (ccMap.PluginParameter == "Enabled"))
+                        {
+                            NinePatchButton button = new NinePatchButton(Layout.Current.GetImage("StompOutline"))
+                            {
+                                HorizontalAlignment = EHorizontalAlignment.Stretch
+                            };
 
-                    button.SetPressed(plugin.Enabled);
+                            button.IsToggleButton = true;
 
-                    button.ClickAction = delegate
-                    {
-                        plugin.Enabled = !plugin.Enabled;
-                    };
+                            Dock dock = new Dock()
+                            {
+                                HorizontalAlignment = EHorizontalAlignment.Stretch,
+                                VerticalAlignment = EVerticalAlignment.Stretch
+                            };
 
-                    plugin.SetEnabled = delegate (bool enabled)
-                    {
-                        button.SetPressed(enabled);
-                    };
+                            dock.Children.Add(GetStack(plugin, ccMap.PluginParameter));
+                            dock.Children.Add(new UIElement()
+                            {
+                                HorizontalAlignment = EHorizontalAlignment.Stretch,
+                                VerticalAlignment = EVerticalAlignment.Stretch,
+                                BackgroundColor = new UIColor(0, 0, 0, 200)
+                            });
 
-                    stompStack.Children.Add(button);
+                            button.SetElements(GetStack(plugin, ccMap.PluginParameter), dock);
+
+                            if (parameter == null)  // "Enabled"
+                            {
+                                button.SetPressed(plugin.Enabled);
+
+                                button.ClickAction = delegate
+                                {
+                                    plugin.Enabled = !plugin.Enabled;
+                                };
+
+                                plugin.SetEnabled = delegate (bool enabled)
+                                {
+                                    button.SetPressed(enabled);
+                                };
+                            }
+                            else
+                            {
+                                button.SetPressed(parameter.Value == 1.0f);
+
+                                button.ClickAction = delegate
+                                {
+                                    parameter.Value = 1.0f - parameter.Value;
+                                };
+
+                                parameter.SetValue = delegate (double value)
+                                {
+                                    button.SetPressed(value == 1.0f);
+                                };
+                            }
+
+                            stompStack.Children.Add(button);
+
+                            addedStomp = true;
+                        }
+                    }
                 }
-                else
+
+                if (!addedStomp)
                 {
                     stompStack.Children.Add(new UIElement { HorizontalAlignment = EHorizontalAlignment.Stretch });
                 }

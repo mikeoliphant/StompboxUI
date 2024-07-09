@@ -4,7 +4,7 @@ using UILayout;
 
 StompboxClient client = new StompboxClient(inClientMode: true);
 
-StompboxGame.InterfaceType = EStompboxInterfaceType.Pedalboard;
+StompboxGame.InterfaceType = EStompboxInterfaceType.DAW;
 
 StompboxGame game = new StompboxGame();
 

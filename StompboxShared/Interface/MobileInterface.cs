@@ -153,13 +153,15 @@ namespace Stompbox
             vStack.Children.Add(fxLoopDisplay = new PluginChainDisplay("FxLoop", miniMode: true)
             {
                 HorizontalAlignment = EHorizontalAlignment.Center,
-                DesiredHeight = plugHeight
+                DesiredHeight = plugHeight,
+                PluginClickAction = PluginClicked
             });
 
             vStack.Children.Add(outputChainDisplay = new PluginChainDisplay("Output", miniMode: true)
             {
                 HorizontalAlignment = EHorizontalAlignment.Center,
-                DesiredHeight = plugHeight
+                DesiredHeight = plugHeight,
+                PluginClickAction = PluginClicked
             });
 
             selectedPluginDock = new Dock();

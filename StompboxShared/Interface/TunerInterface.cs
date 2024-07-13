@@ -83,7 +83,6 @@ namespace Stompbox
 
             if (StompboxClient.Instance.InClientMode)
             {
-                plugin.Enabled = true;
                 StompboxClient.Instance.SendCommand("SetParam " + Plugin.ID + " Enabled " + (plugin.Enabled ? "1" : "0"));
             }
         }

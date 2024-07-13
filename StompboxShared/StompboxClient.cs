@@ -42,6 +42,8 @@ namespace Stompbox
         {
             get
             {
+                yield return Tuner;
+
                 yield return InputGain;
 
                 if (Amp != null)
@@ -62,14 +64,20 @@ namespace Stompbox
                 foreach (IAudioPlugin plugin in OutputPlugins)
                     yield return plugin;
 
+                yield return AudioPlayer;
+
+                yield return AudioRecorder;
+
                 yield return MasterVolume;
             }
         }
+        public IAudioPlugin Tuner { get; private set; }
         public IAudioPlugin InputGain { get; private set; }
         public IAudioPlugin MasterVolume { get; private set; }
         public IAudioPlugin Amp { get; private set; }
         public IAudioPlugin Tonestack { get; private set; }
         public IAudioPlugin Cabinet { get; private set; }
+        public IAudioPlugin AudioPlayer { get; private set; }
         public IAudioPlugin AudioRecorder { get; private set; }
         public float MaxDSPLoad { get; private set; }
         public float MinDSPLoad { get; private set; }
@@ -427,6 +435,8 @@ namespace Stompbox
         {
             Debug("*** Update UI");
 
+            Tuner = PluginFactory.CreatePlugin("Tuner");
+
             InputGain = PluginFactory.CreatePlugin("Input");
 
             Amp = CreateSlotPlugin("Amp", "NAM");
@@ -436,6 +446,8 @@ namespace Stompbox
             Cabinet = CreateSlotPlugin("Cabinet", "Cabinet");
 
             MasterVolume = PluginFactory.CreatePlugin("Master");
+
+            AudioPlayer = PluginFactory.CreatePlugin("AudioFilePlayer");
 
             if (StompboxClient.Instance.InClientMode)
                 AudioRecorder = PluginFactory.CreatePlugin("AudioFileRecorder");

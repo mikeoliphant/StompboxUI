@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using UILayout;
@@ -15,6 +16,7 @@ namespace Stompbox
         PluginChainDisplay outputChainDisplay;
 
         Dock selectedPluginDock;
+        PluginInterface currentSelectedPlugin;
         UIElementWrapper selectedPluginWrapper;
 
         HorizontalStack topUIStack;
@@ -23,8 +25,6 @@ namespace Stompbox
         EnumInterface currentProgramInterface;
         TextToggleButton midiToggleButton;
         StringBuilderTextBlock dspLoadText;
-        UIElementWrapper tunerWrapper;
-        UIElementWrapper audioFilePlayerWrapper;
 
         public MobileInterface()
         {
@@ -116,7 +116,7 @@ namespace Stompbox
             {
                 ClickAction = delegate
                 {
-                    SetSelectedPlugin(new TunerInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("Tuner")));
+                    SetSelectedPlugin(new TunerInterface(StompboxClient.Instance.Tuner));
                 }
             });
 
@@ -124,7 +124,7 @@ namespace Stompbox
             {
                 ClickAction = delegate
                 {
-                    SetSelectedPlugin(new AudioFilePlayerInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("AudioFilePlayer")));
+                    SetSelectedPlugin(new AudioFilePlayerInterface(StompboxClient.Instance.AudioPlayer));
                 }
             });
 
@@ -264,6 +264,14 @@ namespace Stompbox
             currentProgramInterface.SetEnumValues(StompboxClient.Instance.PresetNames);
             currentProgramInterface.SetSelectedIndex(StompboxClient.Instance.CurrentPresetIndex);
 
+            if (currentSelectedPlugin != null)
+            {
+                if (!StompboxClient.Instance.AllActivePlugins.Where(p => (p.ID == currentSelectedPlugin.Plugin.ID)).Any())
+                {
+                    SetSelectedPlugin(null);
+                }
+            }
+
             UpdateContentLayout();
         }
 
@@ -330,6 +338,7 @@ namespace Stompbox
             if (pluginInterface is TunerInterface)
                 pluginInterface.Plugin.Enabled = true;
 
+            currentSelectedPlugin = pluginInterface;
             selectedPluginWrapper.Child = pluginInterface;
 
             UpdateContentLayout();

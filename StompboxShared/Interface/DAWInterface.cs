@@ -200,8 +200,8 @@ namespace Stompbox
 
             topUIStack.Children.Add(new GainPluginInterface(StompboxClient.Instance.MasterVolume));
 
-            tunerWrapper.Child = new TunerInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("Tuner"));
-            audioFilePlayerWrapper.Child = new AudioFilePlayerInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("AudioFilePlayer"));
+            tunerWrapper.Child = new TunerInterface(StompboxClient.Instance.Tuner);
+            audioFilePlayerWrapper.Child = new AudioFilePlayerInterface(StompboxClient.Instance.AudioPlayer);
 
             inputChainDisplay.SetChain(StompboxClient.Instance.InputPlugins);
             fxLoopDisplay.SetChain(StompboxClient.Instance.FxLoopPlugins);

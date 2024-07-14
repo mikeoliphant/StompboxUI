@@ -236,6 +236,11 @@ namespace Stompbox
             SetPlugin(plugin);
         }
 
+        public override string ToString()
+        {
+            return Plugin.ToString();
+        }
+
         public virtual void SetPlugin(IAudioPlugin plugin)
         {
             this.Plugin = plugin;

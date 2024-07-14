@@ -79,7 +79,7 @@ namespace Stompbox
 
         public override string ToString()
         {
-            return DisplayValue;
+            return Name + ": " + DisplayValue;
         }
 
         public PluginParameter ShallowCopy()
@@ -176,6 +176,11 @@ namespace Stompbox
             ParameterTextSize = 11;
         }
 
+        public override string ToString()
+        {
+            return ID; 
+        }
+
         public PluginParameter GetParameter(string parameterName)
         {
             foreach (PluginParameter parameter in Parameters)
@@ -214,6 +219,11 @@ namespace Stompbox
             }
 
             return numActiveEffects;
+        }
+
+        public override string ToString()
+        {
+            return string.Join("-", Plugins);
         }
     }
 }

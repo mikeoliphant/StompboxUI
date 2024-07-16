@@ -1191,10 +1191,17 @@ namespace Stompbox
 
             string selectedString = null;
 
-            if (menuItems.Count > 0)
+            if ((selectedIndex >= 0) && (selectedIndex < menuItems.Count))
             {
                 selectedString = menuItems[selectedIndex].Text;
+            }
+            else
+            {
+                selectedString = null;
+            }
 
+            if (menuItems.Count > 0)
+            {
                 menuItems.Clear();
             }
 

@@ -88,6 +88,22 @@ namespace Stompbox
             {
                 ClickAction = DoSavePresetAs
             });
+            programHStack2.Children.Add(new TextButton("Delete")
+            {
+                ClickAction = delegate
+                {
+                    if (currentProgramInterface.SelectedIndex != -1)
+                    {
+                        Layout.Current.ShowConfirmationPopup("Are you sure you want to\ndelete this preset?",
+                            delegate
+                            {
+                                StompboxClient.Instance.SendCommand("DeletePreset " + currentProgramInterface.SelectedIndexValue);
+
+                                StompboxClient.Instance.UpdateProgram();
+                            });
+                    }
+                }
+            });
 
             HorizontalStack programHStack3 = new HorizontalStack() { ChildSpacing = 10, HorizontalAlignment = EHorizontalAlignment.Center }; ;
             programStack.Children.Add(programHStack3);

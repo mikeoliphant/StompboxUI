@@ -229,7 +229,9 @@ namespace Stompbox
 
         public void UpdatePresets()
         {
-#if !STOMPBOXREMOTE
+#if STOMPBOXREMOTE
+            Instance.SendCommand("List Presets");
+#else
             SetPresetNames(new List<String>(processorWrapper.GetPresets().Trim().Split(' ')));
 
             SuppressCommandUpdates = true;
@@ -240,9 +242,10 @@ namespace Stompbox
 
         public void UpdateProgram()
         {
+            UpdatePresets();
+
             if (!InClientMode)
             {
-                UpdatePresets();
                 UpdateUI();
             }
             else

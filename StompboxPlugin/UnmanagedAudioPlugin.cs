@@ -80,6 +80,8 @@ namespace Stompbox
                 if (String.IsNullOrEmpty(Name))
                     Name = unmanagedWrapper.GetName();
 
+                IsUserSelectable = unmanagedWrapper.GetIsUserSelectable();
+
                 string backgroundColor = unmanagedWrapper.GetBackgroundColor();
 
                 if (!string.IsNullOrEmpty(backgroundColor))

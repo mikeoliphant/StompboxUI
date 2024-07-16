@@ -169,8 +169,6 @@ namespace Stompbox
                 processorWrapper = new PluginProcessorWrapper(PluginPath, true);
                 processorWrapper.SetMidiCallback(HandleMidi);
 
-                PluginFactory.SetPlugins(processorWrapper.GetAllPlugins());
-
                 UpdateProgram();
 #endif
             }
@@ -250,8 +248,6 @@ namespace Stompbox
             }
             else
             {
-                PluginFactory.SetPlugins(protocolClient.PluginNames);
-
                 SendCommand("Dump Program");
             }
         }
@@ -281,6 +277,25 @@ namespace Stompbox
 #else
             return processorWrapper.GetAllPlugins();
 #endif
+        }
+
+        public IEnumerable<IAudioPlugin> GetAllPluginDefinitions()
+        {
+            foreach (string name in GetAllPluginNames())
+            {
+                yield return GetPluginDefinition(name);
+            }
+        }
+
+        public IEnumerable<IAudioPlugin> GetAllUserPluginDefinitions()
+        {
+            foreach (string name in GetAllPluginNames())
+            {
+                IAudioPlugin plugin = GetPluginDefinition(name);
+
+                if (plugin.IsUserSelectable)
+                    yield return plugin;
+            }
         }
 
         public IAudioPlugin GetPluginDefinition(string pluginName)

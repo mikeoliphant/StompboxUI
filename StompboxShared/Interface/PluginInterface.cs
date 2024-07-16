@@ -144,14 +144,7 @@ namespace Stompbox
 
         void AddPlugin()
         {
-            List<IAudioPlugin> plugins = new List<IAudioPlugin>();
-
-            foreach (string pluginName in StompboxClient.Instance.GetAllPluginNames())
-            {
-                plugins.Add(StompboxClient.Instance.GetPluginDefinition(pluginName));
-            }
-
-            Layout.Current.ShowPopup(new PluginFlipList(plugins)
+            Layout.Current.ShowPopup(new PluginFlipList(StompboxClient.Instance.GetAllUserPluginDefinitions())
             {
                 DesiredWidth = Layout.Current.Bounds.Width,
                 DesiredHeight = 260,
@@ -175,7 +168,7 @@ namespace Stompbox
         public Action<string> SelectAction { get; set; }
         public Action CloseAction { get; set; }
 
-        public PluginFlipList(List<IAudioPlugin> plugins)
+        public PluginFlipList(IEnumerable<IAudioPlugin> plugins)
             : base(230)
         {
             HorizontalAlignment = EHorizontalAlignment.Center;
@@ -820,14 +813,7 @@ namespace Stompbox
                     Text = "Swap Plugin",
                     AfterCloseAction = delegate
                     {
-                        List<IAudioPlugin> plugins = new List<IAudioPlugin>();
-
-                        foreach (string pluginName in StompboxClient.Instance.GetAllPluginNames())
-                        {
-                            plugins.Add(StompboxClient.Instance.GetPluginDefinition(pluginName));
-                        }
-
-                        Layout.Current.ShowPopup(new PluginFlipList(plugins)
+                        Layout.Current.ShowPopup(new PluginFlipList(StompboxClient.Instance.GetAllUserPluginDefinitions())
                         {
                             DesiredWidth = Layout.Current.Bounds.Width,
                             DesiredHeight = 260,

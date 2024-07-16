@@ -5,7 +5,6 @@ namespace Stompbox
 {
     public class PluginFactory
     {
-        public List<String> PluginIDs { get; private set; }
         Dictionary<string, IAudioPlugin> loadedPlugins = new Dictionary<string, IAudioPlugin>();
 
         StompboxClient StompboxClient;
@@ -13,18 +12,6 @@ namespace Stompbox
         public PluginFactory(StompboxClient StompboxClient)
         {
             this.StompboxClient = StompboxClient;
-
-            PluginIDs = new List<string>();
-        }
-
-        public void SetPlugins(IEnumerable<string> pluginIDs)
-        {
-            PluginIDs.Clear();
-
-            foreach (string pluginID in pluginIDs)
-            {
-                PluginIDs.Add(pluginID);
-            }
         }
 
         public void ClearPlugins()

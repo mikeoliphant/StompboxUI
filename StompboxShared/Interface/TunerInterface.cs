@@ -265,14 +265,14 @@ namespace Stompbox
                 tunerFrequencyDisplay.StringBuilder.AppendNumber((int)Math.Round((newPitch - (float)integer) * 10));
                 tunerFrequencyDisplay.StringBuilder.Append("Hz");
 
-                int cents = (int)Math.Round(1200 * Math.Log(newPitch / currentPitchCenter, 2));
+                double centsOffset = 1200 * Math.Log(newPitch / currentPitchCenter, 2);
 
                 tunerCentsDisplay.StringBuilder.Clear();
 
-                if (cents != 0)
-                    tunerCentsDisplay.StringBuilder.Append((cents > 0) ? "+" : "-");
+                if (centsOffset != 0)
+                    tunerCentsDisplay.StringBuilder.Append((centsOffset > 0) ? "+" : "-");
 
-                tunerCentsDisplay.StringBuilder.AppendNumber(Math.Abs(cents));
+                tunerCentsDisplay.StringBuilder.AppendNumber(Math.Abs((int)Math.Round(centsOffset)));
             }
 
             if (lastClosestNote != (int)closestNote.Note)
@@ -291,8 +291,6 @@ namespace Stompbox
 
             double offset = (step / 2);
 
-            double range = .03 / (currentPitchCenter / 83.0);   // Set range based on pitch (smaller range for higher frequencies)
-
             int lastX = -1;
             int lastY = -1;
 
@@ -300,7 +298,9 @@ namespace Stompbox
             {
                 if (pitch > 0)
                 {
-                    double y = ((double)tunerImageHeight / 2) + (((1.0 - (pitch / currentPitchCenter)) / range) * ((double)tunerImageHeight / 2));
+                    double centsOffset = 1200 * Math.Log(pitch / currentPitchCenter, 2);
+
+                    double y = ((double)tunerImageHeight / 2) + ((-centsOffset / 100) * (double)tunerImageHeight);
 
                     double xOffset = offset;
                     double yOffset = y;

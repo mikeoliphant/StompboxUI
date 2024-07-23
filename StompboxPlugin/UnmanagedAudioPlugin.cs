@@ -37,8 +37,6 @@ namespace Stompbox
             set
             {
                 UnmanagedWrapper.SetEnabled(value);
-
-                //GuitarSimPlugin.Instance.SendCommand("SetParam " + ID + " Enabled " + (value ? "1" : "0"));
             }
         }
 

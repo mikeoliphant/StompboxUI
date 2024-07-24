@@ -70,94 +70,117 @@ namespace UnmanagedPlugins
 			return component->IsUserSelectable;
 		}
 
-		int GetNumParameters()
+		List<IntPtr>^ GetParameters()
 		{
-			return component->NumParameters;
+			List<IntPtr>^ parameters = gcnew List<IntPtr>();
+
+			if (component->InputGain != nullptr)
+			{
+				parameters->Add((IntPtr) & (component->InputGain->Parameters[0]));
+			}
+
+			for (int i = 0; i < component->NumParameters; i++)
+			{
+				parameters->Add((IntPtr)(&(component->Parameters[i])));
+			}
+
+			if (component->OutputVolume != nullptr)
+			{
+				parameters->Add((IntPtr) & (component->OutputVolume->Parameters[0]));
+			}
+
+			return parameters;
 		}
 
-		double GetParameter(int index)
+		double GetParameter(IntPtr parameter)
 		{
-			return component->GetParameterValue(index);
+			return ((StompBoxParameter*)(void*)parameter)->GetValue();
 		}
 
-		void SetParameter(int index, double value)
+		void SetParameter(IntPtr parameter, double value)
 		{
-			component->SetParameterValue(index, value);
+			return ((StompBoxParameter*)(void*)parameter)->SetValue(value);
 		}
 
-		System::String^ GetParameterName(int index)
+		System::String^ GetParameterName(IntPtr parameter)
 		{
-			return gcnew System::String(component->Parameters[index].Name.c_str());
+			return gcnew System::String(((StompBoxParameter*)(void*)parameter)->Name.c_str());
 		}
 
-		double GetParameterMinValue(int index)
+		double GetParameterMinValue(IntPtr parameter)
 		{
-			return component->Parameters[index].MinValue;
+			return ((StompBoxParameter*)(void*)parameter)->MinValue;
 		}
 
-		double GetParameterMaxValue(int index)
+		double GetParameterMaxValue(IntPtr parameter)
 		{
-			return component->Parameters[index].MaxValue;
+			return ((StompBoxParameter*)(void*)parameter)->MaxValue;
 		}
 
-		double GetParameterDefaultValue(int index)
+		double GetParameterDefaultValue(IntPtr parameter)
 		{
-			return component->Parameters[index].DefaultValue;
+			return ((StompBoxParameter*)(void*)parameter)->DefaultValue;
 		}
 
-		int GetParameterType(int index)
+		int GetParameterType(IntPtr parameter)
 		{
-			return component->Parameters[index].ParameterType;
+			return ((StompBoxParameter*)(void*)parameter)->ParameterType;
 		}
 
-		bool GetParameterCanSyncToHostBPM(int index)
+		bool GetParameterCanSyncToHostBPM(IntPtr parameter)
 		{
-			return component->Parameters[index].CanSyncToHostBPM;
+			return ((StompBoxParameter*)(void*)parameter)->CanSyncToHostBPM;
 		}
 
-		int GetParameterBPMSyncNumerator(int index)
+		int GetParameterBPMSyncNumerator(IntPtr parameter)
 		{
-			return component->Parameters[index].BPMSyncNumerator;
+			return ((StompBoxParameter*)(void*)parameter)->BPMSyncNumerator;
 		}
 
-		int GetParameterBPMSyncDenominator(int index)
+		int GetParameterBPMSyncDenominator(IntPtr parameter)
 		{
-			return component->Parameters[index].BPMSyncDenominator;
+			return ((StompBoxParameter*)(void*)parameter)->BPMSyncDenominator;
 		}
 
-		void SetParameterBPMSyncNumerator(int index, int numerator)
+		void SetParameterBPMSyncNumerator(IntPtr parameter, int numerator)
 		{
-			component->Parameters[index].BPMSyncNumerator = numerator;
+			((StompBoxParameter*)(void*)parameter)->BPMSyncNumerator = numerator;
 			component->UpdateBPM();
 		}
 
-		void SetParameterBPMSyncDenominator(int index, int denom)
+		void SetParameterBPMSyncDenominator(IntPtr parameter, int denom)
 		{
-			component->Parameters[index].BPMSyncDenominator = denom;
+			((StompBoxParameter*)(void*)parameter)->BPMSyncDenominator = denom;
 			component->UpdateBPM();
 		}
 
-		bool GetParameterIsAdvanced(int index)
+		bool GetParameterIsAdvanced(IntPtr parameter)
 		{
-			return component->Parameters[index].IsAdvanced;
+			return ((StompBoxParameter*)(void*)parameter)->IsAdvanced;
 		}
 
-		array<System::String^>^ GetParameterEnumValues(int index)
+		array<System::String^>^ GetParameterEnumValues(IntPtr parameter)
 		{
-			StompBoxParameter param = component->Parameters[index];
+			StompBoxParameter* param = ((StompBoxParameter*)(void*)parameter);
 
-			if (param.EnumValues == nullptr)
+			if (param->EnumValues == nullptr)
 				return nullptr;
 
-			array<System::String^>^ presetNames = gcnew array<System::String^>(param.EnumValues->size());
+			array<System::String^>^ presetNames = gcnew array<System::String^>(param->EnumValues->size());
 
-			for (int i = 0; i < param.EnumValues->size(); i++)
+			for (int i = 0; i < param->EnumValues->size(); i++)
 			{
-				presetNames[i] = gcnew System::String((*param.EnumValues)[i].c_str());
+				presetNames[i] = gcnew System::String((*param->EnumValues)[i].c_str());
 			}
 
 			return presetNames;
 		}
+
+		System::String^ GetParameterDisplayFormat(IntPtr parameter)
+		{
+			return gcnew System::String(((StompBoxParameter*)(void*)parameter)->DisplayFormat);
+		}
+
 
 		double GetOutputValue()
 		{
@@ -172,11 +195,6 @@ namespace UnmanagedPlugins
 		void Process(double** inputs, double** outputs, unsigned int bufferSize)
 		{
 			component->compute(bufferSize, inputs[0], outputs[0]);
-		}
-
-		System::String^ GetParameterDisplayFormat(int index)
-		{
-			return gcnew System::String(component->Parameters[index].DisplayFormat);
 		}
 
 		StompBox* GetComponent()

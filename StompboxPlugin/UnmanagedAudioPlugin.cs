@@ -19,11 +19,11 @@ namespace Stompbox
                 if (SetValue != null)
                     SetValue(value);
 
-                (Plugin as UnmanagedAudioPlugin).UnmanagedWrapper.SetParameter(ParameterIndex, value);
+                (Plugin as UnmanagedAudioPlugin).UnmanagedWrapper.SetParameter(ParameterHandle, value);
             }
         }
 
-        public int ParameterIndex { get; set; }
+        public IntPtr ParameterHandle { get; set; }
     }
 
     public unsafe class UnmanagedAudioPlugin : AudioPluginBase, IAudioPlugin
@@ -95,26 +95,26 @@ namespace Stompbox
                     ForegroundColor = foregroundColor;
                 }
 
-                for (int i = 0; i < unmanagedWrapper.GetNumParameters(); i++)
+                foreach (IntPtr param in unmanagedWrapper.GetParameters())
                 {
-                    int index = i;
+                    IntPtr handle = param;
 
-                    string paramName = unmanagedWrapper.GetParameterName(i);
-                    EParameterType paramType = (EParameterType)unmanagedWrapper.GetParameterType(i);
+                    string paramName = unmanagedWrapper.GetParameterName(handle);
+                    EParameterType paramType = (EParameterType)unmanagedWrapper.GetParameterType(handle);
 
                     String[] enumValues = null;
 
                     if (paramType == EParameterType.Enum)
                     {
-                        enumValues = UnmanagedWrapper.GetParameterEnumValues(i);
+                        enumValues = UnmanagedWrapper.GetParameterEnumValues(handle);
                     }
 
                     int[] intValues = null;                    
 
                     if (paramType == EParameterType.Int)
                     {
-                        int minVal = (int)UnmanagedWrapper.GetParameterMinValue(i);
-                        int maxVal = (int)UnmanagedWrapper.GetParameterMaxValue(i);
+                        int minVal = (int)UnmanagedWrapper.GetParameterMinValue(handle);
+                        int maxVal = (int)UnmanagedWrapper.GetParameterMaxValue(handle);
 
                         if (minVal == maxVal)
                             continue;
@@ -130,22 +130,22 @@ namespace Stompbox
                     PluginParameter parameter = new UnmanagedPluginParameter
                     {
                         Plugin = this,
-                        ParameterIndex = index,
+                        ParameterHandle = handle,
                         Name = paramName,
-                        MinValue = unmanagedWrapper.GetParameterMinValue(i),
-                        MaxValue = unmanagedWrapper.GetParameterMaxValue(i),
-                        DefaultValue = unmanagedWrapper.GetParameterDefaultValue(i),
+                        MinValue = unmanagedWrapper.GetParameterMinValue(handle),
+                        MaxValue = unmanagedWrapper.GetParameterMaxValue(handle),
+                        DefaultValue = unmanagedWrapper.GetParameterDefaultValue(handle),
                         ParameterType = paramType,
-                        IsAdvanced = unmanagedWrapper.GetParameterIsAdvanced(i),
-                        CanSyncToHostBPM = unmanagedWrapper.GetParameterCanSyncToHostBPM(i),
-                        HostBPMSyncNumerator = unmanagedWrapper.GetParameterBPMSyncNumerator(i),
-                        HostBPMSyncDenominator = unmanagedWrapper.GetParameterBPMSyncDenominator(i),
-                        ValueFormat = unmanagedWrapper.GetParameterDisplayFormat(i),
+                        IsAdvanced = unmanagedWrapper.GetParameterIsAdvanced(handle),
+                        CanSyncToHostBPM = unmanagedWrapper.GetParameterCanSyncToHostBPM(handle),
+                        HostBPMSyncNumerator = unmanagedWrapper.GetParameterBPMSyncNumerator(handle),
+                        HostBPMSyncDenominator = unmanagedWrapper.GetParameterBPMSyncDenominator(handle),
+                        ValueFormat = unmanagedWrapper.GetParameterDisplayFormat(handle),
                         EnumValues = enumValues,
                         IntValues = intValues,
                         GetValue = delegate
                         {
-                            return unmanagedWrapper.GetParameter(index);
+                            return unmanagedWrapper.GetParameter(handle);
                         },
                     };
 
@@ -153,8 +153,8 @@ namespace Stompbox
                     {
                         parameter.UpdateBPMSync = delegate
                         {
-                            unmanagedWrapper.SetParameterBPMSyncNumerator(index, parameter.HostBPMSyncNumerator);
-                            unmanagedWrapper.SetParameterBPMSyncDenominator(index, parameter.HostBPMSyncDenominator);
+                            unmanagedWrapper.SetParameterBPMSyncNumerator(handle, parameter.HostBPMSyncNumerator);
+                            unmanagedWrapper.SetParameterBPMSyncDenominator(handle, parameter.HostBPMSyncDenominator);
                         };
                     }
 

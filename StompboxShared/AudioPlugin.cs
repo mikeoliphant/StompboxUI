@@ -21,6 +21,7 @@ namespace Stompbox
         public double MinValue { get; set; }
         public double MaxValue { get; set; }
         public double DefaultValue { get; set; }
+        public double RangePower { get; set; }
         public EParameterType ParameterType { get; set; }
         public bool CanSyncToHostBPM { get; set; }
         public int HostBPMSyncNumerator { get; set; }
@@ -51,6 +52,17 @@ namespace Stompbox
                 }
             }
         }
+        public double NormalizedValue
+        {
+            get
+            {
+                return GetNormalizedValue(Value);
+            }
+            set
+            {
+                Value = GetRangeValue(value);
+            }
+        }
         public string DisplayValue { get { return String.Format(ValueFormat, Value); } }
         public String[] EnumValues { get; set; }
         public int[] IntValues { get; set; }
@@ -75,6 +87,20 @@ namespace Stompbox
         {
             IsVisible = true;
             ValueFormat = "{0:0.00}";
+        }
+
+        public double GetNormalizedValue(double value)
+        {
+            double val = (value - MinValue) / (MaxValue - MinValue);
+
+            return (RangePower < 0) ? (1 - (Math.Pow(1 - val, 1 / -RangePower))) : Math.Pow(val, 1 / RangePower);
+        }
+
+        public double GetRangeValue(double normalizedValue)
+        {
+            double val = (RangePower < 0) ? (1 - Math.Pow(1 - normalizedValue, -RangePower)) : Math.Pow(normalizedValue, RangePower);
+
+            return MinValue + ((MaxValue - MinValue) * val);
         }
 
         public override string ToString()

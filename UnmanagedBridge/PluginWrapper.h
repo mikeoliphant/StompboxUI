@@ -122,6 +122,11 @@ namespace UnmanagedPlugins
 			return ((StompBoxParameter*)(void*)parameter)->DefaultValue;
 		}
 
+		double GetParameterRangePower(IntPtr parameter)
+		{
+			return ((StompBoxParameter*)(void*)parameter)->RangePower;
+		}
+
 		int GetParameterType(IntPtr parameter)
 		{
 			return ((StompBoxParameter*)(void*)parameter)->ParameterType;

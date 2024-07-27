@@ -349,9 +349,9 @@ namespace Stompbox
 
                     ParameterDial dial = new ParameterDial()
                     {
-                        MinValue = parameter.MinValue,
-                        MaxValue = parameter.MaxValue,
-                        DefaultValue = parameter.DefaultValue
+                        MinValue = 0,
+                        MaxValue = 1,
+                        DefaultValue = parameter.GetNormalizedValue(parameter.DefaultValue)
                     };
 
                     controlDock.Children.Add(dial);
@@ -364,9 +364,9 @@ namespace Stompbox
 
                     dial.ValueChangedAction = delegate (double val)
                     {
-                        parameter.Value = val;
+                        parameter.NormalizedValue = val;
 
-                        valueDisplay.SetValue(val);
+                        valueDisplay.SetValue(parameter.Value);
                     };
 
                     //dial.HoldAction = delegate
@@ -376,7 +376,7 @@ namespace Stompbox
 
                     parameter.SetValue = delegate (double value)
                     {
-                        dial.SetValue(value);
+                        dial.SetValue(parameter.GetNormalizedValue(value));
                     };
 
                     if (parameter.CanSyncToHostBPM)
@@ -1260,6 +1260,7 @@ namespace Stompbox
         public double MinValue { get; set; }
         public double MaxValue { get; set; }
         public double DefaultValue { get; set; }
+        public double RangePower { get; set; } = 1.0;
         public Action<double> ValueChangedAction { get; set; }
         public Action HoldAction { get; set; }
 

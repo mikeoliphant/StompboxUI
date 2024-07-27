@@ -439,6 +439,11 @@ namespace Stompbox
                                                 Double.TryParse(propValue, out maxValue);
                                                 newParameter.MaxValue = maxValue;
                                                 break;
+                                            case "RangePower":
+                                                double rangePower = 0;
+                                                Double.TryParse(propValue, out rangePower);
+                                                newParameter.RangePower = rangePower;
+                                                break;
                                             case "DefaultValue":
                                                 double defaultValue = 0;
                                                 Double.TryParse(propValue, out defaultValue);

@@ -135,6 +135,7 @@ namespace Stompbox
                         MinValue = unmanagedWrapper.GetParameterMinValue(handle),
                         MaxValue = unmanagedWrapper.GetParameterMaxValue(handle),
                         DefaultValue = unmanagedWrapper.GetParameterDefaultValue(handle),
+                        RangePower = unmanagedWrapper.GetParameterRangePower(handle),
                         ParameterType = paramType,
                         IsAdvanced = unmanagedWrapper.GetParameterIsAdvanced(handle),
                         CanSyncToHostBPM = unmanagedWrapper.GetParameterCanSyncToHostBPM(handle),

@@ -360,7 +360,7 @@ namespace Stompbox
 
                     dial.SetPointerColor(((foregroundColor.R + foregroundColor.G + foregroundColor.B) / 3) > 128 ? UIColor.Black : UIColor.White);
 
-                    dial.SetValue(parameter.Value);
+                    dial.SetValue(parameter.NormalizedValue);
 
                     dial.ValueChangedAction = delegate (double val)
                     {
@@ -394,7 +394,7 @@ namespace Stompbox
                             {
                                 StompboxClient.Instance.SendCommand("SetParam " + Plugin.ID + " " + parameter.Name + " " + parameter.DefaultValue);
 
-                                dial.SetValue(parameter.DefaultValue);
+                                dial.SetValue(parameter.GetNormalizedValue(parameter.DefaultValue));
                             }
                         };
                     }

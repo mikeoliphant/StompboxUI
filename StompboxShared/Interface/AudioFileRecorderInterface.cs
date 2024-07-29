@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Timers;
 using UILayout;
 using Stompbox;
 
@@ -6,23 +7,18 @@ namespace Stompbox
 {
     public class AudioFileRecorderInterface : PluginInterface
     {
-        static DateTime recordStartTime;
-        static int recordSecondsElapsed;
         TextBlock recordTimeText;
-
-        static AudioFileRecorderInterface()
-        {
-            recordStartTime = DateTime.Now;
-        }
-
-        public static void Init()
-        {
-
-        }
+        Timer recordTimer;
+        DateTime startTime;
 
         public AudioFileRecorderInterface(IAudioPlugin plugin)
             : base(plugin)
         {
+            recordTimer = new Timer(1000);
+            recordTimer.Elapsed += RecordTimer_Elapsed;
+            recordTimer.Start();
+
+            startTime = DateTime.Now;
         }
 
         protected override void AddControls(Dock dock)
@@ -41,35 +37,23 @@ namespace Stompbox
             controlStack.Children.Add(new ImageButton("Record")
             {
                 VerticalAlignment = EVerticalAlignment.Center,
-                //Color = UIColor.Red,
+                ImageColor = UIColor.Red,
                 PressAction = delegate
-                {
-                    recordStartTime = DateTime.Now;
-                    recordSecondsElapsed = -1;
-                    
+                {                    
                     StompboxClient.Instance.SendCommand("SendCommand " + Plugin.ID + " Save");
+
+                    startTime = DateTime.Now;
                 }
             });
-
-            recordSecondsElapsed = -1;
-
-            //Update(0);
         }
 
-        //public override void Update(float secondsElapsed)
-        //{
-        //    base.Update(secondsElapsed);
+        private void RecordTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            int recordSecondsElapsed = (int)(e.SignalTime - startTime).TotalSeconds;
 
-        //    int seconds = (int)(DateTime.Now - recordStartTime).TotalSeconds;
+            recordTimeText.Text = (recordSecondsElapsed / 60).ToString("00") + ":" + (recordSecondsElapsed % 60).ToString("00");
 
-        //    if (recordSecondsElapsed != seconds)
-        //    {
-        //        recordSecondsElapsed = seconds;
-
-        //        recordTimeText.Text = (recordSecondsElapsed / 60).ToString("00") + ":" + (recordSecondsElapsed % 60).ToString("00");
-
-        //        UpdateContentLayout();
-        //    }
-        //}
+            UpdateContentLayout();
+        }
     }
 }

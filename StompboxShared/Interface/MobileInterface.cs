@@ -144,8 +144,6 @@ namespace Stompbox
                 }
             });
 
-            AudioFileRecorderInterface.Init();  // Starts record timer
-
             buttonStack.Children.Add(new TextButton("Recorder")
             {
                 ClickAction = delegate

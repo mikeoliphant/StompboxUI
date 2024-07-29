@@ -250,6 +250,13 @@ namespace Stompbox
 
                             break;
 
+                        case "SetPluginSlot":
+                            if (cmdWords.Length > 2)
+                            {
+                                StompboxClient.SetSlotPlugin(cmdWords[1], cmdWords[2]);
+                            }
+                            break;
+
                         case "SetParam":
                             if (cmdWords.Length > 3)
                             {
@@ -527,6 +534,12 @@ namespace Stompbox
 
                         case "EndProgram":
                             StompboxClient.UpdateUI();
+                            break;
+
+                        case "Ok":
+                            break;
+
+                        default:    // Unrecognized command
                             break;
                     }
                 }

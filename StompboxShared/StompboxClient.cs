@@ -116,6 +116,8 @@ namespace Stompbox
             }
         }
 
+        Dictionary<string, string> slotPlugins = new Dictionary<string, string>();
+
         int currentPresetIndex;
         NetworkClient networkClient;
         ProtocolClient protocolClient;
@@ -482,12 +484,19 @@ namespace Stompbox
             NeedUIReload = true;
         }
 
+        public void SetSlotPlugin(string slotName, string pluginID)
+        {
+            slotPlugins[slotName] = pluginID;
+        }
+
         IAudioPlugin CreateSlotPlugin(string slotName, string defaultPlugin)
         {
             string pluginID = null;
 
 #if !STOMPBOXREMOTE
-           pluginID = processorWrapper.GetPluginSlot(slotName);
+            pluginID = processorWrapper.GetPluginSlot(slotName);
+#else
+            slotPlugins.TryGetValue(slotName, out pluginID);
 #endif
             if (pluginID == null)
             {

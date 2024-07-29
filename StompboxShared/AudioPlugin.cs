@@ -21,7 +21,7 @@ namespace Stompbox
         public double MinValue { get; set; }
         public double MaxValue { get; set; }
         public double DefaultValue { get; set; }
-        public double RangePower { get; set; }
+        public double RangePower { get; set; } = 1;
         public EParameterType ParameterType { get; set; }
         public bool CanSyncToHostBPM { get; set; }
         public int HostBPMSyncNumerator { get; set; }

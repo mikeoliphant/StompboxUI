@@ -17,6 +17,7 @@ namespace Stompbox
     {
         public IAudioPlugin Plugin { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public string ValueFormat { get; set; }
         public double MinValue { get; set; }
         public double MaxValue { get; set; }
@@ -119,6 +120,7 @@ namespace Stompbox
         StompboxClient StompboxClient { get; set; }
         String Name { get; set; }
         String ID { get; }
+        String Description { get; set; }
         bool Enabled { get; set; }
         double OutputValue { get; set; }
         bool EnabledIsSwitchable { get; set; }
@@ -140,6 +142,7 @@ namespace Stompbox
         public StompboxClient StompboxClient { get; set; }
         public String Name { get; set; }
         public String ID { get; set; }
+        public String Description { get; set; }
         public virtual bool Enabled
         {
             get

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace Stompbox
 {
@@ -123,6 +125,7 @@ namespace Stompbox
                 {
                     IAudioPlugin pluginDef = pluginDefs[plugin.Name];
 
+                    plugin.Description = pluginDef.Description;
                     plugin.BackgroundColor = pluginDef.BackgroundColor;
                     plugin.ForegroundColor = pluginDef.ForegroundColor;
                     plugin.IsUserSelectable = pluginDef.IsUserSelectable;
@@ -182,7 +185,16 @@ namespace Stompbox
 
             try
             {
-                string[] cmdWords = cmd.Split(split, StringSplitOptions.RemoveEmptyEntries);
+                string[] cmdWords = Regex.Matches(cmd, @"(['\""])(?<value>.+?)\1|(?<value>[^ ]+)")
+                    .Cast<Match>()
+                    .Select(m => m.Groups["value"].Value)
+                    .ToArray();
+
+
+                //Regex.Matches(cmd, @"[\""].+?[\""]|[^ ]+")
+                //.Cast<Match>()
+                //.Select(m => m.Value)
+                //.ToArray();
 
                 if (cmdWords.Length > 0)
                 {
@@ -404,6 +416,10 @@ namespace Stompbox
 
                                             pluginDef.IsUserSelectable = (isSelectable == 1);
                                             break;
+
+                                        case "Description":
+                                            pluginDef.Description = propValue;
+                                            break;
                                     }
                                 }
 
@@ -468,6 +484,9 @@ namespace Stompbox
                                                 int isAdvanced = 0;
                                                 int.TryParse(propValue, out isAdvanced);
                                                 newParameter.IsAdvanced = (isAdvanced == 1);
+                                                break;
+                                            case "Description":
+                                                newParameter.Description = propValue;
                                                 break;
                                         }
                                     }

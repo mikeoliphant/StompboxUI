@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
-using System.Numerics;
 using UILayout;
 
 namespace Stompbox
@@ -645,6 +644,22 @@ namespace Stompbox
                     }
                 });
             }
+
+            AddMenuItem(new ContextMenuItem
+            {
+                Text = "Plugin Info",
+                AfterCloseAction = delegate
+                {
+                    string info = Plugin.Name + ": " + Plugin.Description + "\n\n\n";
+
+                    foreach (PluginParameter param in Plugin.Parameters)
+                    {
+                        info += param.Name + ": " + param.Description + "\n\n";
+                    }
+
+                    Layout.Current.ShowContinuePopup(new TextBlock(info) { Margin = new LayoutPadding(20) });
+                }
+            });
 
             VerticalStack vStack = new VerticalStack { HorizontalAlignment = EHorizontalAlignment.Stretch, VerticalAlignment = EVerticalAlignment.Stretch, ChildSpacing = 5 };
             dock.Children.Add(vStack);

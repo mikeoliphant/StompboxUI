@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Numerics;
 using UILayout;
 using Stompbox;
-using System.Dynamic;
 
 namespace Stompbox
 {
@@ -35,6 +34,7 @@ namespace Stompbox
         double currentPitchCenter;
         TargetNote closestNote = new TargetNote(ENoteName.E, 2);
         double lastPitchCenter = 0;
+        double runningCentsOffset = 0;
 
         int queueSize = StompboxClient.Instance.InClientMode ? 20 : 40;
         Queue<double> pitchHistory = new Queue<double>();
@@ -267,12 +267,21 @@ namespace Stompbox
 
                 double centsOffset = 1200 * Math.Log(newPitch / currentPitchCenter, 2);
 
+                if (Math.Abs(centsOffset - runningCentsOffset) > 10)
+                {
+                    runningCentsOffset = centsOffset;
+                }
+                else
+                {
+                    runningCentsOffset = (runningCentsOffset * .99) + (centsOffset * .01);
+                }
+
                 tunerCentsDisplay.StringBuilder.Clear();
 
-                if (centsOffset != 0)
-                    tunerCentsDisplay.StringBuilder.Append((centsOffset > 0) ? "+" : "-");
+                if (runningCentsOffset != 0)
+                    tunerCentsDisplay.StringBuilder.Append((runningCentsOffset > 0) ? "+" : "-");
 
-                tunerCentsDisplay.StringBuilder.AppendNumber(Math.Abs((int)Math.Round(centsOffset)));
+                tunerCentsDisplay.StringBuilder.AppendNumber(Math.Abs((int)Math.Round(runningCentsOffset)));
             }
 
             if (lastClosestNote != (int)closestNote.Note)
@@ -285,8 +294,6 @@ namespace Stompbox
 
             double closestY = (tunerImageHeight / 2) - 1;
 
-            tunerImage.DrawLine(new Vector2(0, (int)closestY), new Vector2(tunerImage.ImageWidth - 1, (int)closestY), lineDrawAction);
-
             double step = (double)tunerImageWidth / (double)(queueSize - 1);
 
             double offset = (step / 2);
@@ -298,9 +305,9 @@ namespace Stompbox
             {
                 if (pitch > 0)
                 {
-                    double centsOffset = 1200 * Math.Log(pitch / currentPitchCenter, 2);
+                    double centsOffset = 12 * Math.Log(pitch / currentPitchCenter, 2);
 
-                    double y = ((double)tunerImageHeight / 2) + ((-centsOffset / 100) * (double)tunerImageHeight);
+                    double y = ((double)tunerImageHeight / 2) + (-centsOffset  * (double)tunerImageHeight);
 
                     double xOffset = offset;
                     double yOffset = y;
@@ -319,6 +326,8 @@ namespace Stompbox
 
                 offset += step;
             }
+
+            tunerImage.DrawLine(new Vector2(0, (int)closestY), new Vector2(tunerImage.ImageWidth - 1, (int)closestY), lineDrawAction);
 
             tunerImage.UpdateImageData();
 

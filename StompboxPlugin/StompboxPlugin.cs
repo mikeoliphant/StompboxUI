@@ -110,12 +110,6 @@ namespace Stompbox
 			StompboxClient.UpdateUI();
 		}
 
-		[DllImport("user32.dll", SetLastError = true)]
-		static extern IntPtr SetParent(IntPtr hWndChild, IntPtr hWndNewParent);
-
-		[DllImport("user32.dll")]
-		public static extern bool GetWindowRect(IntPtr hwnd, ref System.Drawing.Rectangle rectangle);
-
 		IntPtr parentWindow;
 
 		public override void ShowEditor(IntPtr parentWindow)
@@ -150,17 +144,9 @@ namespace Stompbox
 				//else
 				//	game.Scale = (float)EditorWidth / 1080;
 
-                using (GameHost = new MonoGameHost(screenWidth, screenHeight, fullscreen: false))
+                using (GameHost = new MonoGameHost(parentWindow, screenWidth, screenHeight, fullscreen: false))
                 {
                     GameHost.IsMouseVisible = true;
-
-					if (parentWindow != IntPtr.Zero)
-					{
-						GameHost.Window.Position = new Microsoft.Xna.Framework.Point(0, 0);
-						GameHost.Window.IsBorderless = true;
-
-						SetParent(GameHost.Window.Handle, parentWindow);
-					}
 
                     GameHost.StartGame(game);
 

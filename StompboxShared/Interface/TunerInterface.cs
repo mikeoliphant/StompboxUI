@@ -305,9 +305,9 @@ namespace Stompbox
             {
                 if (pitch > 0)
                 {
-                    double centsOffset = 12 * Math.Log(pitch / currentPitchCenter, 2);
+                    double semitoneOffset = 12 * Math.Log(pitch / currentPitchCenter, 2);
 
-                    double y = ((double)tunerImageHeight / 2) + (-centsOffset  * (double)tunerImageHeight);
+                    double y = ((double)tunerImageHeight / 2) + (-semitoneOffset  * (double)tunerImageHeight);
 
                     double xOffset = offset;
                     double yOffset = y;

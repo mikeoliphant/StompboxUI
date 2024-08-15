@@ -78,6 +78,8 @@ namespace Stompbox
                 if (String.IsNullOrEmpty(Name))
                     Name = unmanagedWrapper.GetName();
 
+                Description = unmanagedWrapper.GetDescription();
+
                 IsUserSelectable = unmanagedWrapper.GetIsUserSelectable();
 
                 string backgroundColor = unmanagedWrapper.GetBackgroundColor();
@@ -132,6 +134,7 @@ namespace Stompbox
                         Plugin = this,
                         ParameterHandle = handle,
                         Name = paramName,
+                        Description = unmanagedWrapper.GetParameterDescription(handle),
                         MinValue = unmanagedWrapper.GetParameterMinValue(handle),
                         MaxValue = unmanagedWrapper.GetParameterMaxValue(handle),
                         DefaultValue = unmanagedWrapper.GetParameterDefaultValue(handle),

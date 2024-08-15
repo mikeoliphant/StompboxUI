@@ -45,6 +45,12 @@ namespace UnmanagedPlugins
 			component = comp;
 		}
 
+		System::String^ GetDescription()
+		{
+			return gcnew System::String(component->Description.c_str());
+		}
+
+
 		bool GetEnabled()
 		{
 			return component->Enabled;
@@ -105,6 +111,11 @@ namespace UnmanagedPlugins
 		System::String^ GetParameterName(IntPtr parameter)
 		{
 			return gcnew System::String(((StompBoxParameter*)(void*)parameter)->Name.c_str());
+		}
+
+		System::String^ GetParameterDescription(IntPtr parameter)
+		{
+			return gcnew System::String(((StompBoxParameter*)(void*)parameter)->Description.c_str());
 		}
 
 		double GetParameterMinValue(IntPtr parameter)

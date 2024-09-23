@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
+
 #if !STOMPBOXREMOTE
 using UnmanagedPlugins;
 #endif
@@ -31,7 +32,6 @@ namespace Stompbox
         public double BPM { get; set; }
         public bool SuppressCommandUpdates { get; set; }
         public bool InClientMode { get; }
-        public bool NeedUIReload { get; set; }
         public bool AllowMidiMapping { get; set; }
         public PluginFactory PluginFactory { get; set; }
         public string PluginPath { get; set; }
@@ -110,9 +110,41 @@ namespace Stompbox
                     {
                         SendCommand("LoadPreset " + PresetNames[currentPresetIndex]);
 
-                        UpdateProgram();
+                        if (!InClientMode)
+                        {
+                            needPresetLoad = true;
+                        }
                     }
                 }
+            }
+        }
+
+        public bool NeedUIReload
+        {
+            get
+            {
+                if (needUIReload)
+                {
+                    return true;
+                }
+
+#if !STOMPBOXREMOTE
+                if (needPresetLoad && !processorWrapper.IsPresetLoading())
+                {
+                    UpdateProgram();
+
+                    needPresetLoad = false;
+
+                    return true;
+                }
+#endif
+
+                return false;
+            }
+
+            set
+            {
+                needUIReload = value;
             }
         }
 
@@ -121,6 +153,8 @@ namespace Stompbox
         int currentPresetIndex;
         NetworkClient networkClient;
         ProtocolClient protocolClient;
+        bool needUIReload = false;
+        bool needPresetLoad = false;
 
 #if !STOMPBOXREMOTE
         PluginProcessorWrapper processorWrapper;
@@ -226,7 +260,6 @@ namespace Stompbox
             }
         }
 
-
         public void UpdatePresets()
         {
 #if STOMPBOXREMOTE
@@ -242,6 +275,8 @@ namespace Stompbox
 
         public void UpdateProgram()
         {
+            needPresetLoad = false;
+
             UpdatePresets();
 
             if (!InClientMode)

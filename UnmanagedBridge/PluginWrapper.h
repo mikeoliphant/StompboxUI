@@ -272,6 +272,11 @@ namespace UnmanagedPlugins
 			processor->SetBPM(bpm);
 		}
 
+		bool IsPresetLoading()
+		{
+			return processor->IsPresetLoading();
+		}
+
 		System::String^ GetDataPath()
 		{
 			return gcnew System::String(processor->GetDataPath().c_str());

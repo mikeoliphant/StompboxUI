@@ -17,6 +17,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interface\AudioFilePlayerInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\AudioFileRecorderInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\DAWInterface.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interface\InterfaceBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\MobileInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\PedalboardInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\PluginInterface.cs" />

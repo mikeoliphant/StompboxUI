@@ -6,7 +6,7 @@ using UILayout;
 
 namespace Stompbox
 {
-    public class PedalboardInterface : Dock
+    public class PedalboardInterface : InterfaceBase
     {
         TextBlock presetText;
         HorizontalStack stompStack;
@@ -178,6 +178,19 @@ namespace Stompbox
 
                 StompboxClient.Instance.NeedUIReload = false;
             }
+        }
+
+        public override bool HandleTouch(in Touch touch)
+        {
+            if (!base.HandleTouch(touch))
+            {
+                if (IsDoubleTap(touch))
+                {
+                    Layout.Current.ShowPopup(new ExtraOptionsMenu(EStompboxInterfaceType.Pedalboard), ContentBounds.Center);
+                }
+            }
+
+            return true;
         }
     }
 }

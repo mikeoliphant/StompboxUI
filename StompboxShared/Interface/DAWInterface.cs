@@ -7,7 +7,7 @@ using UILayout;
 
 namespace Stompbox
 {
-    public class DAWInterface : Dock
+    public class DAWInterface : InterfaceBase
     {
         PluginChainDisplay inputChainDisplay;
         PluginChainDisplay fxLoopDisplay;
@@ -155,6 +155,12 @@ namespace Stompbox
             {
                 dspLoadText = new StringBuilderTextBlock("---") { HorizontalAlignment = EHorizontalAlignment.Left, VerticalAlignment = EVerticalAlignment.Bottom };
                 Children.Add(dspLoadText);
+
+                Children.Add(new ExtraOptionsButton(EStompboxInterfaceType.DAW)
+                {
+                    HorizontalAlignment = EHorizontalAlignment.Right,
+                    VerticalAlignment = EVerticalAlignment.Bottom,
+                });
             }
         }
 

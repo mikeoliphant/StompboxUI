@@ -7,7 +7,7 @@ using UILayout;
 
 namespace Stompbox
 {
-    public class MobileInterface : Dock
+    public class MobileInterface : InterfaceBase
     {
         public static DAWInterface Instance { get; private set; }
 
@@ -196,15 +196,21 @@ namespace Stompbox
                 Children.Add(dspLoadText);
             }
 
-            Children.Add(new TextButton("PB")
+            //Children.Add(new TextButton("PB")
+            //{
+            //    HorizontalAlignment = EHorizontalAlignment.Right,
+            //    VerticalAlignment = EVerticalAlignment.Bottom,
+            //    ClickAction = delegate
+            //    {
+            //        StompboxGame.Instance.SetInterfaceType(EStompboxInterfaceType.Pedalboard);
+            //        StompboxClient.Instance.NeedUIReload = true;
+            //    }
+            //});
+
+            Children.Add(new ExtraOptionsButton(EStompboxInterfaceType.Mobile)
             {
                 HorizontalAlignment = EHorizontalAlignment.Right,
                 VerticalAlignment = EVerticalAlignment.Bottom,
-                ClickAction = delegate
-                {
-                    StompboxGame.Instance.SetInterfaceType(EStompboxInterfaceType.Pedalboard);
-                    StompboxClient.Instance.NeedUIReload = true;
-                }
             });
         }
 

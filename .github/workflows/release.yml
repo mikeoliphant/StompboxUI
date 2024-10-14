@@ -48,8 +48,9 @@ jobs:
     - name: Run Image Processor
       working-directory: ${{github.workspace}}
       run: |
-        msbuild .\StompboxUI.sln /t:StompboxImageProcessor /p:Configuration="Release" 
-        StompboxImageProcessor\bin\Release\net8.0-windows\StompboxImageProcessor.exe
+        msbuild .\StompboxUI.sln /t:StompboxImageProcessor /p:Configuration="Release"
+        cd StompboxImageProcessor\bin\Release\net8.0
+        .\StompboxImageProcessor.exe
         
     - name: Run MSBuild for VST Plugin
       working-directory: ${{github.workspace}}

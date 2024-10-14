@@ -28,7 +28,8 @@ jobs:
       working-directory: ${{github.workspace}}
       run: |
         msbuild .\StompboxUI.sln /t:StompboxImageProcessor /p:Configuration="Release" 
-        StompboxImageProcessor\bin\Release\net8.0-windows\StompboxImageProcessor.exe
+        cd StompboxImageProcessor\bin\Release\net8.0
+        .\StompboxImageProcessor.exe
         
     - name: Run MSBuild for Plugin
       working-directory: ${{github.workspace}}

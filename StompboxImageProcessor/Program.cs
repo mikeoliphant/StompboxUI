@@ -21,8 +21,10 @@ namespace StompboxImageProcessor
 
             BeginSpriteSheetGroup("UISheet");
 
-            AddFont("MainFont", "Calibri", FontStyle.Bold, 36);
-            AddFont("SmallFont", "Calibri", FontStyle.Bold, 30);
+            string font = Path.Combine(SrcPath, "Inter_18pt-Bold.ttf");
+
+            AddFont("MainFont", font, 36);
+            AddFont("SmallFont", font, 26);
 
             PushDirectory("UserInterface");
 

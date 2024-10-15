@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Numerics;
 using UILayout;
 using Stompbox;
@@ -37,7 +38,7 @@ namespace Stompbox
         double runningCentsOffset = 0;
 
         int queueSize = StompboxClient.Instance.InClientMode ? 20 : 40;
-        Queue<double> pitchHistory = new Queue<double>();
+        ConcurrentQueue<double> pitchHistory = new ConcurrentQueue<double>();
         int frameCount = 0;
         DateTime startTime = DateTime.MinValue;
 
@@ -230,7 +231,11 @@ namespace Stompbox
             pitchHistory.Enqueue(newPitch);
 
             while (pitchHistory.Count > queueSize)
-                pitchHistory.Dequeue();
+            {
+                double val;
+
+                pitchHistory.TryDequeue(out val);
+            }
 
             if (newPitch > 0)
             {

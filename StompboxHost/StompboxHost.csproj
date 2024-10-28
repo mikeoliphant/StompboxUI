@@ -11,8 +11,8 @@
 		<TrimmerRootAssembly Include="Microsoft.Xna.Framework.Content.ContentTypeReader" Visible="false" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="AudioPlugSharp" Version="0.6.5" />
-		<PackageReference Include="AudioPlugSharpHost" Version="0.6.3" />
+		<PackageReference Include="AudioPlugSharp" Version="0.6.7" />
+		<PackageReference Include="AudioPlugSharpHost" Version="0.6.6" />
 		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.1.303" />
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.1.303" />
 	</ItemGroup>

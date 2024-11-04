@@ -39,7 +39,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: StompboxVST3Plugin
-        path: ${{github.workspace}}\StompboxPlugin\bin\Release\net6.0-windows
+        path: ${{github.workspace}}\StompboxPlugin\bin\Release\net8.0-windows
 
     - name: Run MSBuild for Windows Remote
       working-directory: ${{github.workspace}}

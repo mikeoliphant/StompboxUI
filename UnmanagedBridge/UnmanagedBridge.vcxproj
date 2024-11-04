@@ -28,6 +28,9 @@
     <ProjectReference Include="..\Dependencies\stompbox\build\stompbox\NeuralAudio\NeuralAudio\NeuralAudio.vcxproj">
       <Project>{d5c91377-b31c-37fd-86a0-2d1b2990c3c9}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Dependencies\stompbox\build\stompbox\NeuralAudio\NeuralAudio\RTNeural\RTNeural\RTNeural.vcxproj">
+      <Project>{7921a83e-ac53-3db1-96cb-16945c57e7ae}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Dependencies\stompbox\build\stompbox\stompbox.vcxproj">
       <Project>{608f8ad4-a640-3b84-9227-ff1e440b9612}</Project>
     </ProjectReference>

@@ -10,7 +10,8 @@ namespace Stompbox
         Bool,
         Int,
         VSlider,
-        Enum
+        Enum,
+        File
     };
 
     public class PluginParameter
@@ -48,7 +49,7 @@ namespace Stompbox
                     else
                     {
                         Plugin.StompboxClient.SendCommand("SetParam " + Plugin.ID + " " + Name + " " +
-                            ((ParameterType == EParameterType.Enum) ? ((EnumValues.Length > 0) ? EnumValues[(int)Value] : "") : Value.ToString()));
+                            (((ParameterType == EParameterType.Enum) || (ParameterType == EParameterType.File)) ? ((EnumValues.Length > 0) ? EnumValues[(int)Value] : "") : Value.ToString()));
                     }
                 }
             }
@@ -65,6 +66,7 @@ namespace Stompbox
             }
         }
         public string DisplayValue { get { return String.Format(ValueFormat, Value); } }
+        public String FilePath { get; set; } = null;
         public String[] EnumValues { get; set; }
         public int[] IntValues { get; set; }
         public int IntValue

@@ -19,7 +19,7 @@ namespace Stompbox
 
             vStack.Children.Add(new TextBlock(Plugin.Name) { HorizontalAlignment = EHorizontalAlignment.Center, TextColor = foregroundColor });
 
-            vStack.Children.Add(CreateEnumControl(Plugin.Parameters[0]));
+            vStack.Children.Add(CreateFileControl(Plugin.Parameters[0], true));
 
             UIElement levelControl = CreateControl(Plugin.Parameters[1]);
             levelControl.HorizontalAlignment = EHorizontalAlignment.Center;

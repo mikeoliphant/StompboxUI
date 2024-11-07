@@ -104,9 +104,16 @@ namespace Stompbox
                     string paramName = unmanagedWrapper.GetParameterName(handle);
                     EParameterType paramType = (EParameterType)unmanagedWrapper.GetParameterType(handle);
 
+                    string filePath = null;
+
+                    if (paramType == EParameterType.File)
+                    {
+                        filePath = UnmanagedWrapper.GetParameterFilePath(handle);
+                    }
+
                     String[] enumValues = null;
 
-                    if (paramType == EParameterType.Enum)
+                    if ((paramType == EParameterType.Enum) || (paramType == EParameterType.File))
                     {
                         enumValues = UnmanagedWrapper.GetParameterEnumValues(handle);
                     }
@@ -145,6 +152,7 @@ namespace Stompbox
                         HostBPMSyncNumerator = unmanagedWrapper.GetParameterBPMSyncNumerator(handle),
                         HostBPMSyncDenominator = unmanagedWrapper.GetParameterBPMSyncDenominator(handle),
                         ValueFormat = unmanagedWrapper.GetParameterDisplayFormat(handle),
+                        FilePath = filePath,
                         EnumValues = enumValues,
                         IntValues = intValues,
                         GetValue = delegate
@@ -162,7 +170,7 @@ namespace Stompbox
                         };
                     }
 
-                    if (paramType == EParameterType.Enum)
+                    if ((paramType == EParameterType.Enum) || (paramType == EParameterType.File))
                     {
                         EnumParameter = parameter;
                     }

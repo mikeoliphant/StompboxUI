@@ -175,6 +175,11 @@ namespace UnmanagedPlugins
 			return ((StompBoxParameter*)(void*)parameter)->IsAdvanced;
 		}
 
+		System::String^ GetParameterFilePath(IntPtr parameter)
+		{
+			return gcnew System::String(((StompBoxParameter*)(void*)parameter)->FilePath.c_str());
+		}
+
 		array<System::String^>^ GetParameterEnumValues(IntPtr parameter)
 		{
 			StompBoxParameter* param = ((StompBoxParameter*)(void*)parameter);

@@ -142,7 +142,7 @@ namespace Stompbox
 
                         plugin.Parameters.Add(parameter);
 
-                        if (parameter.ParameterType == EParameterType.Enum)
+                        if ((parameter.ParameterType == EParameterType.Enum) || (paramDef.ParameterType == EParameterType.File))
                             plugin.EnumParameter = parameter;
 
                         if (parameter.CanSyncToHostBPM)
@@ -299,7 +299,23 @@ namespace Stompbox
                                                     parameter.HostBPMSyncNumerator = parameter.HostBPMSyncDenominator = 0;
                                                 }
 
-                                                if (parameter.ParameterType == EParameterType.Enum)
+                                                if ((parameter.ParameterType == EParameterType.Enum) || (parameter.ParameterType == EParameterType.File))
+                                                {
+                                                    int pos = 0;
+
+                                                    foreach (string enumValue in parameter.EnumValues)
+                                                    {
+                                                        if (enumValue == cmdWords[3])
+                                                        {
+                                                            value = pos;
+
+                                                            break;
+                                                        }
+
+                                                        pos++;
+                                                    }
+                                                }
+                                                else if (parameter.ParameterType == EParameterType.File)
                                                 {
                                                     int pos = 0;
 
@@ -513,6 +529,35 @@ namespace Stompbox
                                             for (int i = 0; i < numEnums; i++)
                                             {
                                                 parameter.EnumValues[i] = cmdWords[i + 3];
+                                            }
+
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                            break;
+
+                        case "ParameterFileTree":
+                            if (cmdWords.Length > 3)
+                            {
+                                if (pluginDefs.ContainsKey(cmdWords[1]))
+                                {
+                                    IAudioPlugin pluginDef = pluginDefs[cmdWords[1]];
+
+                                    foreach (PluginParameter parameter in pluginDef.Parameters)
+                                    {
+                                        if (parameter.Name == cmdWords[2])
+                                        {
+                                            parameter.FilePath = cmdWords[3];
+
+                                            int numEnums = cmdWords.Length - 4;
+
+                                            parameter.EnumValues = new string[numEnums];
+
+                                            for (int i = 0; i < numEnums; i++)
+                                            {
+                                                parameter.EnumValues[i] = cmdWords[i + 4];
                                             }
 
                                             break;

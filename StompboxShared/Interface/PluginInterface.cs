@@ -2,6 +2,8 @@
 using System.Drawing;
 using System.Collections.Generic;
 using UILayout;
+using System.Reflection;
+using System.IO;
 
 namespace Stompbox
 {
@@ -428,6 +430,34 @@ namespace Stompbox
             return enumInterface;
         }
 
+        protected UIElement CreateFileControl(PluginParameter parameter, bool showOpenFolder)
+        {
+            int offset = (showOpenFolder ? 1 : 0);
+
+            FileInterface fileInterface = new FileInterface(showOpenFolder ? parameter.FilePath : null, parameter.EnumValues, foregroundColor)
+            {
+                HorizontalAlignment = EHorizontalAlignment.Stretch,
+                VerticalAlignment = EVerticalAlignment.Top,
+                Padding = new LayoutPadding(0, 5)
+            };
+
+            fileInterface.SelectionChangedAction = delegate (int index)
+            {
+                parameter.Value = index - offset;
+
+                UpdateContentLayout();
+            };
+
+            fileInterface.SetSelectedIndex((int)parameter.Value + offset);
+
+            parameter.SetValue = delegate (double val)
+            {
+
+            };
+
+            return fileInterface;
+        }
+
         protected UIElement CreateIntControl(PluginParameter parameter)
         {
             HorizontalStack intStack = new HorizontalStack { HorizontalAlignment = EHorizontalAlignment.Stretch, ChildSpacing = 5 };
@@ -519,7 +549,7 @@ namespace Stompbox
 
             foreach (PluginParameter parameter in Plugin.Parameters)
             {
-                if (!parameter.IsAdvanced && !(parameter.ParameterType == EParameterType.Enum) && !(parameter.ParameterType == EParameterType.Int))
+                if (!parameter.IsAdvanced && !(parameter.ParameterType == EParameterType.Enum) && !(parameter.ParameterType == EParameterType.File) && !(parameter.ParameterType == EParameterType.Int))
                 {
                     if (parameter.ParameterType == EParameterType.VSlider)
                     {
@@ -676,11 +706,17 @@ namespace Stompbox
             {
                 if (!parameter.IsAdvanced || showAdvancedControls)
                 {
-                    if ((parameter.ParameterType == EParameterType.Enum) || (parameter.ParameterType == EParameterType.Int))
+                    if ((parameter.ParameterType == EParameterType.Enum) || (parameter.ParameterType == EParameterType.File) || (parameter.ParameterType == EParameterType.Int))
                     {
                         if (parameter.ParameterType == EParameterType.Enum)
                         {
                             textStack.Children.Add(CreateEnumControl(parameter));
+
+                            haveTextParams = true;
+                        }
+                        else if (parameter.ParameterType == EParameterType.File)
+                        {
+                            textStack.Children.Add(CreateFileControl(parameter, true));
 
                             haveTextParams = true;
                         }
@@ -734,7 +770,8 @@ namespace Stompbox
                 ImageButton menuButton = new ImageButton("MoreButton")
                 {
                     HorizontalAlignment = EHorizontalAlignment.Right,
-                    VerticalAlignment = EVerticalAlignment.Bottom
+                    VerticalAlignment = EVerticalAlignment.Bottom,
+                    ImageColor = foregroundColor
                 };
 
                 //menuButton.Color = foregroundColor;
@@ -921,7 +958,7 @@ namespace Stompbox
             {
                 if (!parameter.IsAdvanced || showAdvancedControls)
                 {
-                    if ((parameter.ParameterType == EParameterType.Enum) || (parameter.ParameterType == EParameterType.Int))
+                    if ((parameter.ParameterType == EParameterType.Enum) || (parameter.ParameterType == EParameterType.File) || (parameter.ParameterType == EParameterType.Int))
                     {
                     }
                     else
@@ -1268,6 +1305,171 @@ namespace Stompbox
             }
         }
     }
+
+    public class FileInterface : Dock
+    {
+        public Action<int> SelectionChangedAction { get; set; }
+        public string NoSelectionText
+        {
+            get { return noSelectionText; }
+            set
+            {
+                noSelectionText = value;
+
+                if (selectedIndex == -1)
+                {
+                    button.Text = noSelectionText;
+
+                    UpdateContentLayout();
+                }
+            }
+        }
+        public IList<string> EnumValues { get; private set; }
+
+        public int SelectedIndex
+        {
+            get { return selectedIndex; }
+        }
+
+        public string SelectedIndexValue
+        {
+            get { return (selectedIndex == -1) ? null : menuItems[selectedIndex].Text; }
+        }
+
+        Menu menu;
+        TextButton button;
+        List<MenuItem> menuItems;
+        int selectedIndex = -1;
+        string noSelectionText = "---";
+
+        public FileInterface(string filePath, IList<string> enumValues, UIColor textColor)
+        {
+            menuItems = new List<MenuItem>();
+
+            menu = new Menu();
+
+            SetEnumValues(filePath, enumValues);
+
+            button = new TextButton("---")
+            {
+                TextColor = textColor,
+                HorizontalAlignment = EHorizontalAlignment.Stretch,
+                ClickAction = delegate
+                {
+                    if (menuItems.Count > 0)
+                        Layout.Current.ShowPopup(menu, button.ContentBounds.Center);
+                }
+            };
+
+            Children.Add(button);
+        }
+
+        public void SetEnumValues(string filePath, IList<string> enumValues)
+        {
+            this.EnumValues = enumValues;
+
+            string selectedString = null;
+
+            if ((selectedIndex >= 0) && (selectedIndex < menuItems.Count))
+            {
+                selectedString = menuItems[selectedIndex].Text;
+            }
+            else
+            {
+                selectedString = null;
+            }
+
+            if (menuItems.Count > 0)
+            {
+                menuItems.Clear();
+            }
+
+            int i = 0;
+
+            if (!string.IsNullOrEmpty(filePath))
+            {
+                menuItems.Add(new ContextMenuItem
+                {
+                    Text = "Open " + filePath + " Folder",
+                    CloseOnSelect = true,
+                    AfterCloseAction = delegate
+                    {
+                        try
+                        {
+                            System.Diagnostics.Process.Start("explorer.exe", Path.Combine(StompboxClient.Instance.PluginPath, filePath));
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                });
+
+                i++;
+            }
+
+            foreach (string enumValue in enumValues)
+            {
+                int index = i++;
+
+                menuItems.Add(new ContextMenuItem
+                {
+                    Text = enumValue,
+                    CloseOnSelect = true,
+                    AfterCloseAction = delegate
+                    {
+                        SetSelectedIndex(index);
+
+                        if (SelectionChangedAction != null)
+                            SelectionChangedAction(index);
+
+                        UpdateContentLayout();
+                    }
+                });
+            }
+
+            menu.SetMenuItems(menuItems);
+
+            if (selectedString != null)
+            {
+                int index = 0;
+
+                foreach (ContextMenuItem item in menuItems)
+                {
+                    if (item.Text == selectedString)
+                    {
+                        selectedIndex = index;
+
+                        break;
+                    }
+
+                    index++;
+                }
+
+                SetSelectedIndex(selectedIndex);
+            }
+
+            UpdateContentLayout();
+        }
+
+        public void SetSelectedIndex(int index)
+        {
+            selectedIndex = index;
+
+            if ((index < 0) || (index >= menuItems.Count))
+            {
+                button.Text = "---";
+            }
+            else
+            {
+                if (menuItems.Count > index)
+                {
+                    button.Text = menuItems[index].Text;
+                }
+            }
+        }
+    }
+
 
     public class ParameterDial : Dock
     {

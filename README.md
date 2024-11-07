@@ -15,7 +15,7 @@ This is what it looks like running as an Android remote:
 # Features
 
 * Pedalboard-style layout (Amp/Cab with input chain and FX loop)
-* [Neural Amp Modeler](https://github.com/sdatkinson/neural-amp-modeler) support
+* [Neural Amp Modeler](https://github.com/sdatkinson/neural-amp-modeler) and [RTNeural](https://github.com/jatinchowdhury18/RTNeural) model support
 * Cabinet impulse responses
 * Tonestack/EQ
 * Noise Gate

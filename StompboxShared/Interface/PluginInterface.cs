@@ -430,8 +430,10 @@ namespace Stompbox
             return enumInterface;
         }
 
-        protected UIElement CreateFileControl(PluginParameter parameter, bool showOpenFolder)
+        protected UIElement CreateFileControl(PluginParameter parameter)
         {
+            bool showOpenFolder = !StompboxClient.Instance.InClientMode;
+
             int offset = (showOpenFolder ? 1 : 0);
 
             FileInterface fileInterface = new FileInterface(showOpenFolder ? parameter.FilePath : null, parameter.EnumValues, foregroundColor)
@@ -716,7 +718,7 @@ namespace Stompbox
                         }
                         else if (parameter.ParameterType == EParameterType.File)
                         {
-                            textStack.Children.Add(CreateFileControl(parameter, true));
+                            textStack.Children.Add(CreateFileControl(parameter));
 
                             haveTextParams = true;
                         }

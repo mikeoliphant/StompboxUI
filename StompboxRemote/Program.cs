@@ -8,7 +8,7 @@ StompboxGame.InterfaceType = EStompboxInterfaceType.DAW;
 
 StompboxGame game = new StompboxGame();
 
-int width = 1024;
+int width = 1200;
 int height = 640;
 
 if (StompboxGame.InterfaceType == EStompboxInterfaceType.Mobile)

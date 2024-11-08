@@ -299,7 +299,7 @@ namespace Stompbox
                                                     parameter.HostBPMSyncNumerator = parameter.HostBPMSyncDenominator = 0;
                                                 }
 
-                                                if ((parameter.ParameterType == EParameterType.Enum) || (parameter.ParameterType == EParameterType.File))
+                                                if (parameter.ParameterType == EParameterType.Enum)
                                                 {
                                                     int pos = 0;
 

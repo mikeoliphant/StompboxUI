@@ -158,7 +158,7 @@ jobs:
       run: |
         mkdir osx-x64-build
         move StompboxRemoteGL\bin\Release\net8.0\osx-x64\publish osx-x64-build\StompboxRemote
-        Compress-Archive -Path osx-x64-build\* -Destination StompboxRemoteMacX64.zip
+        Compress-Archive -Path osx-x64-build\* -Destination StompboxRemoteMac-X64.zip
 
     - name: Upload OSX-x64 Asset
       uses: actions/upload-release-asset@v1
@@ -166,8 +166,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ needs.create_release.outputs.upload_url }}
-        asset_path: ./StompboxRemoteMacX64.zip
-        asset_name: StompboxRemoteMacX64.zip
+        asset_path: ./StompboxRemoteMac-X64.zip
+        asset_name: StompboxRemoteMac-X64.zip
         asset_content_type: application/zip
 
     - name: Publish OSX-arm64

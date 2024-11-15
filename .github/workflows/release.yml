@@ -106,3 +106,87 @@ jobs:
         asset_path: ${{github.workspace}}\StompboxAndroid\bin\Release\net8.0-android\StompboxAndroid.StompboxAndroid-Signed.apk
         asset_name: StompboxAndroid.StompboxAndroid-Signed.apk
         asset_content_type: application/zip         
+
+    - name: Publish Linux-x64
+      working-directory: ${{github.workspace}}
+      run: dotnet publish .\StompboxRemoteGL\StompboxRemoteGL.csproj --runtime linux-x64 -p:PublishSingleFile=true --self-contained true
+
+    - name: Add Linux-x64 Archive
+      working-directory: ${{github.workspace}}
+      run: |
+        mkdir linux-x64-build
+        move StompboxRemoteGL\bin\Release\net8.0\linux-x64\publish linux-x64-build\StompboxRemote
+        Compress-Archive -Path linux-x64-build\* -Destination StompboxRemoteLinux-X64.zip
+
+    - name: Upload Linux-x64 Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.create_release.outputs.upload_url }}
+        asset_path: ./StompboxRemoteLinux-x64.zip
+        asset_name: StompboxRemoteLinux-x64.zip
+        asset_content_type: application/zip
+
+    - name: Publish Linux-arm64
+      working-directory: ${{github.workspace}}
+      run: dotnet publish .\StompboxRemoteGL\StompboxRemoteGL.csproj --runtime linux-arm64 -p:PublishSingleFile=true --self-contained true
+
+    - name: Add Linux-arm64 Archive
+      working-directory: ${{github.workspace}}
+      run: |
+        mkdir linux-arm64-build
+        move StompboxRemoteGL\bin\Release\net8.0\linux-arm64\publish linux-arm64-build\StompboxRemote
+        Compress-Archive -Path linux-x64-build\* -Destination StompboxRemoteLinux-Arm64.zip
+
+    - name: Upload Linux-arm64 Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.create_release.outputs.upload_url }}
+        asset_path: ./StompboxRemoteLinux-Arm64.zip
+        asset_name: StompboxRemoteLinux-Arm64.zip
+        asset_content_type: application/zip
+        
+    - name: Publish OSX-x64
+      working-directory: ${{github.workspace}}
+      run: dotnet publish .\StompboxRemoteGL\StompboxRemoteGL.csproj --runtime osx-x64 -p:PublishSingleFile=true --self-contained true
+
+    - name: Add OSX-x64 Archive
+      working-directory: ${{github.workspace}}
+      run: |
+        mkdir osx-x64-build
+        move StompboxRemoteGL\bin\Release\net8.0\osx-x64\publish osx-x64-build\StompboxRemote
+        Compress-Archive -Path osx-x64-build\* -Destination StompboxRemoteMacX64.zip
+
+    - name: Upload OSX-x64 Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.create_release.outputs.upload_url }}
+        asset_path: ./StompboxRemoteMacX64.zip
+        asset_name: StompboxRemoteMacX64.zip
+        asset_content_type: application/zip
+
+    - name: Publish OSX-arm64
+      working-directory: ${{github.workspace}}
+      run: dotnet publish .\StompboxRemoteGL\StompboxRemoteGL.csproj --runtime osx-arm64 -p:PublishSingleFile=true --self-contained true
+
+    - name: Add OSX-arm64 Archive
+      working-directory: ${{github.workspace}}
+      run: |
+        mkdir osx-arm64-build
+        move StompboxRemoteGL\bin\Release\net8.0\osx-arm64\publish osx-arm64-build\StompboxRemote
+        Compress-Archive -Path osx-arm64-build\* -Destination StompboxRemoteMac-Arm64.zip
+        
+    - name: Upload OSX-arm64 Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.create_release.outputs.upload_url }}
+        asset_path: ./StompboxRemoteMac-Arm64.zip
+        asset_name: StompboxRemoteMac-Arm64.zip
+        asset_content_type: application/zip

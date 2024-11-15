@@ -258,14 +258,14 @@ namespace Stompbox
             VerticalStack controlVStack = new VerticalStack()
             {
                 HorizontalAlignment = EHorizontalAlignment.Stretch,
-                VerticalAlignment = EVerticalAlignment.Stretch
+                VerticalAlignment = EVerticalAlignment.Stretch,
             };
 
             controlVStack.Children.Add(new TextBlock(parameter.Name)
             {
                 HorizontalAlignment = EHorizontalAlignment.Center,
                 TextColor = foregroundColor,
-                TextFont = Layout.Current.GetFont("SmallFont")
+                TextFont = Layout.Current.GetFont("SmallFont"),
             });
 
             Dock controlDock = new Dock() { HorizontalAlignment = EHorizontalAlignment.Stretch, VerticalAlignment = EVerticalAlignment.Center };

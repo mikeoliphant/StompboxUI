@@ -1328,12 +1328,12 @@ namespace Stompbox
 
         public int SelectedIndex
         {
-            get { return selectedIndex; }
+            get { return selectedIndex - indexOffset; }
         }
 
         public string SelectedIndexValue
         {
-            get { return (selectedIndex == -1) ? null : menuItems[selectedIndex].Text; }
+            get { return (selectedIndex < indexOffset) ? null : menuItems[selectedIndex].Text; }
         }
 
         Menu menu;
@@ -1341,6 +1341,7 @@ namespace Stompbox
         List<MenuItem> menuItems;
         int selectedIndex = -1;
         string noSelectionText = "---";
+        int indexOffset = 0;
 
         public FileInterface(string filePath, IList<string> enumValues, UIColor textColor)
         {
@@ -1405,6 +1406,8 @@ namespace Stompbox
                     }
                 });
 
+                indexOffset = 1;
+
                 i++;
             }
 
@@ -1418,10 +1421,10 @@ namespace Stompbox
                     CloseOnSelect = true,
                     AfterCloseAction = delegate
                     {
-                        SetSelectedIndex(index);
+                        SetSelectedIndex(index - indexOffset);
 
                         if (SelectionChangedAction != null)
-                            SelectionChangedAction(index);
+                            SelectionChangedAction(index - indexOffset);
 
                         UpdateContentLayout();
                     }
@@ -1454,17 +1457,17 @@ namespace Stompbox
 
         public void SetSelectedIndex(int index)
         {
-            selectedIndex = index;
+            selectedIndex = index + indexOffset;
 
-            if ((index < 0) || (index >= menuItems.Count))
+            if ((selectedIndex < indexOffset) || (selectedIndex >= menuItems.Count))
             {
                 button.Text = "---";
             }
             else
             {
-                if (menuItems.Count > index)
+                if (menuItems.Count > selectedIndex)
                 {
-                    button.Text = menuItems[index].Text;
+                    button.Text = menuItems[selectedIndex].Text;
                 }
             }
         }

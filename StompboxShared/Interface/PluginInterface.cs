@@ -434,8 +434,6 @@ namespace Stompbox
         {
             bool showOpenFolder = !StompboxClient.Instance.InClientMode;
 
-            int offset = (showOpenFolder ? 1 : 0);
-
             FileInterface fileInterface = new FileInterface(showOpenFolder ? parameter.FilePath : null, parameter.EnumValues, foregroundColor)
             {
                 HorizontalAlignment = EHorizontalAlignment.Stretch,
@@ -445,12 +443,12 @@ namespace Stompbox
 
             fileInterface.SelectionChangedAction = delegate (int index)
             {
-                parameter.Value = index - offset;
+                parameter.Value = index;
 
                 UpdateContentLayout();
             };
 
-            fileInterface.SetSelectedIndex((int)parameter.Value + offset);
+            fileInterface.SetSelectedIndex((int)parameter.Value);
 
             parameter.SetValue = delegate (double val)
             {
@@ -1296,7 +1294,7 @@ namespace Stompbox
 
             if ((index < 0) || (index >= menuItems.Count))
             {
-                button.Text = "---";
+                button.Text = NoSelectionText;
             }
             else
             {
@@ -1352,7 +1350,7 @@ namespace Stompbox
 
             SetEnumValues(filePath, enumValues);
 
-            button = new TextButton("---")
+            button = new TextButton(NoSelectionText)
             {
                 TextColor = textColor,
                 HorizontalAlignment = EHorizontalAlignment.Stretch,

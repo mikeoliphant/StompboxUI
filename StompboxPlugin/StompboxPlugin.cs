@@ -22,8 +22,8 @@ namespace Stompbox
 		public StompboxClient StompboxClient { get; private set; }
         public MonoGameHost GameHost { get; private set; } = null;
 
-        AudioIOPort monoInput;
-		AudioIOPort monoOutput;
+        DoubleAudioIOPort monoInput;
+        DoubleAudioIOPort monoOutput;
 		IntPtr bitConvertBuffer = IntPtr.Zero;
 		uint bitConvertBufferSize = 0;
 
@@ -52,8 +52,8 @@ namespace Stompbox
 
 			Debug("Initialize");
 
-			InputPorts = new AudioIOPort[] { monoInput = new AudioIOPort("Mono Input", EAudioChannelConfiguration.Mono) };
-			OutputPorts = new AudioIOPort[] { monoOutput = new AudioIOPort("Mono Output", EAudioChannelConfiguration.Mono) };
+			InputPorts = new AudioIOPort[] { monoInput = new DoubleAudioIOPort("Mono Input", EAudioChannelConfiguration.Mono) };
+			OutputPorts = new AudioIOPort[] { monoOutput = new DoubleAudioIOPort("Mono Output", EAudioChannelConfiguration.Mono) };
 
 			//if (StompboxGame.DAWMode)
 			//{

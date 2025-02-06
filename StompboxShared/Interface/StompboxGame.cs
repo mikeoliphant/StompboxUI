@@ -28,7 +28,7 @@ namespace Stompbox
             Scale = BaseScale;
         }
 
-        public override void SetHost(Game host)
+        public override void SetHost(MonoGameHost host)
         {
             base.SetHost(host);
 

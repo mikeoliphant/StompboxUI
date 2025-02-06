@@ -375,6 +375,7 @@ Global
 		SolutionGuid = {EF2611F5-42D2-4640-8E89-5B8C42826653}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Dependencies\UILayout\UILayout.CrossPlatform\UILayout.CrossPlatform.projitems*{05648042-001b-477c-a7af-aa38d8b0106c}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{05648042-001b-477c-a7af-aa38d8b0106c}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{05648042-001b-477c-a7af-aa38d8b0106c}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{1ff3b5c3-44e2-464a-a15f-55ad4b41cea0}*SharedItemsImports = 5
@@ -390,6 +391,7 @@ Global
 		StompboxShared\StompboxShared.projitems*{96f4600b-d3da-4ac3-89ed-67ce6f9c9578}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{a0cdbd0e-3a41-42b7-9425-a838bc2c7383}*SharedItemsImports = 13
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{d13a3cb1-9948-4942-bddc-6a5153c9fed9}*SharedItemsImports = 5
+		Dependencies\UILayout\UILayout.WindowsNative\UILayout.WindowsNative.projitems*{d13a3cb1-9948-4942-bddc-6a5153c9fed9}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{d13a3cb1-9948-4942-bddc-6a5153c9fed9}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{d7307594-237f-43da-bd6b-d0bc2bd9b276}*SharedItemsImports = 13
 	EndGlobalSection

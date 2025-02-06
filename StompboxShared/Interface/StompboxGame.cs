@@ -108,30 +108,17 @@ namespace Stompbox
         {
             if (!connected)
             {
-                Task.Run(GetServerName);
+                Layout.Current.ShowTextInputPopup("Enter server:", "raspberrypi", delegate (string serverName)
+                {
+                    try
+                    {
+                        StompboxClient.Instance.Connect(serverName, 24639, ConnectCallback);
+                    }
+                    catch { }
+                });
             }
             else
                 clientConnected = true;
-        }
-
-        async Task GetServerName()
-        {
-            try
-            {
-                // Wait to make sure UI is active
-                Thread.Sleep(1000);
-
-                string serverName = await Layout.Current.GetKeyboardInputAsync("Enter server:", "raspberrypi");
-
-                //PixSaveState.SetString("ServerName", serverName);
-                //PixSaveState.Save();
-
-                StompboxClient.Instance.Connect(serverName, 24639, ConnectCallback);
-            }
-            catch (Exception ex)
-            {
-
-            }
         }
 
         public override void Update(float secondsElapsed)

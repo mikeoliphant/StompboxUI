@@ -186,23 +186,6 @@ namespace Stompbox
             StompboxClient.Instance.SendCommand("MidiLock" + (midiToggleButton.IsPressed ? "On" : "Off"));
         }
 
-        void DoSavePresetAs()
-        {
-            Task.Run(GetPresetName);
-        }
-
-        async Task GetPresetName()
-        {
-            string presetName = await Layout.Current.GetKeyboardInputAsync("Preset Name", "New Preset Name");
-
-            if (!string.IsNullOrEmpty(presetName))
-            {
-                StompboxClient.Instance.SendCommand("SavePreset " + presetName);
-                StompboxClient.Instance.SendCommand("List Presets");
-                StompboxClient.Instance.UpdateProgram();
-            }
-        }
-
         public void UpdateUI()
         {
             StompboxGame.Instance.Scale = (Layout.Current as MonoGameLayout).UnscaledBounds.Height / 1600.0f;

@@ -1,12 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using UILayout;
 
 namespace Stompbox
 {
     public class InterfaceBase : Dock
     {
+        protected void DoSavePresetAs()
+        {
+            Layout.Current.ShowTextInputPopup("File Name:", null, delegate (string presetName)
+            {
+                if (!string.IsNullOrEmpty(presetName))
+                {
+                    StompboxClient.Instance.SendCommand("SavePreset " + presetName);
+                    StompboxClient.Instance.SendCommand("List Presets");
+                    StompboxClient.Instance.UpdateProgram();
+                }
+            });
+        }
     }
 
     public class ExtraOptionsButton : ImageButton

@@ -99,8 +99,6 @@ namespace Stompbox
 
             string serverName = "raspberrypi";
 
-            //PixSaveState.TryGetString("ServerName", ref serverName);
-
             StompboxClient.Instance.Connect(serverName, 24639, ConnectCallback);
         }
 

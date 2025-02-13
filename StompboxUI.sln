@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StompboxAPITest", "Stompbox
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StompboxAPI", "StompboxAPI\StompboxAPI.csproj", "{FA850CE0-FF06-4D05-B582-CA4F4613E416}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "StompboxAPIBase", "StompboxAPIBase\StompboxAPIBase.shproj", "{EF794465-7976-4AD3-B2CC-DEA7A85A80AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -472,5 +474,7 @@ Global
 		Dependencies\UILayout\UILayout.WindowsNative\UILayout.WindowsNative.projitems*{d13a3cb1-9948-4942-bddc-6a5153c9fed9}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{d13a3cb1-9948-4942-bddc-6a5153c9fed9}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{d7307594-237f-43da-bd6b-d0bc2bd9b276}*SharedItemsImports = 13
+		StompboxAPIBase\StompboxAPIBase.projitems*{ef794465-7976-4ad3-b2cc-dea7a85a80ae}*SharedItemsImports = 13
+		StompboxAPIBase\StompboxAPIBase.projitems*{fa850ce0-ff06-4d05-b582-ca4f4613e416}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

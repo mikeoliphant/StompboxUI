@@ -50,7 +50,6 @@ namespace UnmanagedPlugins
 			return gcnew System::String(component->Description.c_str());
 		}
 
-
 		bool GetEnabled()
 		{
 			return component->Enabled;

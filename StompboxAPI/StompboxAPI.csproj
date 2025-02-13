@@ -12,4 +12,6 @@
     </None>
   </ItemGroup>
 
+  <Import Project="..\StompboxAPIBase\StompboxAPIBase.projitems" Label="Shared" />
+
 </Project>

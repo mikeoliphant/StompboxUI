@@ -10,11 +10,30 @@ namespace StompboxAPI
     {
         IntPtr nativeProcessor;
 
-        public string DataPath { get { return NativeAPI.GetDataPath(nativeProcessor); } }
+        public string DataPath { get { return NativeApi.GetDataPath(nativeProcessor); } }
 
         public StompboxProcessor(string dataPath, bool dawMode)
         {
-            nativeProcessor = NativeAPI.CreateProcessor(dataPath, dawMode);
+            nativeProcessor = NativeApi.CreateProcessor(dataPath, dawMode);
+        }
+
+        public UnmanagedAudioPlugin CreatePlugin(string id)
+        {
+            IntPtr nativePlugin = NativeApi.CreatePlugin(nativeProcessor, id);
+
+            if (nativePlugin == IntPtr.Zero)
+                return null;
+
+            UnmanagedAudioPlugin newPlugin = new UnmanagedAudioPlugin();
+
+            newPlugin.SetNativePlugin(nativePlugin);
+
+            return newPlugin;
+        }
+
+        public List<string> GetAllPlugins()
+        {
+            return NativeApi.GetListFromStringVector(NativeApi.GetAllPlugins(nativeProcessor));
         }
     }
 }

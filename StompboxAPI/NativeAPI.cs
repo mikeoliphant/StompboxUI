@@ -24,10 +24,13 @@ namespace StompboxAPI
         public static extern void DeleteProcessor(IntPtr processor);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern void Init(IntPtr processor, double sampleRate);
+        public static extern void InitProcessor(IntPtr processor, double sampleRate);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern void StartServer(IntPtr processor);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
+        public static unsafe extern void Process(IntPtr processor, double* input, double* output, uint bufferSize);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         [return: MarshalAs(UnmanagedType.LPWStr)]
@@ -35,6 +38,12 @@ namespace StompboxAPI
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern IntPtr GetAllPlugins(IntPtr processor);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern IntPtr GetPluginSlot(IntPtr processor, [MarshalAs(UnmanagedType.LPWStr)] string slotName);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern IntPtr GetChainPlugins(IntPtr processor, [MarshalAs(UnmanagedType.LPStr)] string chainName);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern IntPtr CreatePlugin(IntPtr processor, [MarshalAs(UnmanagedType.LPStr)] string id);

@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AudioPlugin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)StompboxClient.cs" />
   </ItemGroup>
 </Project>

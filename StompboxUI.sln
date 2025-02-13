@@ -46,6 +46,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StompboxAPI", "StompboxAPI\
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "StompboxAPIBase", "StompboxAPIBase\StompboxAPIBase.shproj", "{EF794465-7976-4AD3-B2CC-DEA7A85A80AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StompboxRemoteClient", "StompboxRemoteClient\StompboxRemoteClient.csproj", "{5B8B23B6-09DC-4FC6-90FC-033D1145374E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -447,6 +449,30 @@ Global
 		{FA850CE0-FF06-4D05-B582-CA4F4613E416}.RelWithDebInfo|x64.Build.0 = Debug|Any CPU
 		{FA850CE0-FF06-4D05-B582-CA4F4613E416}.RelWithDebInfo|x86.ActiveCfg = Debug|Any CPU
 		{FA850CE0-FF06-4D05-B582-CA4F4613E416}.RelWithDebInfo|x86.Build.0 = Debug|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.Debug|x64.Build.0 = Debug|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.Debug|x86.Build.0 = Debug|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.MinSizeRel|Any CPU.ActiveCfg = Release|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.MinSizeRel|Any CPU.Build.0 = Release|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.MinSizeRel|x64.ActiveCfg = Release|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.MinSizeRel|x64.Build.0 = Release|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.MinSizeRel|x86.ActiveCfg = Release|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.MinSizeRel|x86.Build.0 = Release|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.Release|x64.ActiveCfg = Release|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.Release|x64.Build.0 = Release|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.Release|x86.ActiveCfg = Release|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.Release|x86.Build.0 = Release|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.RelWithDebInfo|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.RelWithDebInfo|Any CPU.Build.0 = Debug|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.RelWithDebInfo|x64.ActiveCfg = Debug|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.RelWithDebInfo|x64.Build.0 = Debug|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.RelWithDebInfo|x86.ActiveCfg = Debug|Any CPU
+		{5B8B23B6-09DC-4FC6-90FC-033D1145374E}.RelWithDebInfo|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -463,6 +489,7 @@ Global
 		StompboxShared\StompboxShared.projitems*{1ff3b5c3-44e2-464a-a15f-55ad4b41cea0}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{428f3d8a-d221-4f75-b1d6-f409b91fb7df}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{49305251-662e-459a-9adf-9866ceb6c4d2}*SharedItemsImports = 5
+		StompboxAPIBase\StompboxAPIBase.projitems*{5b8b23b6-09dc-4fc6-90fc-033d1145374e}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{7da2b397-a39f-4e5b-96ed-f206329982c9}*SharedItemsImports = 13
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{8f0c191b-da0c-4af6-9e0b-c325d48a1a42}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{8f0c191b-da0c-4af6-9e0b-c325d48a1a42}*SharedItemsImports = 5

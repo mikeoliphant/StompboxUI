@@ -33,7 +33,7 @@ namespace StompboxAPI
     {
         internal IntPtr nativePlugin;
 
-        public bool Enabled
+        public override bool Enabled
         {
             get { return NativeApi.GetPluginEnabled(nativePlugin); }
             set { NativeApi.SetPluginEnabled(nativePlugin, value); }

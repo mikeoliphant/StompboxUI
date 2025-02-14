@@ -104,7 +104,7 @@ namespace StompboxAPI
 
                 if ((paramType == EParameterType.Enum) || (paramType == EParameterType.File))
                 {
-                    //enumValues = NativeApi.GetParameterEnumValues(handle);
+                    enumValues = NativeApi.GetListFromStringVector(NativeApi.GetParameterEnumValues(nativeParameter)).ToArray();
                 }
 
                 int[] intValues = null;

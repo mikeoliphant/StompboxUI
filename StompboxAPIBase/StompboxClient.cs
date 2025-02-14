@@ -148,6 +148,10 @@ namespace Stompbox
             return null;
         }
 
+        public virtual void SendCommand(string command)
+        {
+        }
+
         public void Debug(string debugStr)
         {
             if (DebugAction != null)
@@ -219,6 +223,24 @@ namespace Stompbox
         }
 
         protected virtual IAudioPlugin CreateSlotPlugin(string slotName, string defaultPlugin)
+        {
+            string pluginID = GetSlotPlugin(slotName);
+
+            if (pluginID == null)
+            {
+                pluginID = defaultPlugin;
+
+            }
+
+            return PluginFactory.CreatePlugin(pluginID);
+        }
+
+        protected virtual void SetSlotPlugin(string slotName, string pluginID)
+        {
+
+        }
+
+        protected virtual string GetSlotPlugin(string slotName)
         {
             return null;
         }

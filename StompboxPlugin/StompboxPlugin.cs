@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
-using System.Runtime;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using AudioPlugSharp;
-using SharpDX.Direct2D1.Effects;
 using UILayout;
-using UnmanagedPlugins;
 
 namespace Stompbox
 {
@@ -19,7 +11,7 @@ namespace Stompbox
 	{
 		public int CurrentProgram { get; private set; }
 
-		public StompboxClient StompboxClient { get; private set; }
+		public StompboxAPI.APIClient StompboxClient { get; private set; }
         public MonoGameHost GameHost { get; private set; } = null;
 
         DoubleAudioIOPort monoInput;
@@ -59,12 +51,12 @@ namespace Stompbox
 			//{
                 EditorWidth = 1000;
                 EditorHeight = 540;
-   //         }
-			//else
-			//{
-   //             EditorWidth = 378;
-   //             EditorHeight = 672;
-   //         }
+            //         }
+            //else
+            //{
+            //             EditorWidth = 378;
+            //             EditorHeight = 672;
+            //         }
 
 
             //SampleFormatsSupported = EAudioBitsPerSample.Bits64;
@@ -77,9 +69,9 @@ namespace Stompbox
 
             //GCSettings.LatencyMode = GCLatencyMode.LowLatency;// GCLatencyMode.Batch; // SustainedLowLatency;
 
-            StompboxClient.DebugAction = Debug;
+            StompboxAPI.APIClient.DebugAction = Debug;
 
-			StompboxClient = new StompboxClient(inClientMode: false);
+			StompboxClient = new StompboxAPI.APIClient();
 
 			StompboxClient.MidiCallback = SendMidiCommand;
 		}
@@ -150,7 +142,7 @@ namespace Stompbox
 
                     GameHost.StartGame(game);
 
-					StompboxClient.Instance.NeedUIReload = true;
+                    StompboxClient.NeedUIReload = true;
 				}
 
 				game = null;
@@ -212,7 +204,7 @@ namespace Stompbox
 
 			try
 			{
-				data = System.Text.Encoding.ASCII.GetBytes(StompboxClient.GetProgramState());
+				data = null; // System.Text.Encoding.ASCII.GetBytes(StompboxClient.GetProgramState());
 			}
 			catch (Exception ex)
 			{

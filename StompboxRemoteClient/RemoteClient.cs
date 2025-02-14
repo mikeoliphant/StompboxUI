@@ -152,7 +152,7 @@ namespace StompboxAPI
             }
         }
 
-        public void SendCommand(string command)
+        public override void SendCommand(string command)
         {
             Debug("Send command: " + command);
 
@@ -177,27 +177,25 @@ namespace StompboxAPI
             }
         }
 
-        public void SetSlotPlugin(string slotName, string pluginID)
+        protected override void SetSlotPlugin(string slotName, string pluginID)
         {
             slotPlugins[slotName] = pluginID;
+
+            string cmd = "SetPluginSlot " + slotName + " " + pluginID;
+
+            StompboxClient.Instance.SendCommand(cmd);
         }
 
-        protected override IAudioPlugin CreateSlotPlugin(string slotName, string defaultPlugin)
+        protected override string GetSlotPlugin(string slotName)
         {
-            string pluginID = null;
+            string pluginID;
 
-            slotPlugins.TryGetValue(slotName, out pluginID);
-
-            if (pluginID == null)
+            if (slotPlugins.TryGetValue(slotName, out pluginID))
             {
-                pluginID = defaultPlugin;
-
-                string cmd = "SetPluginSlot " + slotName + " " + pluginID;
-
-                SendCommand(cmd);
+                return pluginID;
             }
 
-            return PluginFactory.CreatePlugin(pluginID);
+            return null;
         }
     }
 }

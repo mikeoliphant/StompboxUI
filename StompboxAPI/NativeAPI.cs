@@ -15,7 +15,7 @@ namespace StompboxAPI
         public static extern uint GetStringVectorSize(IntPtr strVec);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern IntPtr GetStringVectorValue(IntPtr strVec, int index);
+        public static extern IntPtr GetStringVectorValue(IntPtr strVec, uint index);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern IntPtr CreateProcessor([MarshalAs(UnmanagedType.LPWStr)] string dataPath, bool dawMode);
@@ -36,6 +36,12 @@ namespace StompboxAPI
         public static extern bool IsPresetLoading(IntPtr processor);
 
         [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern void HandleCommand(IntPtr processor, [MarshalAs(UnmanagedType.LPWStr)] string cmd);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern bool HandleMidiCommand(IntPtr processor, int midiCommand, int midiData1, int midiData2);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
         [return: MarshalAs(UnmanagedType.LPWStr)]
         public static extern string GetDataPath(IntPtr processor);
 
@@ -44,6 +50,15 @@ namespace StompboxAPI
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern IntPtr GetPluginSlot(IntPtr processor, [MarshalAs(UnmanagedType.LPWStr)] string slotName);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern void SetPluginSlot(IntPtr processor, [MarshalAs(UnmanagedType.LPWStr)] string slotName, [MarshalAs(UnmanagedType.LPWStr)] string pluginID);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern uint GetPluginVectorSize(IntPtr plugVec);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern IntPtr GetPluginVectorValue(IntPtr plugVec, uint index);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern IntPtr GetChainPlugins(IntPtr processor, [MarshalAs(UnmanagedType.LPStr)] string chainName);
@@ -112,6 +127,9 @@ namespace StompboxAPI
         public static extern int GetParameterType(IntPtr parameter);
 
         [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern IntPtr GetParameterEnumValues(IntPtr parameter);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
         public static extern bool GetParameterCanSyncToHostBPM(IntPtr parameter);
 
         [DllImport(STOMPBOX_LIB_NAME)]
@@ -139,9 +157,14 @@ namespace StompboxAPI
 
         public static List<string> GetListFromStringVector(IntPtr strVec)
         {
+            if (strVec == IntPtr.Zero)
+                return null;
+
             List<string> list = new();
 
-            for (int i = 0; i < NativeApi.GetStringVectorSize(strVec); i++)
+            uint size = NativeApi.GetStringVectorSize(strVec);
+
+            for (uint i = 0; i < size; i++)
             {
                 list.Add(Marshal.PtrToStringAnsi(NativeApi.GetStringVectorValue(strVec, i)));
             }

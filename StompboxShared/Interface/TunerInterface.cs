@@ -343,10 +343,10 @@ namespace Stompbox
         {
             base.DrawContents();
 
-            if (Plugin.Enabled && !Plugin.StompboxClient.InClientMode)
-            {
-                UpdateTuner(Plugin.OutputValue);
-            }
+            //if (Plugin.Enabled && !Plugin.StompboxClient.InClientMode)
+            //{
+            //    UpdateTuner(Plugin.OutputValue);
+            //}
         }
 
         //public override void Update(float secondsElapsed)

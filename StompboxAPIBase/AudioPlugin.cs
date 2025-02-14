@@ -14,6 +14,82 @@ namespace Stompbox
         File
     };
 
+    public class BPMSync
+    {
+        public static List<BPMSync> Timings;
+
+        public string Name { get; set; }
+        public int Numerator { get; set; }
+        public int Denomenator { get; set; }
+
+        static BPMSync()
+        {
+            Timings = new List<BPMSync>
+            {
+                new BPMSync
+                {
+                    Name = "Custom",
+                    Numerator = 0,
+                    Denomenator = 0
+                },
+                new BPMSync
+                {
+                    Name = "Half Note",
+                    Numerator = 2,
+                    Denomenator = 1
+                },
+                new BPMSync
+                {
+                    Name = "Dotted 1/4 Note",
+                    Numerator = 3,
+                    Denomenator = 2
+                },
+                new BPMSync
+                {
+                    Name = "1/4 Note",
+                    Numerator = 1,
+                    Denomenator = 1
+                },
+                new BPMSync
+                {
+                    Name = "Dotted 1/8th",
+                    Numerator = 3,
+                    Denomenator = 4
+                },
+                new BPMSync
+                {
+                    Name = "Triplet of Half",
+                    Numerator = 2,
+                    Denomenator = 3
+                },
+                new BPMSync
+                {
+                    Name = "1/8th Note",
+                    Numerator = 1,
+                    Denomenator = 2
+                },
+                new BPMSync
+                {
+                    Name = "Dotted 1/16th",
+                    Numerator = 3,
+                    Denomenator = 8
+                },
+                new BPMSync
+                {
+                    Name = "Triplet of Quarter",
+                    Numerator = 1,
+                    Denomenator = 3
+                },
+                new BPMSync
+                {
+                    Name = "16th Note",
+                    Numerator = 1,
+                    Denomenator = 4
+                }
+            };
+        }
+    }
+
     public class PluginParameter
     {
         public IAudioPlugin Plugin { get; set; }

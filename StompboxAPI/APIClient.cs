@@ -97,6 +97,11 @@ namespace StompboxAPI
             return processor.CreatePlugin(pluginID);
         }
 
+        public override void SendCommand(string command)
+        {
+            processor.HandleCommand(command);
+        }
+
         public override void UpdateUI()
         {
             LoadChainEffects(InputPlugins, processor.GetInputChainPlugins());
@@ -106,21 +111,23 @@ namespace StompboxAPI
             base.UpdateUI();
         }
 
-        void LoadChainEffects(List<IAudioPlugin> chain, IEnumerable<String> plugins)
+        void LoadChainEffects(List<IAudioPlugin> chain, IEnumerable<UnmanagedAudioPlugin> plugins)
         {
             chain.Clear();
 
-            foreach (string pluginName in plugins)
-            {
-                chain.Add(PluginFactory.CreatePlugin(pluginName));
-            }
+            chain.AddRange(plugins);
+
+            // FIXME: notify pluginfactory?
         }
 
-        protected override IAudioPlugin CreateSlotPlugin(string slotName, string defaultPlugin)
+        protected override string GetSlotPlugin(string slotName)
         {
-            string pluginID = processor.GetPluginSlot(slotName);
+            return processor.GetPluginSlot(slotName);
+        }
 
-           return PluginFactory.CreatePlugin(pluginID);
+        protected override void SetSlotPlugin(string slotName, string pluginID)
+        {
+            processor.SetPluginSlot(slotName, pluginID);
         }
 
         public override void Init(double sampleRate)

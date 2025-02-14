@@ -229,8 +229,9 @@ namespace Stompbox
             if (pluginID == null)
             {
                 pluginID = defaultPlugin;
-
             }
+
+            SetSlotPlugin(slotName, pluginID);
 
             return PluginFactory.CreatePlugin(pluginID);
         }

@@ -22,7 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interface\PluginInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\StompboxGame.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\TunerInterface.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)NetworkInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NoteUtil.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SysExMapper.cs" />
   </ItemGroup>

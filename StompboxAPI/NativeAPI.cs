@@ -33,12 +33,14 @@ namespace StompboxAPI
         public static unsafe extern void Process(IntPtr processor, double* input, double* output, uint bufferSize);
 
         [DllImport(STOMPBOX_LIB_NAME)]
+        [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool IsPresetLoading(IntPtr processor);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern void HandleCommand(IntPtr processor, [MarshalAs(UnmanagedType.LPWStr)] string cmd);
+        public static extern void HandleCommand(IntPtr processor, [MarshalAs(UnmanagedType.LPStr)] string cmd);
 
         [DllImport(STOMPBOX_LIB_NAME)]
+        [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool HandleMidiCommand(IntPtr processor, int midiCommand, int midiData1, int midiData2);
 
         [DllImport(STOMPBOX_LIB_NAME)]
@@ -49,10 +51,10 @@ namespace StompboxAPI
         public static extern IntPtr GetAllPlugins(IntPtr processor);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern IntPtr GetPluginSlot(IntPtr processor, [MarshalAs(UnmanagedType.LPWStr)] string slotName);
+        public static extern IntPtr GetPluginSlot(IntPtr processor, [MarshalAs(UnmanagedType.LPStr)] string slotName);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern void SetPluginSlot(IntPtr processor, [MarshalAs(UnmanagedType.LPWStr)] string slotName, [MarshalAs(UnmanagedType.LPWStr)] string pluginID);
+        public static extern void SetPluginSlot(IntPtr processor, [MarshalAs(UnmanagedType.LPStr)] string slotName, [MarshalAs(UnmanagedType.LPStr)] string pluginID);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern uint GetPluginVectorSize(IntPtr plugVec);
@@ -65,6 +67,15 @@ namespace StompboxAPI
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern IntPtr CreatePlugin(IntPtr processor, [MarshalAs(UnmanagedType.LPStr)] string id);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern IntPtr GetPresets(IntPtr processor);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern IntPtr GetCurrentPreset(IntPtr processor);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern void LoadPreset(IntPtr processor, [MarshalAs(UnmanagedType.LPStr)] string presetName);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern IntPtr GetPluginName(IntPtr plugin);
@@ -82,6 +93,7 @@ namespace StompboxAPI
         public static extern IntPtr GetPluginForegroundColor(IntPtr plugin);
 
         [DllImport(STOMPBOX_LIB_NAME)]
+        [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool GetPluginIsUserSelectable(IntPtr plugin);
 
         [DllImport(STOMPBOX_LIB_NAME)]
@@ -130,6 +142,7 @@ namespace StompboxAPI
         public static extern IntPtr GetParameterEnumValues(IntPtr parameter);
 
         [DllImport(STOMPBOX_LIB_NAME)]
+        [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool GetParameterCanSyncToHostBPM(IntPtr parameter);
 
         [DllImport(STOMPBOX_LIB_NAME)]
@@ -145,6 +158,7 @@ namespace StompboxAPI
         public static extern void SetParameterBPMSyncDenominator(IntPtr parameter, int denom);
 
         [DllImport(STOMPBOX_LIB_NAME)]
+        [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool GetParameterIsAdvanced(IntPtr parameter);
 
         [DllImport(STOMPBOX_LIB_NAME)]

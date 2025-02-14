@@ -25,10 +25,7 @@ namespace StompboxAPI
 
         }
 
-        public bool IsPresetLoading()
-        {
-            return NativeApi.IsPresetLoading(nativeProcessor);
-        }
+        public bool IsPresetLoading { get { return NativeApi.IsPresetLoading(nativeProcessor); } }
 
         public void StartServer()
         {
@@ -73,6 +70,26 @@ namespace StompboxAPI
         public List<UnmanagedAudioPlugin> GetOutputChainPlugins()
         {
             return GetChainPlugins(NativeApi.GetChainPlugins(nativeProcessor, "OutputChain"));
+        }
+
+        public List<string> GetPresets()
+        {
+            return NativeApi.GetListFromStringVector(NativeApi.GetPresets(nativeProcessor));
+        }
+
+        public string GetCurrentPreset()
+        {
+            IntPtr preset = NativeApi.GetCurrentPreset(nativeProcessor);
+
+            if (preset == IntPtr.Zero)
+                return null;
+
+            return Marshal.PtrToStringAnsi(preset);
+        }
+
+        public void LoadPreset(string presetName)
+        {
+            NativeApi.LoadPreset(nativeProcessor, presetName);
         }
 
         public unsafe void Process(double* input, double* output, uint bufferSize)

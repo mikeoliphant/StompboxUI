@@ -237,7 +237,7 @@ namespace Stompbox
                 pitchHistory.TryDequeue(out val);
             }
 
-            if (newPitch > 0)
+            if (newPitch > 20)
             {
                 double diff = double.MaxValue;
 
@@ -343,26 +343,17 @@ namespace Stompbox
         {
             base.DrawContents();
 
-            //if (Plugin.Enabled && !Plugin.StompboxClient.InClientMode)
-            //{
-            //    UpdateTuner(Plugin.OutputValue);
-            //}
+            if (Plugin.Enabled)
+            {
+                UpdateTuner(Plugin.OutputValue);
+            }
         }
-
-        //public override void Update(float secondsElapsed)
-        //{
-        //    base.Update(secondsElapsed);
-
-        //    if (Plugin.Enabled && !Plugin.StompboxClient.InClientMode)
-        //    {
-        //        UpdateTuner(Plugin.OutputValue);
-        //    }
-        //}
 
         public override void Close()
         {
             Plugin.Enabled = false;
-            StompboxClient.Instance.SendCommand("SetParam " + Plugin.ID + " Enabled " + (Plugin.Enabled ? "1" : "0"));
+
+            //StompboxClient.Instance.SendCommand("SetParam " + Plugin.ID + " Enabled " + (Plugin.Enabled ? "1" : "0"));
 
             base.Close();
         }

@@ -30,7 +30,7 @@ namespace StompboxAPI
             {
                 base.CurrentPresetIndex = value;
 
-                if (!SuppressCommandUpdates)
+                if ((CurrentPresetIndex >= 0) && !SuppressCommandUpdates)
                 {
                     SendCommand("LoadPreset " + PresetNames[base.CurrentPresetIndex]);
                 }

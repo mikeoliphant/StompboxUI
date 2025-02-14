@@ -13,7 +13,7 @@ namespace StompboxAPI
         {
             get
             {
-                if (needPresetLoad && !processor.IsPresetLoading())
+                if (needPresetLoad && !processor.IsPresetLoading)
                 {
                     UpdateProgram();
 
@@ -36,7 +36,12 @@ namespace StompboxAPI
             {
                 base.CurrentPresetIndex = value;
 
-                needPresetLoad = true;
+                if (CurrentPresetIndex >= 0)
+                {
+                    processor.LoadPreset(PresetNames[base.CurrentPresetIndex]);
+
+                    needPresetLoad = true;
+                }
             }
         }
 
@@ -68,11 +73,9 @@ namespace StompboxAPI
 
             base.UpdatePresets();
 
-            //SetPresetNames(new List<String>(processorWrapper.GetPresets().Trim().Split(' ')));
+            SetPresetNames(processor.GetPresets());
 
-            //SuppressCommandUpdates = true;
-            //SetSelectedPreset(processorWrapper.GetCurrentPreset());
-            //SuppressCommandUpdates = false;
+            SetSelectedPreset(processor.GetCurrentPreset());
         }
 
         public override void UpdateProgram()

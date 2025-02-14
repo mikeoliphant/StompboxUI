@@ -137,7 +137,7 @@ jobs:
       run: |
         mkdir linux-arm64-build
         move StompboxRemoteGL\bin\Release\net8.0\linux-arm64\publish linux-arm64-build\StompboxRemote
-        Compress-Archive -Path linux-x64-build\* -Destination StompboxRemoteLinux-Arm64.zip
+        Compress-Archive -Path linux-arm64-build\* -Destination StompboxRemoteLinux-Arm64.zip
 
     - name: Upload Linux-arm64 Asset
       uses: actions/upload-release-asset@v1

@@ -16,18 +16,18 @@ namespace StompboxAPI
 
                 base.Value = value;
 
-                //if (Plugin.StompboxClient.InClientMode && !Plugin.StompboxClient.SuppressCommandUpdates)
-                //{
-                //    if (CanSyncToHostBPM && (HostBPMSyncNumerator != 0) && (HostBPMSyncDenominator != 0))
-                //    {
-                //        Plugin.StompboxClient.SendCommand("SetParam " + Plugin.ID + " " + Name + " " + HostBPMSyncNumerator + "/" + HostBPMSyncDenominator);
-                //    }
-                //    else
-                //    {
-                //        Plugin.StompboxClient.SendCommand("SetParam " + Plugin.ID + " " + Name + " " +
-                //            (((ParameterType == EParameterType.Enum) || (ParameterType == EParameterType.File)) ? ((EnumValues.Length > 0) ? EnumValues[(int)Value] : "") : Value.ToString()));
-                //    }
-                //}
+                if (!RemoteClient.Instance.SuppressCommandUpdates)
+                {
+                    if (CanSyncToHostBPM && (HostBPMSyncNumerator != 0) && (HostBPMSyncDenominator != 0))
+                    {
+                        RemoteClient.Instance.SendCommand("SetParam " + Plugin.ID + " " + Name + " " + HostBPMSyncNumerator + "/" + HostBPMSyncDenominator);
+                    }
+                    else
+                    {
+                        RemoteClient.Instance.SendCommand("SetParam " + Plugin.ID + " " + Name + " " +
+                            (((ParameterType == EParameterType.Enum) || (ParameterType == EParameterType.File)) ? ((EnumValues.Length > 0) ? EnumValues[(int)Value] : "") : Value.ToString()));
+                    }
+                }
             }
         }
     }
@@ -42,10 +42,10 @@ namespace StompboxAPI
             {
                 base.Enabled = value;
 
-                //if (StompboxClient.InClientMode && !StompboxClient.SuppressCommandUpdates)
-                //{
-                //    StompboxClient.SendCommand("SetParam " + ID + " Enabled " + (enabled ? "1" : "0"));
-                //}
+                if (!RemoteClient.Instance.SuppressCommandUpdates)
+                {
+                    RemoteClient.Instance.SendCommand("SetParam " + ID + " Enabled " + (enabled ? "1" : "0"));
+                }
             }
         }
     }

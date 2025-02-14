@@ -7,6 +7,8 @@ namespace StompboxAPI
 {
     public class RemoteClient : StompboxClient
     {
+        public static new RemoteClient Instance { get { return StompboxClient.Instance as RemoteClient;  } }
+
         public bool SuppressCommandUpdates { get; set; }
 
         Dictionary<string, string> slotPlugins = new Dictionary<string, string>();
@@ -14,7 +16,7 @@ namespace StompboxAPI
         NetworkClient networkClient;
         ProtocolClient protocolClient;
 
-        public bool Connected
+        public override bool Connected
         {
             get
             {
@@ -54,7 +56,7 @@ namespace StompboxAPI
 
         Action<bool> connectCallback;
 
-        public void Connect(string serverName, int port, Action<bool> connectCallback)
+        public override void Connect(string serverName, int port, Action<bool> connectCallback)
         {
             if (InClientMode)
             {
@@ -99,6 +101,13 @@ namespace StompboxAPI
             base.UpdatePresets();
 
             SendCommand("List Presets");
+        }
+
+        public override void UpdateProgram()
+        {
+            base.UpdateProgram();
+
+            SendCommand("Dump Program");
         }
 
         public void RequestConfigDump()

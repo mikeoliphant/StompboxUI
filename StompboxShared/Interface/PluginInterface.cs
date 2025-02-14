@@ -1043,9 +1043,6 @@ namespace Stompbox
             HorizontalAlignment = EHorizontalAlignment.Left;
 
             MinWidth = 0;
-
-            if (StompboxClient.Instance.InClientMode)
-                plugin.SetOutputValue = UpdateOutputValue;
         }
 
         protected override void AddControls(Dock dock)
@@ -1070,17 +1067,11 @@ namespace Stompbox
             stack.Children.Add(levelDisplay);
         }
 
-        public void UpdateOutputValue(double value)
-        {
-            levelDisplay.SetValue(value);
-        }
-
         protected override void DrawContents()
         {
-            base.DrawContents();
+            levelDisplay.SetValue(Plugin.OutputValue);
 
-            //if (!Plugin.StompboxClient.InClientMode)
-            //    levelDisplay.SetValue(Plugin.OutputValue);
+            base.DrawContents();
         }
     }
 

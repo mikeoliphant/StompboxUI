@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Threading;
-using Microsoft.Xna.Framework;
 using UILayout;
+using StompboxAPI;
 
 namespace Stompbox
 {
@@ -93,43 +91,43 @@ namespace Stompbox
             }
         }
 
-        //public void Connect()
-        //{
-        //    clientConnected = false;
+        public void Connect()
+        {
+            clientConnected = false;
 
-        //    string serverName = "raspberrypi";
+            string serverName = "raspberrypi";
 
-        //    StompboxClient.Instance.Connect(serverName, 24639, ConnectCallback);
-        //}
+            StompboxClient.Instance.Connect(serverName, 24639, ConnectCallback);
+        }
 
-        //void ConnectCallback(bool connected)
-        //{
-        //    if (!connected)
-        //    {
-        //        Layout.Current.ShowTextInputPopup("Enter server:", "raspberrypi", delegate (string serverName)
-        //        {
-        //            try
-        //            {
-        //                StompboxClient.Instance.Connect(serverName, 24639, ConnectCallback);
-        //            }
-        //            catch { }
-        //        });
-        //    }
-        //    else
-        //        clientConnected = true;
-        //}
+        void ConnectCallback(bool connected)
+        {
+            if (!connected)
+            {
+                Layout.Current.ShowTextInputPopup("Enter server:", "raspberrypi", delegate (string serverName)
+                {
+                    try
+                    {
+                        StompboxClient.Instance.Connect(serverName, 24639, ConnectCallback);
+                    }
+                    catch { }
+                });
+            }
+            else
+                clientConnected = true;
+        }
 
         public override void Update(float secondsElapsed)
         {
             base.Update(secondsElapsed);
 
-            //if (StompboxClient.Instance.InClientMode)
-            //{
-            //    if (clientConnected && !StompboxClient.Instance.Connected)
-            //    {
-            //        Connect();
-            //    }
-            //}
+            if (StompboxClient.Instance.InClientMode)
+            {
+                if (clientConnected && !StompboxClient.Instance.Connected)
+                {
+                    Connect();
+                }
+            }
 
             if (InputManager.WasClicked("StompMode", this))
             {
@@ -147,8 +145,6 @@ namespace Stompbox
             {
                 StompboxClient.Instance.SendCommand("HandleMidi " + (0xb0).ToString() + " 35 127");
             }
-
-
         }
     }
 }

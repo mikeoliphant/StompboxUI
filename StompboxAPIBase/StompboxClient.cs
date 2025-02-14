@@ -22,6 +22,7 @@ namespace Stompbox
         public PluginFactory PluginFactory { get; set; }
         public Action<int, int, int> MidiCallback { get; set; }
 
+        public virtual bool Connected { get { return false; } }
         public double BPM { get; set; }
         public bool InClientMode { get; protected set; }
         public bool AllowMidiMapping { get; set; }
@@ -102,6 +103,10 @@ namespace Stompbox
             InputPlugins = new List<IAudioPlugin>();
             FxLoopPlugins = new List<IAudioPlugin>();
             OutputPlugins = new List<IAudioPlugin>();
+        }
+
+        public virtual void Connect(string serverName, int port, Action<bool> connectCallback)
+        {
         }
 
         public virtual void UpdatePresets()

@@ -14,9 +14,7 @@ namespace Stompbox
             {
                 if (!string.IsNullOrEmpty(presetName))
                 {
-                    StompboxClient.Instance.SendCommand("SavePreset " + presetName);
-                    StompboxClient.Instance.SendCommand("List Presets");
-                    StompboxClient.Instance.UpdateProgram();
+                    StompboxClient.Instance.SavePresetAs(presetName);
                 }
             });
         }

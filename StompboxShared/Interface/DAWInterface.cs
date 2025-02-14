@@ -79,7 +79,7 @@ namespace Stompbox
                     if (currentProgramInterface.SelectedIndex == -1)
                         DoSavePresetAs();
                     else
-                        StompboxClient.Instance.SendCommand("SavePreset " + currentProgramInterface.SelectedIndexValue);
+                        StompboxClient.Instance.SaveCurrentPreset();
                 }
             });
             programHStack2.Children.Add(new TextButton("Save As")
@@ -98,9 +98,7 @@ namespace Stompbox
                         Layout.Current.ShowConfirmationPopup("Are you sure you want to\ndelete this preset?",
                             delegate
                             {
-                                StompboxClient.Instance.SendCommand("DeletePreset " + currentProgramInterface.SelectedIndexValue);
-
-                                StompboxClient.Instance.UpdateProgram();
+                                StompboxClient.Instance.DeleteCurrentPreset();
                             });
                     }
                 }

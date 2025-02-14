@@ -85,6 +85,27 @@ namespace StompboxAPI
             UpdateUI();
         }
 
+        // FIXME: these should use direct commands
+
+        public override void SaveCurrentPreset()
+        {
+            SendCommand("SavePreset " + PresetNames[CurrentPresetIndex]);
+        }
+
+        public override void SavePresetAs(string presetName)
+        {
+            SendCommand("SavePreset " + presetName);
+            SendCommand("List Presets");
+            UpdateProgram();
+        }
+
+        public override void DeleteCurrentPreset()
+        {
+            SendCommand("DeletePreset " + PresetNames[CurrentPresetIndex]);
+
+            UpdateProgram();
+        }
+
         public override IEnumerable<string> GetAllPluginNames()
         {
             return processor.GetAllPlugins();

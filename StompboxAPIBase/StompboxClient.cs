@@ -118,6 +118,20 @@ namespace Stompbox
             UpdatePresets();
         }
 
+        public virtual void SaveCurrentPreset()
+        {
+
+        }
+
+        public virtual void SavePresetAs(string presetName)
+        {
+
+        }
+
+        public virtual void DeleteCurrentPreset()
+        {
+           
+        }
 
         public virtual IEnumerable<String> GetAllPluginNames()
         {

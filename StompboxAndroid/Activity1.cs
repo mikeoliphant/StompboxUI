@@ -4,7 +4,7 @@ using Android.OS;
 using Android.Views;
 using Microsoft.Xna.Framework;
 using UILayout;
-using Stompbox;
+using StompboxAPI;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -25,7 +25,7 @@ namespace Stompbox
         public static Activity1 Instance { get; private set; }
 
         View view;
-        StompboxClient guitarClient;
+        RemoteClient guitarClient;
         MonoGameHost GameHost;
 
         protected override void OnCreate(Bundle bundle)
@@ -36,7 +36,7 @@ namespace Stompbox
 
             //StompboxGame.DAWMode = false;
 
-            guitarClient = new StompboxClient(inClientMode: true);
+            guitarClient = new RemoteClient();
 
             StompboxGame.InterfaceType = EStompboxInterfaceType.Mobile;
 

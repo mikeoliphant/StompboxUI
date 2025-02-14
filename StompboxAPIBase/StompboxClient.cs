@@ -236,12 +236,12 @@ namespace Stompbox
             return PluginFactory.CreatePlugin(pluginID);
         }
 
-        protected virtual void SetSlotPlugin(string slotName, string pluginID)
+        public virtual void SetSlotPlugin(string slotName, string pluginID)
         {
 
         }
 
-        protected virtual string GetSlotPlugin(string slotName)
+        public virtual string GetSlotPlugin(string slotName)
         {
             return null;
         }

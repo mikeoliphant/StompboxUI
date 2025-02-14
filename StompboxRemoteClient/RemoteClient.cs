@@ -177,7 +177,7 @@ namespace StompboxAPI
             }
         }
 
-        protected override void SetSlotPlugin(string slotName, string pluginID)
+        public override void SetSlotPlugin(string slotName, string pluginID)
         {
             slotPlugins[slotName] = pluginID;
 
@@ -186,7 +186,7 @@ namespace StompboxAPI
             StompboxClient.Instance.SendCommand(cmd);
         }
 
-        protected override string GetSlotPlugin(string slotName)
+        public override string GetSlotPlugin(string slotName)
         {
             string pluginID;
 

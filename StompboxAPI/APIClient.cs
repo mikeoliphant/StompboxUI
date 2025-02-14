@@ -123,12 +123,12 @@ namespace StompboxAPI
             // FIXME: notify pluginfactory?
         }
 
-        protected override string GetSlotPlugin(string slotName)
+        public override string GetSlotPlugin(string slotName)
         {
             return processor.GetPluginSlot(slotName);
         }
 
-        protected override void SetSlotPlugin(string slotName, string pluginID)
+        public override void SetSlotPlugin(string slotName, string pluginID)
         {
             processor.SetPluginSlot(slotName, pluginID);
         }

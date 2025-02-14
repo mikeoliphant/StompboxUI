@@ -13,7 +13,6 @@
     <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)AudioPlugin.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\AudioFilePlayerInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\AudioFileRecorderInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\DAWInterface.cs" />
@@ -25,9 +24,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Interface\TunerInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NetworkInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)NoteUtil.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)PluginFactory.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)ProtocolClient.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)StompboxClient.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SysExMapper.cs" />
   </ItemGroup>
 </Project>

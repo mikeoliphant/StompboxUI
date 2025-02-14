@@ -33,6 +33,9 @@ namespace StompboxAPI
         public static unsafe extern void Process(IntPtr processor, double* input, double* output, uint bufferSize);
 
         [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern bool IsPresetLoading(IntPtr processor);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
         [return: MarshalAs(UnmanagedType.LPWStr)]
         public static extern string GetDataPath(IntPtr processor);
 

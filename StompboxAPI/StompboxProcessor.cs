@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StompboxAPI
 {
@@ -36,6 +31,16 @@ namespace StompboxAPI
             newPlugin.SetNativePlugin(nativePlugin);
 
             return newPlugin;
+        }
+
+        public bool IsPresetLoading()
+        {
+            return NativeApi.IsPresetLoading(nativeProcessor);
+        }
+
+        public void StartServer()
+        {
+            NativeApi.StartServer(nativeProcessor);
         }
 
         public List<string> GetAllPlugins()

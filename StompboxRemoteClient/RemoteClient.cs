@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Stompbox;
 
 namespace StompboxAPI
 {
     public class RemoteClient : StompboxClient
     {
-        public PluginFactory PluginFactory { get; set; }
         public bool SuppressCommandUpdates { get; set; }
 
         Dictionary<string, string> slotPlugins = new Dictionary<string, string>();
@@ -32,7 +32,7 @@ namespace StompboxAPI
 
                 if (!SuppressCommandUpdates)
                 {
-                    SendCommand("LoadPreset " + PresetNames[currentPresetIndex]);
+                    SendCommand("LoadPreset " + PresetNames[base.CurrentPresetIndex]);
                 }
             }
         }
@@ -40,8 +40,6 @@ namespace StompboxAPI
         public RemoteClient()
             : base()
         {
-            PluginFactory = new PluginFactory(this);
-
             InClientMode = true;
 
             protocolClient = new ProtocolClient(this);

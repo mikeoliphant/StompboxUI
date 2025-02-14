@@ -9,9 +9,9 @@ namespace Stompbox
 
         StompboxClient StompboxClient;
 
-        public PluginFactory(StompboxClient StompboxClient)
+        public PluginFactory(StompboxClient stompboxClient)
         {
-            this.StompboxClient = StompboxClient;
+            this.StompboxClient = stompboxClient;
         }
 
         public void ClearPlugins()

@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 
-namespace StompboxAPI
+namespace Stompbox
 {
     public enum EParameterType
     {

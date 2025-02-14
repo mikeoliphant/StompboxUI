@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace StompboxAPI
+namespace Stompbox
 {
     public class MidiCCMapEntry
     {
@@ -19,6 +19,7 @@ namespace StompboxAPI
 
         public static Action<string> DebugAction { get; set; }
 
+        public PluginFactory PluginFactory { get; set; }
         public Action<int, int, int> MidiCallback { get; set; }
 
         public double BPM { get; set; }
@@ -94,6 +95,7 @@ namespace StompboxAPI
 
             PluginPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "stompbox");
 
+            PluginFactory = new PluginFactory(this);
 
             PresetNames = new List<string>();
 
@@ -101,7 +103,6 @@ namespace StompboxAPI
             FxLoopPlugins = new List<IAudioPlugin>();
             OutputPlugins = new List<IAudioPlugin>();
         }
-
 
         public virtual void UpdatePresets()
         {
@@ -140,11 +141,6 @@ namespace StompboxAPI
         public virtual IAudioPlugin GetPluginDefinition(string pluginName)
         {
             return null;
-        }
-
-        public IAudioPlugin CreatePlugin(string id)
-        {
-            return CreateSlotPlugin(id, id);
         }
 
         public virtual IAudioPlugin CreatePlugin(string pluginName, string pluginID)
@@ -202,9 +198,9 @@ namespace StompboxAPI
         {
             Debug("*** Update UI");
 
-            Tuner = CreatePlugin("Tuner");
+            Tuner = PluginFactory.CreatePlugin("Tuner");
 
-            InputGain = CreatePlugin("Input");
+            InputGain = PluginFactory.CreatePlugin("Input");
 
             Amp = CreateSlotPlugin("Amp", "NAM");
 
@@ -212,12 +208,12 @@ namespace StompboxAPI
 
             Cabinet = CreateSlotPlugin("Cabinet", "Cabinet");
 
-            MasterVolume = CreatePlugin("Master");
+            MasterVolume = PluginFactory.CreatePlugin("Master");
 
-            AudioPlayer = CreatePlugin("AudioFilePlayer");
+            AudioPlayer = PluginFactory.CreatePlugin("AudioFilePlayer");
 
             if (StompboxClient.Instance.InClientMode)
-                AudioRecorder = CreatePlugin("AudioFileRecorder");
+                AudioRecorder = PluginFactory.CreatePlugin("AudioFileRecorder");
 
             NeedUIReload = true;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Stompbox;
 
 namespace StompboxAPI
 {
@@ -88,9 +89,9 @@ namespace StompboxAPI
 
         Dictionary<string, IAudioPlugin> pluginDefs = new Dictionary<string, IAudioPlugin>();
 
-        StompboxClient StompboxClient;
+        RemoteClient StompboxClient;
 
-        public ProtocolClient(StompboxClient StompboxClient)
+        public ProtocolClient(RemoteClient StompboxClient)
         {
             this.StompboxClient = StompboxClient;
              
@@ -117,7 +118,7 @@ namespace StompboxAPI
                 throw new InvalidOperationException();
             }
 
-            IAudioPlugin plugin = new AudioPluginBase { ID = pluginID, Name = pluginName };
+            IAudioPlugin plugin = new RemotePlugin { ID = pluginID, Name = pluginName };
 
             if (plugin.Parameters.Count == 0)
             {
@@ -129,7 +130,6 @@ namespace StompboxAPI
                     plugin.BackgroundColor = pluginDef.BackgroundColor;
                     plugin.ForegroundColor = pluginDef.ForegroundColor;
                     plugin.IsUserSelectable = pluginDef.IsUserSelectable;
-                    plugin.StompboxClient = StompboxClient;
 
                     foreach (PluginParameter paramDef in pluginDef.Parameters)
                     {
@@ -452,7 +452,7 @@ namespace StompboxAPI
                                 {
                                     IAudioPlugin pluginDef = pluginDefs[cmdWords[1]];
 
-                                    PluginParameter newParameter = new PluginParameter() { Name = cmdWords[2] };
+                                    PluginParameter newParameter = new RemoteParameter() { Name = cmdWords[2] };
 
                                     int numProps = (cmdWords.Length - 3) / 2;
 
@@ -570,7 +570,7 @@ namespace StompboxAPI
                         case "MapController":
                             if (cmdWords.Length > 3)
                             {
-                                StompboxClient.Instance.MidiCCMap.Add(new MidiCCMapEntry()
+                                RemoteClient.Instance.MidiCCMap.Add(new MidiCCMapEntry()
                                 {
                                     CCNumber = int.Parse(cmdWords[1]),
                                     PluginName = cmdWords[2],

@@ -68,8 +68,6 @@ namespace Stompbox
                 tunerImage.DrawCircle(p.X, p.Y, 1, UIColor.Yellow, fill: true);
             };
 
-            plugin.SetOutputValue = UpdateTuner;
-
             int startNote = NoteUtil.GetMidiNoteNumber(ENoteName.B, 0);
             int endNote = NoteUtil.GetMidiNoteNumber(ENoteName.A, 6);
 
@@ -352,8 +350,6 @@ namespace Stompbox
         public override void Close()
         {
             Plugin.Enabled = false;
-
-            //StompboxClient.Instance.SendCommand("SetParam " + Plugin.ID + " Enabled " + (Plugin.Enabled ? "1" : "0"));
 
             base.Close();
         }

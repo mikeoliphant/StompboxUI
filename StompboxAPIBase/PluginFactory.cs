@@ -19,6 +19,11 @@ namespace Stompbox
             loadedPlugins.Clear();
         }
 
+        public void RegisterPlugin(IAudioPlugin plugin)
+        {
+            loadedPlugins[plugin.ID] = plugin;
+        }
+
         public IAudioPlugin GetPlugin(string id)
         {
             if (!loadedPlugins.ContainsKey(id))

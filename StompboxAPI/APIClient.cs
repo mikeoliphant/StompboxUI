@@ -141,7 +141,10 @@ namespace StompboxAPI
 
             chain.AddRange(plugins);
 
-            // FIXME: notify pluginfactory?
+            foreach (IAudioPlugin plugin in chain)
+            {
+                PluginFactory.RegisterPlugin(plugin);
+            }
         }
 
         public override string GetSlotPlugin(string slotName)

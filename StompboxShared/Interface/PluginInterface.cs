@@ -137,7 +137,7 @@ namespace Stompbox
 
                         UpdateChain();
 
-                        //StompboxClient.Instance.ReleasePlugin(toDelete.Plugin);
+                        StompboxClient.Instance.PluginFactory.ReleasePlugin(toDelete.Plugin);
                     }
                 });
         }
@@ -872,8 +872,8 @@ namespace Stompbox
                             {
                                 bool enabled = this.Plugin.Enabled;
 
-                                //if (this.Plugin != null)
-                                //    StompboxClient.Instance.ReleasePlugin(this.Plugin);
+                                if (this.Plugin != null)
+                                    StompboxClient.Instance.PluginFactory.ReleasePlugin(this.Plugin);
 
                                 IAudioPlugin newPlugin = StompboxClient.Instance.PluginFactory.CreateNewPlugin(pluginName);
 

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
 using System.Threading;
+using System.Xml.Linq;
 
 namespace Stompbox
 {
@@ -263,6 +265,18 @@ namespace Stompbox
         public virtual string GetSlotPlugin(string slotName)
         {
             return null;
+        }
+
+        public virtual void UpdateChain(string chainName, List<IAudioPlugin> plugins)
+        {
+            string cmd = "SetChain " + chainName;
+
+            foreach (IAudioPlugin plugin in plugins)
+            {
+                cmd += " " + plugin.ID;
+            }
+
+            StompboxClient.Instance.SendCommand(cmd);
         }
 
         public virtual void Init(double sampleRate)

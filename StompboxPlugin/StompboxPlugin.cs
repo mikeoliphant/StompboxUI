@@ -171,24 +171,6 @@ namespace Stompbox
             GameHost.Exit();
         }
 
-        string SaveChainEffects(AudioPluginChain chain)
-		{
-			string pluginStr = null;
-
-			foreach (IAudioPlugin plugin in chain.Plugins)
-			{
-				if (pluginStr != null)
-				{
-					pluginStr += ",";
-				}
-
-				pluginStr += plugin.ID;
-			}
-
-			return pluginStr;
-		}
-
-
 		public override void InitializeProcessing()
 		{
 			base.InitializeProcessing();

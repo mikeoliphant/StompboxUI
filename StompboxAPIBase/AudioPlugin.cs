@@ -269,38 +269,4 @@ namespace Stompbox
             return null;
         }
     }
-
-    public class AudioPluginChain : AudioPluginBase, IAudioPlugin
-    {
-        public ObservableCollection<IAudioPlugin> Plugins { get; }
-        public override bool Enabled
-        {
-            get { return base.Enabled && (NumActivePlugins() > 0); }
-            set { base.Enabled = value; }
-        }
-
-        public AudioPluginChain()
-        {
-            enabled = true;
-            Plugins = new ObservableCollection<IAudioPlugin>();
-        }
-
-        public int NumActivePlugins()
-        {
-            int numActiveEffects = 0;
-
-            foreach (IAudioPlugin plugin in Plugins)
-            {
-                if (plugin.Enabled)
-                    numActiveEffects++;
-            }
-
-            return numActiveEffects;
-        }
-
-        public override string ToString()
-        {
-            return string.Join("-", Plugins);
-        }
-    }
 }

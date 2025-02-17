@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using StompboxAPI;
 
@@ -8,81 +9,20 @@ namespace StompboxAPITest
     {
         static void Main(string[] args)
         {
-            Thread thread;
+            APIClient client = new();
 
-            StompboxProcessor processor = new(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "stompbox"), dawMode: true);
+            client.Init(48000);
 
-            thread = new Thread(new ThreadStart(delegate { SimulateAudio(processor); }));
-
+            Thread thread = new Thread(new ThreadStart(client.SimulateAudio));
             thread.Start();
 
-            var pluginNames = processor.GetAllPlugins();
+            client.SetSelectedPreset("01Clean");
 
-            UnmanagedAudioPlugin tuner = processor.CreatePlugin("Tuner");
+            Thread.Sleep(1000);
 
-            if (tuner != null)
-            {
-                tuner.Enabled = true;
+            client.SetSelectedPreset("03Marshall");
 
-                bool enabled = tuner.Enabled;
-
-                string id = tuner.ID;
-            }
-
-            processor.SetPluginSlot("Cabinet", "Cabinet");
-
-            string slot = processor.GetPluginSlot("Cabinet");
-
-            string preset = processor.GetCurrentPreset();
-
-            processor.LoadPreset("03Marshall");
-
-            while (processor.IsPresetLoading)
-            {
-                
-            }
-
-            processor.LoadPreset("01Clean");
-
-            while (processor.IsPresetLoading)
-            {
-
-            }
-
-            var cab = processor.CreatePlugin("Cabinet");
-
-            preset = processor.GetCurrentPreset();            
-        }
-
-        static unsafe void SimulateAudio(StompboxProcessor processor)
-        {
-            int bufferSize = 1024;
-            int sampleRate = 44100;
-
-            int sleepMS = sampleRate / 1000;
-
-            processor.Init(sampleRate);
-
-            double* inBuf = (double*)Marshal.AllocHGlobal(bufferSize * sizeof(double));
-            double* outBuf = (double*)Marshal.AllocHGlobal(bufferSize * sizeof(double));
-
-            long samplePos = 0;
-
-            while (true)
-            {
-                for (int i = 0; i < bufferSize; i++)
-                {
-                    inBuf[i] = 0;
-
-                    inBuf[i] += Math.Sin(((double)samplePos / (double)sampleRate) * 440 * Math.PI * 2) * 0.25f;
-
-                    samplePos++;
-                }
-
-                processor.Process(inBuf, outBuf, (uint)bufferSize);
-
-                Thread.Sleep(sleepMS);
-            }
+            Thread.Sleep(1000);
         }
     }
 }

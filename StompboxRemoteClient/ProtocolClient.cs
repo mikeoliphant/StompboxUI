@@ -94,13 +94,6 @@ namespace StompboxAPI
             return plugin;
         }
 
-        public void ReleasePlugin(IAudioPlugin plugin)
-        {
-            StompboxClient.PluginFactory.ReleasePlugin(plugin);
-
-            StompboxClient.SendCommand("ReleasePlugin " + plugin.ID);
-        }
-
         char[] split = { ' ' };
 
         public void HandleCommand(string cmd)

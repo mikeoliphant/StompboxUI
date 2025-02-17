@@ -157,11 +157,6 @@ namespace StompboxAPI
             return protocolClient.CreateNewPlugin(pluginName, pluginID);
         }
 
-        public void ReleasePlugin(IAudioPlugin plugin)
-        {
-            protocolClient.ReleasePlugin(plugin);
-        }
-
         string[] lineSeparator = new string[] { "\r", "\n" };
 
         public void HandleCommand(string commandStr)

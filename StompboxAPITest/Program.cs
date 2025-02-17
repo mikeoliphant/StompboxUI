@@ -35,12 +35,21 @@ namespace StompboxAPITest
 
             string preset = processor.GetCurrentPreset();
 
-            processor.LoadPreset("Bass");
+            processor.LoadPreset("03Marshall");
 
             while (processor.IsPresetLoading)
             {
                 
             }
+
+            processor.LoadPreset("01Clean");
+
+            while (processor.IsPresetLoading)
+            {
+
+            }
+
+            var cab = processor.CreatePlugin("Cabinet");
 
             preset = processor.GetCurrentPreset();            
         }

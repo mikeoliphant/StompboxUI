@@ -14,7 +14,7 @@ namespace StompboxAPI
         {
             get
             {
-                return base.GetValue();
+                return NativeApi.GetParameterValue(nativeParameter);
             }
 
             set

@@ -40,6 +40,9 @@ EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "StompboxClientBase", "StompboxClient\StompboxAPIBase\StompboxClientBase.shproj", "{EF794465-7976-4AD3-B2CC-DEA7A85A80AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StompboxAPI", "StompboxClient\StompboxAPI\StompboxAPI.csproj", "{71C8DC9A-FE7F-516C-5F91-ABDA855B9D26}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3CF8D9D6-9DB8-3F23-81AE-2A95E7E95F87} = {3CF8D9D6-9DB8-3F23-81AE-2A95E7E95F87}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StompboxAPITest", "StompboxClient\StompboxAPITest\StompboxAPITest.csproj", "{A1C276B4-0D53-74B6-EE71-CC502B9CE1B2}"
 EndProject

@@ -1,8 +1,9 @@
 ﻿using System;
 using Stompbox;
+using StompboxAPI;
 using UILayout;
 
-StompboxClient client = new StompboxClient(inClientMode: true);
+RemoteClient client = new();
 
 StompboxGame.InterfaceType = EStompboxInterfaceType.DAW;
 

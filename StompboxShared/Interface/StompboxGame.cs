@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Threading.Tasks;
-using System.Threading;
-using Microsoft.Xna.Framework;
 using UILayout;
+using StompboxAPI;
 
 namespace Stompbox
 {
@@ -147,8 +145,6 @@ namespace Stompbox
             {
                 StompboxClient.Instance.SendCommand("HandleMidi " + (0xb0).ToString() + " 35 127");
             }
-
-
         }
     }
 }

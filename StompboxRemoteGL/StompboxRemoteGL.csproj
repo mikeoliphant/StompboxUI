@@ -30,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dependencies\UILayout\UILayout.MonoGame.DesktopGL\UILayout.MonoGame.DesktopGL.csproj" />
+    <ProjectReference Include="..\StompboxRemoteClient\StompboxRemoteClient.csproj" />
   </ItemGroup>
   <Target Name="RestoreDotnetTools" BeforeTargets="Restore">
     <Message Text="Restoring dotnet tools" Importance="High" />

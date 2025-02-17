@@ -40,7 +40,19 @@ namespace Stompbox
             dragDropHandler.DragType = typeof(PluginInterfaceBase);
             pluginStack.DragDropHandler = dragDropHandler;
 
-            dragDropHandler.DragCompleteAction = delegate (object dropObject) { UpdateChain(); };
+            dragDropHandler.DragCompleteAction = delegate (object dropObject)
+            {
+                PluginInterface dropInterface = dropObject as PluginInterface;
+
+                if (dropInterface.ChainDisplay != this)
+                {
+                    dropInterface.ChainDisplay.UpdateChain();
+
+                    dropInterface.ChainDisplay = this;
+                }
+
+                UpdateChain();
+            };
 
             mainHStack.Children.Add(addPluginButton = new TextButton("Add\n" + name)
             {
@@ -59,14 +71,7 @@ namespace Stompbox
                 plugins.Add(pluginInterface.Plugin);
             }
 
-            string cmd = "SetChain " + Name;
-
-            foreach (IAudioPlugin plugin in plugins)
-            {
-                cmd += " " + plugin.ID;
-            }
-
-            StompboxClient.Instance.SendCommand(cmd);
+            StompboxClient.Instance.UpdateChain(this.Name, this.plugins);
         }
 
         public void SetChain(List<IAudioPlugin> plugins)
@@ -137,7 +142,7 @@ namespace Stompbox
 
                         UpdateChain();
 
-                        StompboxClient.Instance.ReleasePlugin(toDelete.Plugin);
+                        StompboxClient.Instance.PluginFactory.ReleasePlugin(toDelete.Plugin);
                     }
                 });
         }
@@ -603,8 +608,8 @@ namespace Stompbox
         public UIColor DefaultBackgroundColor { get; private set; }
         public float MinWidth { get; set; } = 320;
         public MiniPluginInterface MiniPlugin { get; set; }
+        public PluginChainDisplay ChainDisplay { get; set; }
 
-        PluginChainDisplay chainDisplay;
         string slotName;
         HorizontalStack controlStack;
         Menu menu = new Menu();
@@ -630,7 +635,7 @@ namespace Stompbox
 
         public PluginInterface(IAudioPlugin plugin, UIColor defaultBackgroundColor, PluginChainDisplay chainDisplay)
         {
-            this.chainDisplay = chainDisplay;
+            this.ChainDisplay = chainDisplay;
 
             SetPlugin(plugin, defaultBackgroundColor);
         }
@@ -662,14 +667,14 @@ namespace Stompbox
 
         protected override void AddControls(Dock dock)
         {
-            if (showOptionsMenu && (chainDisplay != null))
+            if (showOptionsMenu && (ChainDisplay != null))
             {
                 AddMenuItem(new ContextMenuItem
                 {
                     Text = "Remove Plugin",
                     AfterCloseAction = delegate
                     {
-                        chainDisplay.RemovePlugin(this.Plugin);
+                        ChainDisplay.RemovePlugin(this.Plugin);
                     }
                 });
             }
@@ -873,7 +878,7 @@ namespace Stompbox
                                 bool enabled = this.Plugin.Enabled;
 
                                 if (this.Plugin != null)
-                                    StompboxClient.Instance.ReleasePlugin(this.Plugin);
+                                    StompboxClient.Instance.PluginFactory.ReleasePlugin(this.Plugin);
 
                                 IAudioPlugin newPlugin = StompboxClient.Instance.PluginFactory.CreateNewPlugin(pluginName);
 
@@ -892,9 +897,9 @@ namespace Stompbox
 
                                     StompboxClient.Instance.SendCommand(cmd);
                                 }
-                                else if (chainDisplay != null)
+                                else if (ChainDisplay != null)
                                 {
-                                    chainDisplay.UpdateChain();
+                                    ChainDisplay.UpdateChain();
                                 }
 
                                 UpdateContentLayout();
@@ -1043,9 +1048,6 @@ namespace Stompbox
             HorizontalAlignment = EHorizontalAlignment.Left;
 
             MinWidth = 0;
-
-            if (StompboxClient.Instance.InClientMode)
-                plugin.SetOutputValue = UpdateOutputValue;
         }
 
         protected override void AddControls(Dock dock)
@@ -1070,17 +1072,11 @@ namespace Stompbox
             stack.Children.Add(levelDisplay);
         }
 
-        public void UpdateOutputValue(double value)
-        {
-            levelDisplay.SetValue(value);
-        }
-
         protected override void DrawContents()
         {
-            base.DrawContents();
+            levelDisplay.SetValue(Plugin.OutputValue);
 
-            if (!Plugin.StompboxClient.InClientMode)
-                levelDisplay.SetValue(Plugin.OutputValue);
+            base.DrawContents();
         }
     }
 

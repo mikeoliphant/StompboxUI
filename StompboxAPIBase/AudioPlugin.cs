@@ -14,6 +14,82 @@ namespace Stompbox
         File
     };
 
+    public class BPMSync
+    {
+        public static List<BPMSync> Timings;
+
+        public string Name { get; set; }
+        public int Numerator { get; set; }
+        public int Denomenator { get; set; }
+
+        static BPMSync()
+        {
+            Timings = new List<BPMSync>
+            {
+                new BPMSync
+                {
+                    Name = "Custom",
+                    Numerator = 0,
+                    Denomenator = 0
+                },
+                new BPMSync
+                {
+                    Name = "Half Note",
+                    Numerator = 2,
+                    Denomenator = 1
+                },
+                new BPMSync
+                {
+                    Name = "Dotted 1/4 Note",
+                    Numerator = 3,
+                    Denomenator = 2
+                },
+                new BPMSync
+                {
+                    Name = "1/4 Note",
+                    Numerator = 1,
+                    Denomenator = 1
+                },
+                new BPMSync
+                {
+                    Name = "Dotted 1/8th",
+                    Numerator = 3,
+                    Denomenator = 4
+                },
+                new BPMSync
+                {
+                    Name = "Triplet of Half",
+                    Numerator = 2,
+                    Denomenator = 3
+                },
+                new BPMSync
+                {
+                    Name = "1/8th Note",
+                    Numerator = 1,
+                    Denomenator = 2
+                },
+                new BPMSync
+                {
+                    Name = "Dotted 1/16th",
+                    Numerator = 3,
+                    Denomenator = 8
+                },
+                new BPMSync
+                {
+                    Name = "Triplet of Quarter",
+                    Numerator = 1,
+                    Denomenator = 3
+                },
+                new BPMSync
+                {
+                    Name = "16th Note",
+                    Numerator = 1,
+                    Denomenator = 4
+                }
+            };
+        }
+    }
+
     public class PluginParameter
     {
         public IAudioPlugin Plugin { get; set; }
@@ -30,30 +106,7 @@ namespace Stompbox
         public int HostBPMSyncDenominator { get; set; }
         public bool IsAdvanced { get; set; }
         public bool IsVisible { get; set; }
-        public virtual double Value
-        {
-            get { return (GetValue != null) ? GetValue() : value; }
-            set
-            {
-                if (SetValue != null)
-                    SetValue(value);
-
-                this.value = value;
-
-                if (Plugin.StompboxClient.InClientMode && !Plugin.StompboxClient.SuppressCommandUpdates)
-                {
-                    if (CanSyncToHostBPM && (HostBPMSyncNumerator != 0) && (HostBPMSyncDenominator != 0))
-                    {
-                        Plugin.StompboxClient.SendCommand("SetParam " + Plugin.ID + " " + Name + " " + HostBPMSyncNumerator + "/" + HostBPMSyncDenominator);
-                    }
-                    else
-                    {
-                        Plugin.StompboxClient.SendCommand("SetParam " + Plugin.ID + " " + Name + " " +
-                            (((ParameterType == EParameterType.Enum) || (ParameterType == EParameterType.File)) ? ((EnumValues.Length > 0) ? EnumValues[(int)Value] : "") : Value.ToString()));
-                    }
-                }
-            }
-        }
+        public virtual double Value { get; set; }
         public double NormalizedValue
         {
             get
@@ -119,7 +172,6 @@ namespace Stompbox
 
     public interface IAudioPlugin
     {
-        StompboxClient StompboxClient { get; set; }
         String Name { get; set; }
         String ID { get; }
         String Description { get; set; }
@@ -141,7 +193,6 @@ namespace Stompbox
 
     public class AudioPluginBase : IAudioPlugin
     {
-        public StompboxClient StompboxClient { get; set; }
         public String Name { get; set; }
         public String ID { get; set; }
         public String Description { get; set; }
@@ -157,11 +208,6 @@ namespace Stompbox
 
                 if (SetEnabled != null)
                     SetEnabled(enabled);
-
-                if (StompboxClient.InClientMode && !StompboxClient.SuppressCommandUpdates)
-                {
-                    StompboxClient.SendCommand("SetParam " + ID + " Enabled " + (enabled ? "1" : "0"));
-                }
             }
         }
         public virtual double OutputValue
@@ -221,40 +267,6 @@ namespace Stompbox
             }
 
             return null;
-        }
-    }
-
-    public class AudioPluginChain : AudioPluginBase, IAudioPlugin
-    {
-        public ObservableCollection<IAudioPlugin> Plugins { get; }
-        public override bool Enabled
-        {
-            get { return base.Enabled && (NumActivePlugins() > 0); }
-            set { base.Enabled = value; }
-        }
-
-        public AudioPluginChain()
-        {
-            enabled = true;
-            Plugins = new ObservableCollection<IAudioPlugin>();
-        }
-
-        public int NumActivePlugins()
-        {
-            int numActiveEffects = 0;
-
-            foreach (IAudioPlugin plugin in Plugins)
-            {
-                if (plugin.Enabled)
-                    numActiveEffects++;
-            }
-
-            return numActiveEffects;
-        }
-
-        public override string ToString()
-        {
-            return string.Join("-", Plugins);
         }
     }
 }

@@ -50,7 +50,6 @@ namespace UnmanagedPlugins
 			return gcnew System::String(component->Description.c_str());
 		}
 
-
 		bool GetEnabled()
 		{
 			return component->Enabled;
@@ -318,7 +317,7 @@ namespace UnmanagedPlugins
 
 		array<System::String^>^ GetAllPlugins()
 		{
-			std::list<std::string> pluginList = processor->GetPluginFactory()->GetAllPlugins();
+			auto pluginList = processor->GetPluginFactory()->GetAllPlugins();
 
 			array<System::String^>^ plugins = gcnew array<System::String^>(pluginList.size());
 

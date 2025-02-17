@@ -9,14 +9,19 @@ namespace Stompbox
 
         StompboxClient StompboxClient;
 
-        public PluginFactory(StompboxClient StompboxClient)
+        public PluginFactory(StompboxClient stompboxClient)
         {
-            this.StompboxClient = StompboxClient;
+            this.StompboxClient = stompboxClient;
         }
 
         public void ClearPlugins()
         {
             loadedPlugins.Clear();
+        }
+
+        public void RegisterPlugin(IAudioPlugin plugin)
+        {
+            loadedPlugins[plugin.ID] = plugin;
         }
 
         public IAudioPlugin GetPlugin(string id)

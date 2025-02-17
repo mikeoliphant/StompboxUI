@@ -3,94 +3,19 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Stompbox;
 
-namespace Stompbox
+namespace StompboxAPI
 {
-    public class BPMSync
-    {
-        public static List<BPMSync> Timings;
-
-        public string Name { get; set; }
-        public int Numerator { get; set; }
-        public int Denomenator { get; set; }
-
-        static BPMSync()
-        {
-            Timings = new List<BPMSync>
-            {
-                new BPMSync
-                {
-                    Name = "Custom",
-                    Numerator = 0,
-                    Denomenator = 0
-                },
-                new BPMSync
-                {
-                    Name = "Half Note",
-                    Numerator = 2,
-                    Denomenator = 1
-                },
-                new BPMSync
-                {
-                    Name = "Dotted 1/4 Note",
-                    Numerator = 3,
-                    Denomenator = 2
-                },
-                new BPMSync
-                {
-                    Name = "1/4 Note",
-                    Numerator = 1,
-                    Denomenator = 1
-                },
-                new BPMSync
-                {
-                    Name = "Dotted 1/8th",
-                    Numerator = 3,
-                    Denomenator = 4
-                },
-                new BPMSync
-                {
-                    Name = "Triplet of Half",
-                    Numerator = 2,
-                    Denomenator = 3
-                },
-                new BPMSync
-                {
-                    Name = "1/8th Note",
-                    Numerator = 1,
-                    Denomenator = 2
-                },
-                new BPMSync
-                {
-                    Name = "Dotted 1/16th",
-                    Numerator = 3,
-                    Denomenator = 8
-                },
-                new BPMSync
-                {
-                    Name = "Triplet of Quarter",
-                    Numerator = 1,
-                    Denomenator = 3
-                },
-                new BPMSync
-                {
-                    Name = "16th Note",
-                    Numerator = 1,
-                    Denomenator = 4
-                }
-            };
-        }
-    }
-
     public class ProtocolClient
     {
         public List<String> PluginNames { get; private set; }
 
         Dictionary<string, IAudioPlugin> pluginDefs = new Dictionary<string, IAudioPlugin>();
 
-        StompboxClient StompboxClient;
+        RemoteClient StompboxClient;
 
-        public ProtocolClient(StompboxClient StompboxClient)
+        public ProtocolClient(RemoteClient StompboxClient)
         {
             this.StompboxClient = StompboxClient;
              
@@ -117,7 +42,7 @@ namespace Stompbox
                 throw new InvalidOperationException();
             }
 
-            IAudioPlugin plugin = new AudioPluginBase { ID = pluginID, Name = pluginName };
+            IAudioPlugin plugin = new RemotePlugin { ID = pluginID, Name = pluginName };
 
             if (plugin.Parameters.Count == 0)
             {
@@ -129,7 +54,6 @@ namespace Stompbox
                     plugin.BackgroundColor = pluginDef.BackgroundColor;
                     plugin.ForegroundColor = pluginDef.ForegroundColor;
                     plugin.IsUserSelectable = pluginDef.IsUserSelectable;
-                    plugin.StompboxClient = StompboxClient;
 
                     foreach (PluginParameter paramDef in pluginDef.Parameters)
                     {
@@ -168,13 +92,6 @@ namespace Stompbox
             }
 
             return plugin;
-        }
-
-        public void ReleasePlugin(IAudioPlugin plugin)
-        {
-            StompboxClient.PluginFactory.ReleasePlugin(plugin);
-
-            StompboxClient.SendCommand("ReleasePlugin " + plugin.ID);
         }
 
         char[] split = { ' ' };
@@ -452,7 +369,7 @@ namespace Stompbox
                                 {
                                     IAudioPlugin pluginDef = pluginDefs[cmdWords[1]];
 
-                                    PluginParameter newParameter = new PluginParameter() { Name = cmdWords[2] };
+                                    PluginParameter newParameter = new RemoteParameter() { Name = cmdWords[2] };
 
                                     int numProps = (cmdWords.Length - 3) / 2;
 
@@ -570,7 +487,7 @@ namespace Stompbox
                         case "MapController":
                             if (cmdWords.Length > 3)
                             {
-                                StompboxClient.Instance.MidiCCMap.Add(new MidiCCMapEntry()
+                                RemoteClient.Instance.MidiCCMap.Add(new MidiCCMapEntry()
                                 {
                                     CCNumber = int.Parse(cmdWords[1]),
                                     PluginName = cmdWords[2],

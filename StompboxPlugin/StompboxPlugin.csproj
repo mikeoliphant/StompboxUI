@@ -10,7 +10,7 @@
 		<PlatformTarget>AnyCPU</PlatformTarget>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\UnmanagedBridge\UnmanagedBridge.vcxproj" />
+		<ProjectReference Include="..\StompboxAPI\StompboxAPI.csproj" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="AudioPlugSharp" Version="0.6.10" />

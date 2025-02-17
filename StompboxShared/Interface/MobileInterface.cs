@@ -97,9 +97,7 @@ namespace Stompbox
                         Layout.Current.ShowConfirmationPopup("Are you sure you want to\ndelete this preset?",
                             delegate
                             {
-                                StompboxClient.Instance.SendCommand("DeletePreset " + currentProgramInterface.SelectedIndexValue);
-
-                                StompboxClient.Instance.UpdateProgram();
+                                StompboxClient.Instance.DeleteCurrentPreset();
                             });
                     }
                 }

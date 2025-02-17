@@ -10,9 +10,6 @@
 		<PlatformTarget>AnyCPU</PlatformTarget>
 	</PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\StompboxAPI\StompboxAPI.csproj" />
-	</ItemGroup>
-	<ItemGroup>
 		<PackageReference Include="AudioPlugSharp" Version="0.6.10" />
 		<PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
 		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.2.1105" />
@@ -23,6 +20,9 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\StompboxClient\StompboxAPI\StompboxAPI.csproj" />
 	</ItemGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
 		<DefineConstants>TRACE;XNA</DefineConstants>

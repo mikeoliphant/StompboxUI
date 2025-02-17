@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+	</PropertyGroup>
+
+	<Import Project="..\StompboxAPIBase\StompboxAPIBase.projitems" Label="Shared" />
+
+	<ItemGroup>
+	  <None Include="..\..\Dependencies\stompbox\build\stompbox-capi\Release\stompbox-capi.dll" Link="stompbox-capi.dll">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>

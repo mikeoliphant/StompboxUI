@@ -186,7 +186,7 @@ namespace Stompbox
 
 			try
 			{
-				data = null; // System.Text.Encoding.ASCII.GetBytes(StompboxClient.GetProgramState());
+				data = System.Text.Encoding.ASCII.GetBytes(StompboxClient.GetProgramState());
 			}
 			catch (Exception ex)
 			{

@@ -16,13 +16,11 @@ namespace StompboxAPITest
             Thread thread = new Thread(new ThreadStart(client.SimulateAudio));
             thread.Start();
 
-            client.SetSelectedPreset("01Clean");
-
-            Thread.Sleep(1000);
-
             client.SetSelectedPreset("03Marshall");
 
             Thread.Sleep(1000);
+
+            string state = client.GetProgramState();
         }
     }
 }

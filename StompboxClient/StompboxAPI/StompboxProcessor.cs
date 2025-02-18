@@ -92,6 +92,16 @@ namespace StompboxAPI
             NativeApi.LoadPreset(nativeProcessor, presetName);
         }
 
+        public string DumpSettings()
+        {
+            return NativeApi.DumpSettings(nativeProcessor);
+        }
+
+        public string DumpProgram()
+        {
+            return NativeApi.DumpProgram(nativeProcessor);
+        }
+
         public unsafe void Process(double* input, double* output, uint bufferSize)
         {
             NativeApi.Process(nativeProcessor, input, output, bufferSize);

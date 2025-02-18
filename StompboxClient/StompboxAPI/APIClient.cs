@@ -162,17 +162,13 @@ namespace StompboxAPI
             processor.Init(sampleRate);
         }
 
-        //        public String GetProgramState()
-        //        {
-        //#if !STOMPBOXREMOTE
-        //            String settingsString = processorWrapper.DumpSettings();
-        //            String programString = processorWrapper.DumpProgram();
+        public String GetProgramState()
+        {
+            String settingsString = processor.DumpSettings();
+            String programString = processor.DumpProgram();
 
-        //            return settingsString + programString;
-        //#else
-        //            return null;
-        //#endif
-        //        }
+            return settingsString + programString;
+        }
 
         public unsafe void Process(double* input, double* output, uint bufferSize)
         {

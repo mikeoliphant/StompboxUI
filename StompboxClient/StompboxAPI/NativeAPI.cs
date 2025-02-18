@@ -78,6 +78,14 @@ namespace StompboxAPI
         public static extern void LoadPreset(IntPtr processor, [MarshalAs(UnmanagedType.LPStr)] string presetName);
 
         [DllImport(STOMPBOX_LIB_NAME)]
+        [return: MarshalAs(UnmanagedType.LPStr)]
+        public static extern string DumpSettings(IntPtr processor);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
+        [return: MarshalAs(UnmanagedType.LPStr)]
+        public static extern string DumpProgram(IntPtr processor);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
         public static extern IntPtr GetPluginName(IntPtr plugin);
 
         [DllImport(STOMPBOX_LIB_NAME)]

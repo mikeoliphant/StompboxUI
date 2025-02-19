@@ -119,7 +119,7 @@ namespace Stompbox
                                     parameter.Value = 1.0f - parameter.Value;
                                 };
 
-                                parameter.SetValue = delegate (double value)
+                                parameter.SetValue = delegate (float value)
                                 {
                                     button.SetPressed(value == 1.0f);
                                 };

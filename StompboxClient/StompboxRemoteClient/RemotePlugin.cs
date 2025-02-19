@@ -5,7 +5,7 @@ namespace StompboxAPI
 {
     public class RemoteParameter : PluginParameter
     {
-        public override double Value
+        public override float Value
         {
             get => base.Value;
 

@@ -77,7 +77,7 @@ namespace StompboxAPI
 
                                 if ((parameter.HostBPMSyncNumerator != 0) && (parameter.HostBPMSyncDenominator != 0))
                                 {
-                                    parameter.Value = ((60.0 / StompboxClient.BPM) * ((double)parameter.HostBPMSyncNumerator / (double)parameter.HostBPMSyncDenominator)) * 1000;
+                                    parameter.Value = ((60.0f / StompboxClient.BPM) * ((float)parameter.HostBPMSyncNumerator / (float)parameter.HostBPMSyncDenominator)) * 1000;
                                 }
                                 else
                                 {
@@ -209,7 +209,7 @@ namespace StompboxAPI
                                         {
                                             if (parameter.Name == cmdWords[2])
                                             {
-                                                double value = parameter.DefaultValue;
+                                                float value = parameter.DefaultValue;
 
                                                 if (parameter.CanSyncToHostBPM)
                                                 {
@@ -265,13 +265,13 @@ namespace StompboxAPI
 
                                                         if ((numerator != 0) && (denominator != 0))
                                                         {
-                                                            value = ((60.0 / StompboxClient.BPM) * ((double)parameter.HostBPMSyncNumerator / (double)parameter.HostBPMSyncDenominator)) * 1000;
+                                                            value = ((60.0f / StompboxClient.BPM) * ((float)parameter.HostBPMSyncNumerator / (float)parameter.HostBPMSyncDenominator)) * 1000;
                                                         }
                                                     }
                                                 }
                                                 else
                                                 {
-                                                    double.TryParse(cmdWords[3], out value);
+                                                    float.TryParse(cmdWords[3], out value);
                                                 }
 
                                                 StompboxClient.SuppressCommandUpdates = true;
@@ -293,9 +293,9 @@ namespace StompboxAPI
 
                                 if (plugin != null)
                                 {
-                                    double outputValue = 0;
+                                    float outputValue = 0;
 
-                                    if (double.TryParse(cmdWords[2], out outputValue))
+                                    if (float.TryParse(cmdWords[2], out outputValue))
                                     {
                                         plugin.OutputValue = outputValue;
                                     }
@@ -386,23 +386,23 @@ namespace StompboxAPI
                                                 newParameter.ParameterType = paramType;
                                                 break;
                                             case "MinValue":
-                                                double minValue = 0;
-                                                Double.TryParse(propValue, out minValue);
+                                                float minValue = 0;
+                                                float.TryParse(propValue, out minValue);
                                                 newParameter.MinValue = minValue;
                                                 break;
                                             case "MaxValue":
-                                                double maxValue = 0;
-                                                Double.TryParse(propValue, out maxValue);
+                                                float maxValue = 0;
+                                                float.TryParse(propValue, out maxValue);
                                                 newParameter.MaxValue = maxValue;
                                                 break;
                                             case "RangePower":
-                                                double rangePower = 0;
-                                                Double.TryParse(propValue, out rangePower);
+                                                float rangePower = 0;
+                                                float.TryParse(propValue, out rangePower);
                                                 newParameter.RangePower = rangePower;
                                                 break;
                                             case "DefaultValue":
-                                                double defaultValue = 0;
-                                                Double.TryParse(propValue, out defaultValue);
+                                                float defaultValue = 0;
+                                                float.TryParse(propValue, out defaultValue);
                                                 newParameter.DefaultValue = defaultValue;
                                                 break;
                                             case "ValueFormat":

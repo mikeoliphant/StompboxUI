@@ -157,7 +157,7 @@ namespace StompboxAPI
             processor.SetPluginSlot(slotName, pluginID);
         }
 
-        public override void Init(double sampleRate)
+        public override void Init(float sampleRate)
         {
             processor.Init(sampleRate);
         }
@@ -170,7 +170,7 @@ namespace StompboxAPI
             return settingsString + programString;
         }
 
-        public unsafe void Process(double* input, double* output, uint bufferSize)
+        public unsafe void Process(float* input, float* output, uint bufferSize)
         {
             processor.Process(input, output, bufferSize);
         }
@@ -186,8 +186,8 @@ namespace StompboxAPI
 
             Init(sampleRate);
 
-            double* inBuf = (double*)Marshal.AllocHGlobal(bufferSize * sizeof(double));
-            double* outBuf = (double*)Marshal.AllocHGlobal(bufferSize * sizeof(double));
+            float* inBuf = (float*)Marshal.AllocHGlobal(bufferSize * sizeof(float));
+            float* outBuf = (float*)Marshal.AllocHGlobal(bufferSize * sizeof(float));
 
             while (true)
             {
@@ -198,7 +198,7 @@ namespace StompboxAPI
                 {
                     inBuf[i] = 0;
 
-                    inBuf[i] += Math.Sin(((double)samplePos / (double)sampleRate) * 440 * Math.PI * 2) * 0.25f;
+                    inBuf[i] += (float)Math.Sin(((float)samplePos / (float)sampleRate) * 440 * Math.PI * 2) * 0.25f;
 
                     samplePos++;
                 }

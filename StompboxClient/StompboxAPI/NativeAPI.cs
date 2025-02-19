@@ -24,13 +24,13 @@ namespace StompboxAPI
         public static extern void DeleteProcessor(IntPtr processor);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern void InitProcessor(IntPtr processor, double sampleRate);
+        public static extern void InitProcessor(IntPtr processor, float sampleRate);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern void StartServer(IntPtr processor);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static unsafe extern void Process(IntPtr processor, double* input, double* output, uint bufferSize);
+        public static unsafe extern void Process(IntPtr processor, float* input, float* output, uint bufferSize);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         [return: MarshalAs(UnmanagedType.I1)]
@@ -111,7 +111,7 @@ namespace StompboxAPI
         public static extern void SetPluginEnabled(IntPtr plugin, bool enabled);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern double GetOutputValue(IntPtr plugin);
+        public static extern float GetOutputValue(IntPtr plugin);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern uint GetPluginNumParameters(IntPtr plugin);
@@ -120,10 +120,10 @@ namespace StompboxAPI
         public static extern IntPtr GetPluginParameter(IntPtr plugin, uint index);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern double GetParameterValue(IntPtr parameter);
+        public static extern float GetParameterValue(IntPtr parameter);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern void SetParameterValue(IntPtr parameter, double value);
+        public static extern void SetParameterValue(IntPtr parameter, float value);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern IntPtr GetParameterName(IntPtr parameter);
@@ -132,16 +132,16 @@ namespace StompboxAPI
         public static extern IntPtr GetParameterDescription(IntPtr parameter);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern double GetParameterMinValue(IntPtr parameter);
+        public static extern float GetParameterMinValue(IntPtr parameter);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern double GetParameterMaxValue(IntPtr parameter);
+        public static extern float GetParameterMaxValue(IntPtr parameter);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern double GetParameterDefaultValue(IntPtr parameter);
+        public static extern float GetParameterDefaultValue(IntPtr parameter);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern double GetParameterRangePower(IntPtr parameter);
+        public static extern float GetParameterRangePower(IntPtr parameter);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern int GetParameterType(IntPtr parameter);

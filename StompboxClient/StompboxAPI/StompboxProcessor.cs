@@ -14,7 +14,7 @@ namespace StompboxAPI
             nativeProcessor = NativeApi.CreateProcessor(dataPath, dawMode);
         }
 
-        public void Init(double sampleRate)
+        public void Init(float sampleRate)
         {
             NativeApi.InitProcessor(nativeProcessor, sampleRate);
         }
@@ -102,7 +102,7 @@ namespace StompboxAPI
             return NativeApi.DumpProgram(nativeProcessor);
         }
 
-        public unsafe void Process(double* input, double* output, uint bufferSize)
+        public unsafe void Process(float* input, float* output, uint bufferSize)
         {
             NativeApi.Process(nativeProcessor, input, output, bufferSize);
         }

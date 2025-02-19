@@ -14,8 +14,8 @@ namespace Stompbox
 		public StompboxAPI.APIClient StompboxClient { get; private set; }
         public MonoGameHost GameHost { get; private set; } = null;
 
-        DoubleAudioIOPort monoInput;
-        DoubleAudioIOPort monoOutput;
+        FloatAudioIOPort monoInput;
+        FloatAudioIOPort monoOutput;
 		IntPtr bitConvertBuffer = IntPtr.Zero;
 		uint bitConvertBufferSize = 0;
 
@@ -44,8 +44,8 @@ namespace Stompbox
 
 			Debug("Initialize");
 
-			InputPorts = new AudioIOPort[] { monoInput = new DoubleAudioIOPort("Mono Input", EAudioChannelConfiguration.Mono) };
-			OutputPorts = new AudioIOPort[] { monoOutput = new DoubleAudioIOPort("Mono Output", EAudioChannelConfiguration.Mono) };
+			InputPorts = new AudioIOPort[] { monoInput = new FloatAudioIOPort("Mono Input", EAudioChannelConfiguration.Mono) };
+			OutputPorts = new AudioIOPort[] { monoOutput = new FloatAudioIOPort("Mono Output", EAudioChannelConfiguration.Mono) };
 
 			//if (StompboxGame.DAWMode)
 			//{
@@ -177,7 +177,7 @@ namespace Stompbox
 
 			Logger.Log("Sample rate is: " + Host.SampleRate);
 
-			StompboxClient.Init(Host.SampleRate);
+			StompboxClient.Init((float)Host.SampleRate);
 		}
 
 		public override byte[] SaveState()
@@ -234,7 +234,7 @@ namespace Stompbox
 
 		public override void Process()
 		{
-			StompboxClient.Process(((double**)monoInput.GetAudioBufferPtrs())[0], ((double**)monoOutput.GetAudioBufferPtrs())[0], monoInput.CurrentBufferSize);
+			StompboxClient.Process(((float**)monoInput.GetAudioBufferPtrs())[0], ((float**)monoOutput.GetAudioBufferPtrs())[0], monoInput.CurrentBufferSize);
 		}
 	}
 }

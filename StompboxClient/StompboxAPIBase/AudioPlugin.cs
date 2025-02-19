@@ -96,18 +96,18 @@ namespace Stompbox
         public string Name { get; set; }
         public string Description { get; set; }
         public string ValueFormat { get; set; }
-        public double MinValue { get; set; }
-        public double MaxValue { get; set; }
-        public double DefaultValue { get; set; }
-        public double RangePower { get; set; } = 1;
+        public float MinValue { get; set; }
+        public float MaxValue { get; set; }
+        public float DefaultValue { get; set; }
+        public float RangePower { get; set; } = 1;
         public EParameterType ParameterType { get; set; }
         public bool CanSyncToHostBPM { get; set; }
         public int HostBPMSyncNumerator { get; set; }
         public int HostBPMSyncDenominator { get; set; }
         public bool IsAdvanced { get; set; }
         public bool IsVisible { get; set; }
-        public virtual double Value { get; set; }
-        public double NormalizedValue
+        public virtual float Value { get; set; }
+        public float NormalizedValue
         {
             get
             {
@@ -133,8 +133,8 @@ namespace Stompbox
                 Value = value;
             }
         }
-        public Func<double> GetValue { get; set; }
-        public Action<double> SetValue { get; set; }
+        public Func<float> GetValue { get; set; }
+        public Action<float> SetValue { get; set; }
         public Action UpdateBPMSync { get; set; }
 
         double value;
@@ -145,16 +145,16 @@ namespace Stompbox
             ValueFormat = "{0:0.00}";
         }
 
-        public double GetNormalizedValue(double value)
+        public float GetNormalizedValue(float value)
         {
-            double val = (value - MinValue) / (MaxValue - MinValue);
+            float val = (value - MinValue) / (MaxValue - MinValue);
 
-            return (RangePower < 0) ? (1 - (Math.Pow(1 - val, 1 / -RangePower))) : Math.Pow(val, 1 / RangePower);
+            return (float)((RangePower < 0) ? (1 - (Math.Pow(1 - val, 1 / -RangePower))) : Math.Pow(val, 1 / RangePower));
         }
 
-        public double GetRangeValue(double normalizedValue)
+        public float GetRangeValue(float normalizedValue)
         {
-            double val = (RangePower < 0) ? (1 - Math.Pow(1 - normalizedValue, -RangePower)) : Math.Pow(normalizedValue, RangePower);
+            float val = (float)((RangePower < 0) ? (1 - Math.Pow(1 - normalizedValue, -RangePower)) : Math.Pow(normalizedValue, RangePower));
 
             return MinValue + ((MaxValue - MinValue) * val);
         }
@@ -176,7 +176,7 @@ namespace Stompbox
         String ID { get; }
         String Description { get; set; }
         bool Enabled { get; set; }
-        double OutputValue { get; set; }
+        float OutputValue { get; set; }
         bool EnabledIsSwitchable { get; set; }
         String BackgroundColor { get; set; }
         String ForegroundColor { get; set; }
@@ -210,7 +210,7 @@ namespace Stompbox
                     SetEnabled(enabled);
             }
         }
-        public virtual double OutputValue
+        public virtual float OutputValue
         {
             get
             {
@@ -238,7 +238,7 @@ namespace Stompbox
         public Action<double> SetOutputValue { get; set; }
 
         protected bool enabled;
-        double outputValue;
+        float outputValue;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected bool initialized = false;

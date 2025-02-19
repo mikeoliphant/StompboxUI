@@ -10,7 +10,7 @@ namespace StompboxAPI
     {
         internal IntPtr nativeParameter;
 
-        public override double Value
+        public override float Value
         {
             get
             {
@@ -39,7 +39,7 @@ namespace StompboxAPI
             set { NativeApi.SetPluginEnabled(nativePlugin, value); }
         }
 
-        public override double OutputValue
+        public override float OutputValue
         {
             get
             {
@@ -47,7 +47,7 @@ namespace StompboxAPI
             }
         }
 
-        Dictionary<string, double> cachedParameters = new Dictionary<string, double>();
+        Dictionary<string, float> cachedParameters = new Dictionary<string, float>();
 
         internal void SetNativePlugin(IntPtr nativePlugin)
         {

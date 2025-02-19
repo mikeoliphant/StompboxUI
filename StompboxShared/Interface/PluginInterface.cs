@@ -291,7 +291,7 @@ namespace Stompbox
 
                 paramButton.SetPressed(parameter.Value > 0);
 
-                parameter.SetValue = delegate (double val)
+                parameter.SetValue = delegate (float val)
                 {
                     paramButton.SetPressed(val > 0);
                 };
@@ -367,7 +367,7 @@ namespace Stompbox
 
                     dial.SetValue(parameter.NormalizedValue);
 
-                    dial.ValueChangedAction = delegate (double val)
+                    dial.ValueChangedAction = delegate (float val)
                     {
                         parameter.NormalizedValue = val;
 
@@ -379,7 +379,7 @@ namespace Stompbox
                     //    MainInterface.Instance.ProtocolClient.SendCommand("MapController Expression " + Plugin.ID + " " + parameter.Name);
                     //};
 
-                    parameter.SetValue = delegate (double value)
+                    parameter.SetValue = delegate (float value)
                     {
                         dial.SetValue(parameter.GetNormalizedValue(value));
                     };
@@ -392,7 +392,7 @@ namespace Stompbox
                             {
                                 StompboxClient.Instance.SendCommand("SetParam " + Plugin.ID + " " + parameter.Name + " " + parameter.HostBPMSyncNumerator + "/" + parameter.HostBPMSyncDenominator);
 
-                                parameter.Value = ((60.0 / StompboxClient.Instance.BPM) * ((double)parameter.HostBPMSyncNumerator / (double)parameter.HostBPMSyncDenominator)) * 1000;
+                                parameter.Value = ((60.0f / StompboxClient.Instance.BPM) * ((float)parameter.HostBPMSyncNumerator / (float)parameter.HostBPMSyncDenominator)) * 1000;
                                 dial.SetValue(parameter.Value);
                             }
                             else
@@ -427,7 +427,7 @@ namespace Stompbox
 
             enumInterface.SetSelectedIndex((int)parameter.Value);
 
-            parameter.SetValue = delegate (double val)
+            parameter.SetValue = delegate (float val)
             {
 
             };
@@ -455,7 +455,7 @@ namespace Stompbox
 
             fileInterface.SetSelectedIndex((int)parameter.Value);
 
-            parameter.SetValue = delegate (double val)
+            parameter.SetValue = delegate (float val)
             {
 
             };
@@ -494,7 +494,7 @@ namespace Stompbox
 
             enumInterface.SetSelectedIndex((int)parameter.Value - 1);
 
-            parameter.SetValue = delegate (double val)
+            parameter.SetValue = delegate (float val)
             {
 
             };
@@ -1395,10 +1395,7 @@ namespace Stompbox
                         {
                             System.Diagnostics.Process.Start("explorer.exe", Path.Combine(StompboxClient.Instance.PluginPath, filePath));
                         }
-                        catch (Exception ex)
-                        {
-
-                        }
+                        catch { }
                     }
                 });
 
@@ -1472,22 +1469,22 @@ namespace Stompbox
 
     public class ParameterDial : Dock
     {
-        public double MinValue { get; set; }
-        public double MaxValue { get; set; }
-        public double DefaultValue { get; set; }
-        public double RangePower { get; set; } = 1.0;
-        public Action<double> ValueChangedAction { get; set; }
+        public float MinValue { get; set; }
+        public float MaxValue { get; set; }
+        public float DefaultValue { get; set; }
+        public float RangePower { get; set; } = 1.0f;
+        public Action<float> ValueChangedAction { get; set; }
         public Action HoldAction { get; set; }
 
         ImageElement background;
         RotatingImageElement pointer;
-        double currentValue;
+        float currentValue;
 
         public ParameterDial()
         {
             MinValue = 0;
             MaxValue = 1;
-            DefaultValue = 0.5;
+            DefaultValue = 0.5f;
 
             background = new ImageElement("DialBackground") { HorizontalAlignment = EHorizontalAlignment.Center, VerticalAlignment = EVerticalAlignment.Center };
             Children.Add(background);
@@ -1508,20 +1505,20 @@ namespace Stompbox
             pointer.Color = color;
         }
 
-        public void SetValue(double value)
+        public void SetValue(float value)
         {
             currentValue = MathUtil.Clamp(value, MinValue, MaxValue);
 
-            double val = (currentValue - MinValue) / (MaxValue - MinValue);
+            float val = (currentValue - MinValue) / (MaxValue - MinValue);
 
-            double maxAngle = 143;
+            float maxAngle = 143;
 
-            double angle = -maxAngle + (val * maxAngle * 2);
+            float angle = -maxAngle + (val * maxAngle * 2);
 
-            pointer.Rotation = MathUtil.ToRadians((float)angle);
+            pointer.Rotation = MathUtil.ToRadians(angle);
         }
 
-        double touchStartValue;
+        float touchStartValue;
 
         public override bool HandleTouch(in Touch touch)
         {
@@ -1535,11 +1532,11 @@ namespace Stompbox
                 case ETouchState.Held:
                     if (HaveTouchCapture)
                     {
-                        double delta = TouchCaptureStartPosition.Y - touch.Position.Y;
+                        float delta = TouchCaptureStartPosition.Y - touch.Position.Y;
 
-                        double range = MaxValue - MinValue;
+                        float range = MaxValue - MinValue;
 
-                        double newValue = touchStartValue + ((delta * range) / 160);    //(double)PixGame.Instance.ScreenPPI);
+                        float newValue = touchStartValue + ((delta * range) / 160);    //(double)PixGame.Instance.ScreenPPI);
 
                         newValue = MathUtil.Clamp(newValue, MinValue, MaxValue);
 

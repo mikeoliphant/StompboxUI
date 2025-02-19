@@ -25,7 +25,7 @@ namespace Stompbox
         public Action<int, int, int> MidiCallback { get; set; }
 
         public virtual bool Connected { get { return false; } }
-        public double BPM { get; set; }
+        public float BPM { get; set; }
         public bool InClientMode { get; protected set; }
         public bool AllowMidiMapping { get; set; }
         public string PluginPath { get; set; }
@@ -279,7 +279,7 @@ namespace Stompbox
             StompboxClient.Instance.SendCommand(cmd);
         }
 
-        public virtual void Init(double sampleRate)
+        public virtual void Init(float sampleRate)
         {
         }
 

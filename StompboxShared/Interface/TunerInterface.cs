@@ -12,14 +12,14 @@ namespace Stompbox
     {
         public ENoteName Note;
         public int Octave;
-        public double Frequency;
+        public float Frequency;
 
         public TargetNote(ENoteName note, int octave)
         {
             this.Note = note;
             this.Octave = octave;
 
-            this.Frequency = NoteUtil.GetMidiNoteFrequency(NoteUtil.GetMidiNoteNumber(note, octave - 1));
+            this.Frequency = (float)NoteUtil.GetMidiNoteFrequency(NoteUtil.GetMidiNoteNumber(note, octave - 1));
         }
     }
 
@@ -32,13 +32,13 @@ namespace Stompbox
 
         int tunerImageWidth = 100;
         int tunerImageHeight;
-        double currentPitchCenter;
+        float currentPitchCenter;
         TargetNote closestNote = new TargetNote(ENoteName.E, 2);
-        double lastPitchCenter = 0;
-        double runningCentsOffset = 0;
+        float lastPitchCenter = 0;
+        float runningCentsOffset = 0;
 
         int queueSize = StompboxClient.Instance.InClientMode ? 20 : 40;
-        ConcurrentQueue<double> pitchHistory = new ConcurrentQueue<double>();
+        ConcurrentQueue<float> pitchHistory = new ConcurrentQueue<float>();
         int frameCount = 0;
         DateTime startTime = DateTime.MinValue;
 
@@ -198,7 +198,7 @@ namespace Stompbox
 
         int lastClosestNote = -1;
 
-        void UpdateTuner(double value)
+        void UpdateTuner(float value)
         {
             if (frameCount == 0)
             {
@@ -206,7 +206,7 @@ namespace Stompbox
 
                 if (startTime != DateTime.MinValue)
                 {
-                    double elapsedSecs = (now - startTime).TotalSeconds;
+                    float elapsedSecs = (float)(now - startTime).TotalSeconds;
 
                     if (elapsedSecs < 1)
                     {
@@ -224,24 +224,24 @@ namespace Stompbox
 
             tunerImage.Clear(UIColor.Black);
 
-            double newPitch = value;
+            float newPitch = value;
 
             pitchHistory.Enqueue(newPitch);
 
             while (pitchHistory.Count > queueSize)
             {
-                double val;
+                float val;
 
                 pitchHistory.TryDequeue(out val);
             }
 
             if (newPitch > 20)
             {
-                double diff = double.MaxValue;
+                float diff = float.MaxValue;
 
                 foreach (TargetNote note in targetNotes)
                 {
-                    double targetDiff = Math.Abs(note.Frequency - newPitch);
+                    float targetDiff = Math.Abs(note.Frequency - newPitch);
 
                     if (targetDiff > diff)
                         break;
@@ -268,7 +268,7 @@ namespace Stompbox
                 tunerFrequencyDisplay.StringBuilder.AppendNumber((int)Math.Round((newPitch - (float)integer) * 10));
                 tunerFrequencyDisplay.StringBuilder.Append("Hz");
 
-                double centsOffset = 1200 * Math.Log(newPitch / currentPitchCenter, 2);
+                float centsOffset = (float)(1200 * Math.Log(newPitch / currentPitchCenter, 2));
 
                 if (Math.Abs(centsOffset - runningCentsOffset) > 10)
                 {
@@ -276,7 +276,7 @@ namespace Stompbox
                 }
                 else
                 {
-                    runningCentsOffset = (runningCentsOffset * .99) + (centsOffset * .01);
+                    runningCentsOffset = (runningCentsOffset * .99f) + (centsOffset * .01f);
                 }
 
                 tunerCentsDisplay.StringBuilder.Clear();
@@ -295,25 +295,25 @@ namespace Stompbox
                 lastClosestNote = (int)closestNote.Note;
             }
 
-            double closestY = (tunerImageHeight / 2) - 1;
+            float closestY = (tunerImageHeight / 2) - 1;
 
-            double step = (double)tunerImageWidth / (double)(queueSize - 1);
+            float step = (float)tunerImageWidth / (float)(queueSize - 1);
 
-            double offset = (step / 2);
+            float offset = (step / 2);
 
             int lastX = -1;
             int lastY = -1;
 
-            foreach (double pitch in pitchHistory)
+            foreach (float pitch in pitchHistory)
             {
                 if (pitch > 0)
                 {
-                    double semitoneOffset = 12 * Math.Log(pitch / currentPitchCenter, 2);
+                    float semitoneOffset = (float)(12 * Math.Log(pitch / currentPitchCenter, 2));
 
-                    double y = ((double)tunerImageHeight / 2) + (-semitoneOffset  * (double)tunerImageHeight);
+                    float y = ((float)tunerImageHeight / 2) + (-semitoneOffset  * (float)tunerImageHeight);
 
-                    double xOffset = offset;
-                    double yOffset = y;
+                    float xOffset = offset;
+                    float yOffset = y;
 
                     if ((yOffset > 0) && (yOffset < tunerImageHeight))
                     {

@@ -21,6 +21,12 @@ namespace StompboxAPITest
             Thread.Sleep(1000);
 
             string state = client.GetProgramState();
+
+            var tuner = client.PluginFactory.CreatePlugin("Tuner");
+
+            tuner.Enabled = true;
+
+
         }
     }
 }

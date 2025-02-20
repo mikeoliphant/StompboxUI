@@ -16,7 +16,7 @@ namespace StompboxAPITest
             Thread thread = new Thread(new ThreadStart(client.SimulateAudio));
             thread.Start();
 
-            client.SetSelectedPreset("03Marshall");
+            client.SetSelectedPreset("tmp");
 
             Thread.Sleep(1000);
 
@@ -25,8 +25,6 @@ namespace StompboxAPITest
             var tuner = client.PluginFactory.CreatePlugin("Tuner");
 
             tuner.Enabled = true;
-
-
         }
     }
 }

@@ -217,9 +217,20 @@ namespace Stompbox
             SetSelectedPlugin(plugin as MiniPluginInterface, chainDisplay);
         }
 
+        void ToggleMidi()
+        {
+            StompboxClient.Instance.SendCommand("MidiLock" + (midiToggleButton.IsPressed ? "On" : "Off"));
+        }
+
         protected override void DrawContents()
         {
             base.DrawContents();
+
+            float desiredScale = (Layout.Current as MonoGameLayout).UnscaledBounds.Height / 1920.0f;
+
+            if (StompboxGame.Instance.Scale != desiredScale)
+                StompboxGame.Instance.Scale = desiredScale;
+
 
             if (StompboxClient.Instance.NeedUIReload)
             {
@@ -234,15 +245,8 @@ namespace Stompbox
             }
         }
 
-        void ToggleMidi()
-        {
-            StompboxClient.Instance.SendCommand("MidiLock" + (midiToggleButton.IsPressed ? "On" : "Off"));
-        }
-
         public void UpdateUI()
         {
-            StompboxGame.Instance.Scale = (Layout.Current as MonoGameLayout).UnscaledBounds.Height / 1920.0f;
-
             ampStack.Children.Clear();
 
             AddAmpPlugin(StompboxClient.Instance.Amp, "Amp");

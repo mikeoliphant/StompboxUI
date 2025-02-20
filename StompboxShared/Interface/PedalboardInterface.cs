@@ -31,10 +31,25 @@ namespace Stompbox
             children.Add(stompStack);
         }
 
+        protected override void DrawContents()
+        {
+            base.DrawContents();
+
+            float desiredScale = (Layout.Current as MonoGameLayout).UnscaledBounds.Width / 640.0f;
+
+            if (StompboxGame.Instance.Scale != desiredScale)
+                StompboxGame.Instance.Scale = desiredScale;
+
+            if (StompboxClient.Instance.NeedUIReload)
+            {
+                UpdateUI();
+
+                StompboxClient.Instance.NeedUIReload = false;
+            }
+        }
+
         public void UpdateUI()
         {
-            StompboxGame.Instance.Scale = (Layout.Current as MonoGameLayout).UnscaledBounds.Width / 640.0f;
-
             if (StompboxClient.Instance.CurrentPresetIndex == -1)
             {
                 presetText.Text = "-- No Preset --";
@@ -166,18 +181,6 @@ namespace Stompbox
             });
 
             return stack;
-        }
-
-        protected override void DrawContents()
-        {
-            base.DrawContents();
-
-            if (StompboxClient.Instance.NeedUIReload)
-            {
-                UpdateUI();
-
-                StompboxClient.Instance.NeedUIReload = false;
-            }
         }
 
         public override bool HandleTouch(in Touch touch)

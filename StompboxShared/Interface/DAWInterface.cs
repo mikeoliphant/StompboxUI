@@ -166,6 +166,11 @@ namespace Stompbox
         {
             base.DrawContents();
 
+            float desiredScale = (Layout.Current as MonoGameLayout).UnscaledBounds.Height / 1600.0f;
+
+            if (StompboxGame.Instance.Scale != desiredScale)
+                StompboxGame.Instance.Scale = desiredScale;
+
             if (StompboxClient.Instance.NeedUIReload)
             {
                 UpdateUI();
@@ -186,8 +191,6 @@ namespace Stompbox
 
         public void UpdateUI()
         {
-            StompboxGame.Instance.Scale = (Layout.Current as MonoGameLayout).UnscaledBounds.Height / 1600.0f;
-
             ampStack.Children.Clear();
 
             AddAmpPlugin(StompboxClient.Instance.Amp, "Amp");

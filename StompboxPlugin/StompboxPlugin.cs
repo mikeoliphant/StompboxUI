@@ -73,7 +73,14 @@ namespace Stompbox
 
 			StompboxClient = new StompboxAPI.APIClient();
 
-			StompboxClient.MidiCallback = SendMidiCommand;
+            StompboxClient.SendCommand("SetGlobalChain Chain MasterIn Chain Input Slot Amp Slot ToneStack Chain FxLoop Slot Cabinet Chain Output Chain MasterOut");
+            StompboxClient.SendCommand("SetChain MasterIn Tuner Input");
+            StompboxClient.SendCommand("SetChain MasterOut Master");
+
+            //StompboxClient.UpdateProgram();
+
+
+            StompboxClient.MidiCallback = SendMidiCommand;
 		}
 
 		public override void Stop()

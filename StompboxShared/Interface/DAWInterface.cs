@@ -191,6 +191,8 @@ namespace Stompbox
 
         public void UpdateUI()
         {
+            
+
             ampStack.Children.Clear();
 
             AddAmpPlugin(StompboxClient.Instance.Amp, "Amp");

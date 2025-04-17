@@ -59,7 +59,7 @@ namespace StompboxAPI
 
             //processorWrapper.SetMidiCallback(HandleMidi);
 
-            UpdateProgram();
+            //UpdateProgram();
         }
 
         public void StartServer()

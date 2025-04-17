@@ -73,9 +73,14 @@ namespace Stompbox
 
 			StompboxClient = new StompboxAPI.APIClient();
 
-            StompboxClient.SendCommand("SetGlobalChain Chain MasterIn Chain Input Slot Amp Slot ToneStack Chain FxLoop Slot Cabinet Chain Output Chain MasterOut");
+            StompboxClient.SendCommand("SetGlobalChain MasterChain MasterIn Chain Input Slot Amp Slot ToneStack Chain FxLoop Slot Cabinet Chain Output MasterChain MasterOut");
+
+			StompboxClient.UpdateProgram();
+
             StompboxClient.SendCommand("SetChain MasterIn Tuner Input");
             StompboxClient.SendCommand("SetChain MasterOut Master");
+
+
 
             //StompboxClient.UpdateProgram();
 

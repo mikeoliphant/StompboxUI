@@ -73,13 +73,13 @@ namespace Stompbox
 
 			StompboxClient = new StompboxAPI.APIClient();
 
-            StompboxClient.SendCommand("SetGlobalChain MasterChain MasterIn Chain Input Slot Amp Slot ToneStack Chain FxLoop Slot Cabinet Chain Output MasterChain MasterOut");
+            StompboxClient.SendCommand("SetGlobalChain MasterChain MasterIn Chain Input Slot Amp Slot Tonestack Chain FxLoop Slot Cabinet Chain Output MasterChain MasterOut");
 
 			StompboxClient.UpdateProgram();
 
-            StompboxClient.SendCommand("SetChain MasterIn Tuner Input");
-            StompboxClient.SendCommand("SetChain MasterOut Master");
-
+            StompboxClient.SendCommand("SetChain MasterIn AudioRecorder Tuner Input");
+            StompboxClient.SendCommand("SetChain MasterOut AudioFilePlayer Master");
+			StompboxClient.SendCommand("SetPluginSlot Tonestack EQ-7");
 
 
             //StompboxClient.UpdateProgram();

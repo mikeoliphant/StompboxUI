@@ -57,19 +57,9 @@ namespace StompboxAPI
             NativeApi.SetPluginSlot(nativeProcessor, slotName, pluginID);
         }
 
-        public List<UnmanagedAudioPlugin> GetInputChainPlugins()
+        public List<UnmanagedAudioPlugin> GetChainPlugins(string chainName)
         {
-            return GetChainPlugins(NativeApi.GetChainPlugins(nativeProcessor, "Input"));
-        }
-
-        public List<UnmanagedAudioPlugin> GetFxLoopPlugins()
-        {
-            return GetChainPlugins(NativeApi.GetChainPlugins(nativeProcessor, "FxLoop"));
-        }
-
-        public List<UnmanagedAudioPlugin> GetOutputChainPlugins()
-        {
-            return GetChainPlugins(NativeApi.GetChainPlugins(nativeProcessor, "Output"));
+            return GetChainPlugins(NativeApi.GetChainPlugins(nativeProcessor, chainName));
         }
 
         public List<string> GetPresets()

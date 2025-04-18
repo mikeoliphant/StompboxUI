@@ -191,30 +191,28 @@ namespace Stompbox
 
         public void UpdateUI()
         {
-            
-
             ampStack.Children.Clear();
 
-            AddAmpPlugin(StompboxClient.Instance.Amp, "Amp");
-            AddAmpPlugin(StompboxClient.Instance.Tonestack, "Tonestack");
-            AddAmpPlugin(StompboxClient.Instance.Cabinet, "Cabinet");
+            AddAmpPlugin("Amp");
+            AddAmpPlugin("Tonestack");
+            AddAmpPlugin("Cabinet");
 
             topUIStack.Children.Clear();
 
             topUIStack.Children.Add(programStack);
 
-            topUIStack.Children.Add(new GainPluginInterface(StompboxClient.Instance.InputGain));
+            topUIStack.Children.Add(new GainPluginInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("Input")));
 
             topUIStack.Children.Add(ampStack);
 
-            topUIStack.Children.Add(new GainPluginInterface(StompboxClient.Instance.MasterVolume));
+            topUIStack.Children.Add(new GainPluginInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("Master")));
 
-            tunerWrapper.Child = new TunerInterface(StompboxClient.Instance.Tuner);
-            audioFilePlayerWrapper.Child = new AudioFilePlayerInterface(StompboxClient.Instance.AudioPlayer);
+            tunerWrapper.Child = new TunerInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("Tuner"));
+            audioFilePlayerWrapper.Child = new AudioFilePlayerInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("AudioFilePlayer"));
 
-            inputChainDisplay.SetChain(StompboxClient.Instance.InputPlugins);
-            fxLoopDisplay.SetChain(StompboxClient.Instance.FxLoopPlugins);
-            outputChainDisplay.SetChain(StompboxClient.Instance.OutputPlugins);
+            inputChainDisplay.SetChain(StompboxClient.Instance.GetChain("Input"));
+            fxLoopDisplay.SetChain(StompboxClient.Instance.GetChain("FxLoop"));
+            outputChainDisplay.SetChain(StompboxClient.Instance.GetChain("Output"));
 
             currentProgramInterface.SetEnumValues(StompboxClient.Instance.PresetNames);
             currentProgramInterface.SetSelectedIndex(StompboxClient.Instance.CurrentPresetIndex);
@@ -222,8 +220,10 @@ namespace Stompbox
             UpdateContentLayout();
         }
 
-        void AddAmpPlugin(IAudioPlugin plugin, string slotName)
+        void AddAmpPlugin(string slotName)
         {
+            IAudioPlugin plugin = StompboxClient.Instance.PluginFactory.CreatePlugin(StompboxClient.Instance.GetSlotPlugin(slotName));
+
             if (plugin == null)
                 return;
 

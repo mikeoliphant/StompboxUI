@@ -11,7 +11,7 @@ namespace StompboxAPI
     {
         public List<String> PluginNames { get; private set; }
 
-        Dictionary<string, IAudioPlugin> pluginDefs = new Dictionary<string, IAudioPlugin>();
+        Dictionary<string, IAudioPlugin> pluginDefs = new();
 
         RemoteClient StompboxClient;
 

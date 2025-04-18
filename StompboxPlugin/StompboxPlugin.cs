@@ -81,7 +81,6 @@ namespace Stompbox
             StompboxClient.SendCommand("SetChain MasterOut AudioFilePlayer Master");
 			StompboxClient.SendCommand("SetPluginSlot Tonestack EQ-7");
 
-
             //StompboxClient.UpdateProgram();
 
 

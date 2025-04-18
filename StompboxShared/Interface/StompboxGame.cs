@@ -65,6 +65,11 @@ namespace Stompbox
             InputManager.AddMapping("Stomp3", new KeyMapping(InputKey.D4));
 
             SetInterfaceType(InterfaceType);
+
+            if (!StompboxClient.Instance.InClientMode)
+            {
+                Initialize();
+            }
         }
 
         public void SetInterfaceType(EStompboxInterfaceType interfaceType)
@@ -114,7 +119,24 @@ namespace Stompbox
                 });
             }
             else
+            {
                 clientConnected = true;
+
+                Initialize();
+            }
+        }
+
+        void Initialize()
+        {
+            StompboxClient.Instance.SendCommand("SetGlobalChain MasterChain MasterIn Chain Input Slot Amp Slot Tonestack Chain FxLoop Slot Cabinet Chain Output MasterChain MasterOut");
+
+            StompboxClient.Instance.UpdateProgram();
+
+            StompboxClient.Instance.SendCommand("SetChain MasterIn AudioRecorder Tuner Input");
+            StompboxClient.Instance.SendCommand("SetChain MasterOut AudioFilePlayer Master");
+            StompboxClient.Instance.SendCommand("SetPluginSlot Amp NAM");
+            StompboxClient.Instance.SendCommand("SetPluginSlot Tonestack EQ-7");
+            StompboxClient.Instance.SendCommand("SetPluginSlot Cabinet Cabinet");
         }
 
         public override void Update(float secondsElapsed)

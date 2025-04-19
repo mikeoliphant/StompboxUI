@@ -177,23 +177,6 @@ namespace Stompbox
         {
             Debug("*** Update UI");
 
-            //Tuner = PluginFactory.CreatePlugin("Tuner");
-
-            //InputGain = PluginFactory.CreatePlugin("Input");
-
-            //Amp = CreateSlotPlugin("Amp", "NAM");
-
-            //Tonestack = CreateSlotPlugin("Tonestack", "EQ-7");
-
-            //Cabinet = CreateSlotPlugin("Cabinet", "Cabinet");
-
-            //MasterVolume = PluginFactory.CreatePlugin("Master");
-
-            //AudioPlayer = PluginFactory.CreatePlugin("AudioFilePlayer");
-
-            //if (StompboxClient.Instance.InClientMode)
-            //    AudioRecorder = PluginFactory.CreatePlugin("AudioFileRecorder");
-
             NeedUIReload = true;
         }
 

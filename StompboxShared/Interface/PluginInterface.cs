@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Collections.Generic;
 using UILayout;
-using System.Reflection;
 using System.IO;
 
 namespace Stompbox

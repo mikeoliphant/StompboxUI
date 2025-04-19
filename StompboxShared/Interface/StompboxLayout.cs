@@ -4,22 +4,14 @@ using StompboxAPI;
 
 namespace Stompbox
 {
-    public enum EStompboxInterfaceType
+    public class StompboxLayout : MonoGameLayout
     {
-        DAW,
-        Mobile,
-        Pedalboard
-    }
-
-    public class StompboxGame : MonoGameLayout
-    {
-        public static StompboxGame Instance { get; private set; }
+        public static StompboxLayout Instance { get; private set; }
         public static float BaseScale { get; set; } = 1.0f;
-        public static EStompboxInterfaceType InterfaceType { get; set; } = EStompboxInterfaceType.DAW;
 
         bool clientConnected = true;
 
-        public StompboxGame()
+        public StompboxLayout()
         {
             Instance = this;
 
@@ -64,35 +56,11 @@ namespace Stompbox
             InputManager.AddMapping("Stomp2", new KeyMapping(InputKey.D3));
             InputManager.AddMapping("Stomp3", new KeyMapping(InputKey.D4));
 
-            SetInterfaceType(InterfaceType);
+            InterfaceBase.SetInterfaceType(InterfaceBase.InterfaceType);
 
             if (!StompboxClient.Instance.InClientMode)
             {
                 Initialize();
-            }
-        }
-
-        public void SetInterfaceType(EStompboxInterfaceType interfaceType)
-        {
-            StompboxGame.InterfaceType = interfaceType;
-
-            switch (InterfaceType)
-            {
-                case EStompboxInterfaceType.DAW:
-                    RootUIElement = new DAWInterface();
-                    break;
-                case EStompboxInterfaceType.Mobile:
-#if ANDROID
-                    Activity1.Instance.RequestedOrientation = Android.Content.PM.ScreenOrientation.UserPortrait;
-#endif
-                    RootUIElement = new MobileInterface();
-                    break;
-                case EStompboxInterfaceType.Pedalboard:
-#if ANDROID
-                    Activity1.Instance.RequestedOrientation = Android.Content.PM.ScreenOrientation.UserLandscape;
-#endif
-                    RootUIElement = new PedalboardInterface();
-                    break;
             }
         }
 

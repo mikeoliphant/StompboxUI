@@ -200,7 +200,7 @@ namespace Stompbox
             //    VerticalAlignment = EVerticalAlignment.Bottom,
             //    ClickAction = delegate
             //    {
-            //        StompboxGame.Instance.SetInterfaceType(EStompboxInterfaceType.Pedalboard);
+            //        StompboxLayout.Instance.SetInterfaceType(EStompboxInterfaceType.Pedalboard);
             //        StompboxClient.Instance.NeedUIReload = true;
             //    }
             //});
@@ -228,8 +228,8 @@ namespace Stompbox
 
             float desiredScale = (Layout.Current as MonoGameLayout).UnscaledBounds.Height / 1920.0f;
 
-            if (StompboxGame.Instance.Scale != desiredScale)
-                StompboxGame.Instance.Scale = desiredScale;
+            if (StompboxLayout.Instance.Scale != desiredScale)
+                StompboxLayout.Instance.Scale = desiredScale;
 
 
             if (StompboxClient.Instance.NeedUIReload)

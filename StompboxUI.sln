@@ -48,6 +48,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StompboxAPITest", "Stompbox
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StompboxRemoteClient", "StompboxClient\StompboxRemoteClient\StompboxRemoteClient.csproj", "{D4A1D097-2484-09E2-6932-9A06B16E4370}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniPlugins", "MiniPlugins\MiniPlugins.csproj", "{2EBE19F9-83F1-4209-9189-FD552C959DD7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -449,6 +451,30 @@ Global
 		{D4A1D097-2484-09E2-6932-9A06B16E4370}.RelWithDebInfo|x64.Build.0 = Debug|Any CPU
 		{D4A1D097-2484-09E2-6932-9A06B16E4370}.RelWithDebInfo|x86.ActiveCfg = Debug|Any CPU
 		{D4A1D097-2484-09E2-6932-9A06B16E4370}.RelWithDebInfo|x86.Build.0 = Debug|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.Debug|x64.Build.0 = Debug|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.Debug|x86.Build.0 = Debug|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.MinSizeRel|Any CPU.ActiveCfg = Release|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.MinSizeRel|Any CPU.Build.0 = Release|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.MinSizeRel|x64.ActiveCfg = Release|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.MinSizeRel|x64.Build.0 = Release|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.MinSizeRel|x86.ActiveCfg = Release|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.MinSizeRel|x86.Build.0 = Release|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.Release|x64.ActiveCfg = Release|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.Release|x64.Build.0 = Release|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.Release|x86.ActiveCfg = Release|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.Release|x86.Build.0 = Release|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.RelWithDebInfo|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.RelWithDebInfo|Any CPU.Build.0 = Debug|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.RelWithDebInfo|x64.ActiveCfg = Debug|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.RelWithDebInfo|x64.Build.0 = Debug|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.RelWithDebInfo|x86.ActiveCfg = Debug|Any CPU
+		{2EBE19F9-83F1-4209-9189-FD552C959DD7}.RelWithDebInfo|x86.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -469,6 +495,9 @@ Global
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{1ff3b5c3-44e2-464a-a15f-55ad4b41cea0}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{1ff3b5c3-44e2-464a-a15f-55ad4b41cea0}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{1ff3b5c3-44e2-464a-a15f-55ad4b41cea0}*SharedItemsImports = 5
+		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{2ebe19f9-83f1-4209-9189-fd552c959dd7}*SharedItemsImports = 5
+		Dependencies\UILayout\UILayout\UILayout.projitems*{2ebe19f9-83f1-4209-9189-fd552c959dd7}*SharedItemsImports = 5
+		StompboxShared\StompboxShared.projitems*{2ebe19f9-83f1-4209-9189-fd552c959dd7}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{428f3d8a-d221-4f75-b1d6-f409b91fb7df}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{49305251-662e-459a-9adf-9866ceb6c4d2}*SharedItemsImports = 5
 		StompboxClient\StompboxAPIBase\StompboxAPIBase.projitems*{71c8dc9a-fe7f-516c-5f91-abda855b9d26}*SharedItemsImports = 5

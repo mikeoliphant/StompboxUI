@@ -46,34 +46,14 @@ namespace Stompbox
 			InputPorts = new AudioIOPort[] { monoInput = new FloatAudioIOPort("Mono Input", EAudioChannelConfiguration.Mono) };
 			OutputPorts = new AudioIOPort[] { monoOutput = new FloatAudioIOPort("Mono Output", EAudioChannelConfiguration.Mono) };
 
-			//if (StompboxLayout.DAWMode)
-			//{
                 EditorWidth = 1000;
                 EditorHeight = 540;
-            //         }
-            //else
-            //{
-            //             EditorWidth = 378;
-            //             EditorHeight = 672;
-            //         }
-
-
-            //SampleFormatsSupported = EAudioBitsPerSample.Bits64;
-
-            //string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-            //UriBuilder uri = new UriBuilder(codeBase);
-            //string path = Uri.UnescapeDataString(uri.Path);
-            //PluginPath = Path.GetDirectoryName(path);
-
 
             //GCSettings.LatencyMode = GCLatencyMode.LowLatency;// GCLatencyMode.Batch; // SustainedLowLatency;
 
             StompboxAPI.APIClient.DebugAction = Debug;
 
 			StompboxClient = new StompboxAPI.APIClient();
-
-            //StompboxClient.UpdateProgram();
-
 
             StompboxClient.MidiCallback = SendMidiCommand;
 		}

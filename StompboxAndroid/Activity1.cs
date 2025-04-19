@@ -38,7 +38,7 @@ namespace Stompbox
 
             guitarClient = new RemoteClient();
 
-            StompboxLayout.InterfaceType = EStompboxInterfaceType.Mobile;
+            InterfaceBase.InterfaceType = EStompboxInterfaceType.Mobile;
 
             StompboxLayout game = new StompboxLayout();
 

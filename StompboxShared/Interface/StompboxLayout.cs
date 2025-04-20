@@ -4,22 +4,14 @@ using StompboxAPI;
 
 namespace Stompbox
 {
-    public enum EStompboxInterfaceType
+    public class StompboxLayout : MonoGameLayout
     {
-        DAW,
-        Mobile,
-        Pedalboard
-    }
-
-    public class StompboxGame : MonoGameLayout
-    {
-        public static StompboxGame Instance { get; private set; }
+        public static StompboxLayout Instance { get; private set; }
         public static float BaseScale { get; set; } = 1.0f;
-        public static EStompboxInterfaceType InterfaceType { get; set; } = EStompboxInterfaceType.DAW;
 
         bool clientConnected = true;
 
-        public StompboxGame()
+        public StompboxLayout()
         {
             Instance = this;
 
@@ -64,30 +56,11 @@ namespace Stompbox
             InputManager.AddMapping("Stomp2", new KeyMapping(InputKey.D3));
             InputManager.AddMapping("Stomp3", new KeyMapping(InputKey.D4));
 
-            SetInterfaceType(InterfaceType);
-        }
+            InterfaceBase.SetInterfaceType(InterfaceBase.InterfaceType);
 
-        public void SetInterfaceType(EStompboxInterfaceType interfaceType)
-        {
-            StompboxGame.InterfaceType = interfaceType;
-
-            switch (InterfaceType)
+            if (!StompboxClient.Instance.InClientMode)
             {
-                case EStompboxInterfaceType.DAW:
-                    RootUIElement = new DAWInterface();
-                    break;
-                case EStompboxInterfaceType.Mobile:
-#if ANDROID
-                    Activity1.Instance.RequestedOrientation = Android.Content.PM.ScreenOrientation.UserPortrait;
-#endif
-                    RootUIElement = new MobileInterface();
-                    break;
-                case EStompboxInterfaceType.Pedalboard:
-#if ANDROID
-                    Activity1.Instance.RequestedOrientation = Android.Content.PM.ScreenOrientation.UserLandscape;
-#endif
-                    RootUIElement = new PedalboardInterface();
-                    break;
+                Initialize();
             }
         }
 
@@ -114,7 +87,30 @@ namespace Stompbox
                 });
             }
             else
+            {
                 clientConnected = true;
+
+                Initialize();
+            }
+        }
+
+        void Initialize()
+        {
+            StompboxClient.Instance.SendCommand("SetGlobalChain MasterChain MasterIn Chain Input Slot Amp Slot Tonestack Chain FxLoop Slot Cabinet Chain Output MasterChain MasterOut");
+
+            StompboxClient.Instance.UpdateProgram();
+
+            StompboxClient.Instance.SendCommand("SetChain MasterIn AudioRecorder Tuner Input");
+            StompboxClient.Instance.SendCommand("SetChain MasterOut AudioFilePlayer Master");
+
+            if (StompboxClient.Instance.GetSlotPlugin("Amp") == null)
+                StompboxClient.Instance.SetSlotPlugin("Amp", "NAM");
+
+            if (StompboxClient.Instance.GetSlotPlugin("Tonestack") == null)
+                StompboxClient.Instance.SetSlotPlugin("Tonestack", "EQ-7");
+
+            if (StompboxClient.Instance.GetSlotPlugin("Cabinet") == null)
+                StompboxClient.Instance.SetSlotPlugin("Cabint", "Cabinet");
         }
 
         public override void Update(float secondsElapsed)

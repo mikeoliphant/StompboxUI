@@ -5,19 +5,19 @@ using UILayout;
 
 RemoteClient client = new();
 
-StompboxGame.InterfaceType = EStompboxInterfaceType.DAW;
+InterfaceBase.InterfaceType = EStompboxInterfaceType.DAW;
 
-StompboxGame game = new StompboxGame();
+StompboxLayout game = new StompboxLayout();
 
 int width = 1000;
 int height = 540;
 
-if (StompboxGame.InterfaceType == EStompboxInterfaceType.Mobile)
+if (InterfaceBase.InterfaceType == EStompboxInterfaceType.Mobile)
 {
     width = 540;
     height = 960;
 }
-else if (StompboxGame.InterfaceType == EStompboxInterfaceType.Pedalboard)
+else if (InterfaceBase.InterfaceType == EStompboxInterfaceType.Pedalboard)
 {
     width = 960;
     height = 540;

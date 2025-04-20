@@ -2,7 +2,6 @@
 using System.Drawing;
 using System.Collections.Generic;
 using UILayout;
-using System.Reflection;
 using System.IO;
 
 namespace Stompbox
@@ -29,7 +28,12 @@ namespace Stompbox
             Children.Add(mainHStack);
 
             if (!miniMode)
-                mainHStack.Children.Add(new ImageElement(name + "Chain") {  VerticalAlignment = EVerticalAlignment.Center });
+            {
+                UIImage image = Layout.Current.GetImage(name + "Chain");
+
+                if (image != null)
+                    mainHStack.Children.Add(new ImageElement(image) { VerticalAlignment = EVerticalAlignment.Center });
+            }
 
             pluginStack = new HorizontalStack() { ChildSpacing = 0, VerticalAlignment = EVerticalAlignment.Stretch };
             mainHStack.Children.Add(pluginStack);

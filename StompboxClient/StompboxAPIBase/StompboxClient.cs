@@ -29,50 +29,6 @@ namespace Stompbox
         public bool InClientMode { get; protected set; }
         public bool AllowMidiMapping { get; set; }
         public string PluginPath { get; set; }
-        public List<IAudioPlugin> InputPlugins { get; set; }
-        public List<IAudioPlugin> FxLoopPlugins { get; set; }
-        public List<IAudioPlugin> OutputPlugins { get; set; }
-        public IEnumerable<IAudioPlugin> AllActivePlugins
-        {
-            get
-            {
-                yield return Tuner;
-
-                yield return InputGain;
-
-                if (Amp != null)
-                    yield return Amp;
-
-                foreach (IAudioPlugin plugin in InputPlugins)
-                    yield return plugin;
-
-                if (Tonestack != null)
-                    yield return Tonestack;
-
-                foreach (IAudioPlugin plugin in FxLoopPlugins)
-                    yield return plugin;
-
-                if (Cabinet != null)
-                    yield return Cabinet;
-
-                foreach (IAudioPlugin plugin in OutputPlugins)
-                    yield return plugin;
-
-                yield return AudioPlayer;
-
-                yield return AudioRecorder;
-
-                yield return MasterVolume;
-            }
-        }
-        public IAudioPlugin Tuner { get; private set; }
-        public IAudioPlugin InputGain { get; private set; }
-        public IAudioPlugin MasterVolume { get; private set; }
-        public IAudioPlugin Amp { get; private set; }
-        public IAudioPlugin Tonestack { get; private set; }
-        public IAudioPlugin Cabinet { get; private set; }
-        public IAudioPlugin AudioPlayer { get; private set; }
-        public IAudioPlugin AudioRecorder { get; private set; }
         public float MaxDSPLoad { get; private set; }
         public float MinDSPLoad { get; private set; }
         public List<MidiCCMapEntry> MidiCCMap { get; private set; } = new List<MidiCCMapEntry>();
@@ -80,6 +36,14 @@ namespace Stompbox
         public Dictionary<int, int> MidiStompCCMap { get; private set; } = new Dictionary<int, int>();
         public bool StopSimulateAudio { get; set; }
         public List<string> PresetNames { get; private set; }
+
+        public IEnumerable<IAudioPlugin> AllActivePlugins
+        {
+            get
+            {
+                yield break;
+            }
+        }
 
         public virtual int CurrentPresetIndex { get; set;  }
 
@@ -101,10 +65,6 @@ namespace Stompbox
             PluginFactory = new PluginFactory(this);
 
             PresetNames = new List<string>();
-
-            InputPlugins = new List<IAudioPlugin>();
-            FxLoopPlugins = new List<IAudioPlugin>();
-            OutputPlugins = new List<IAudioPlugin>();
         }
 
         public virtual void Connect(string serverName, int port, Action<bool> connectCallback)
@@ -133,6 +93,11 @@ namespace Stompbox
         public virtual void DeleteCurrentPreset()
         {
            
+        }
+
+        public virtual string GetGlobalChain()
+        {
+            throw new NotImplementedException();
         }
 
         public virtual IEnumerable<String> GetAllPluginNames()
@@ -169,6 +134,16 @@ namespace Stompbox
             return null;
         }
 
+        public virtual void SetChain(string name, List<IAudioPlugin> plugins)
+        {
+
+        }
+
+        public virtual List<IAudioPlugin> GetChain(string name)
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual void SendCommand(string command)
         {
         }
@@ -184,22 +159,6 @@ namespace Stompbox
         {
             MaxDSPLoad = maxDSPLoad;
             MinDSPLoad = minDSPLoad;
-        }
-
-        public void SetInputChain(List<IAudioPlugin> plugins)
-        {
-            InputPlugins = plugins;
-        }
-
-        public void SetFxLoop(List<IAudioPlugin> plugins)
-        {
-            FxLoopPlugins = plugins;
-        }
-
-
-        public void SetOutputChain(List<IAudioPlugin> plugins)
-        {
-            OutputPlugins = plugins;
         }
 
         public void SetPresetNames(List<string> presetNames)
@@ -222,23 +181,6 @@ namespace Stompbox
         public virtual void UpdateUI()
         {
             Debug("*** Update UI");
-
-            Tuner = PluginFactory.CreatePlugin("Tuner");
-
-            InputGain = PluginFactory.CreatePlugin("Input");
-
-            Amp = CreateSlotPlugin("Amp", "NAM");
-
-            Tonestack = CreateSlotPlugin("Tonestack", "EQ-7");
-
-            Cabinet = CreateSlotPlugin("Cabinet", "Cabinet");
-
-            MasterVolume = PluginFactory.CreatePlugin("Master");
-
-            AudioPlayer = PluginFactory.CreatePlugin("AudioFilePlayer");
-
-            if (StompboxClient.Instance.InClientMode)
-                AudioRecorder = PluginFactory.CreatePlugin("AudioFileRecorder");
 
             NeedUIReload = true;
         }

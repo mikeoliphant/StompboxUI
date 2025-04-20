@@ -130,7 +130,7 @@ namespace Stompbox
             {
                 ClickAction = delegate
                 {
-                    SetSelectedPlugin(new TunerInterface(StompboxClient.Instance.Tuner));
+                    SetSelectedPlugin(new TunerInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("Tuner")));
                 }
             });
 
@@ -138,7 +138,7 @@ namespace Stompbox
             {
                 ClickAction = delegate
                 {
-                    SetSelectedPlugin(new AudioFilePlayerInterface(StompboxClient.Instance.AudioPlayer));
+                    SetSelectedPlugin(new AudioFilePlayerInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("AudioFilePlayer")));
                 }
             });
 
@@ -146,7 +146,7 @@ namespace Stompbox
             {
                 ClickAction = delegate
                 {
-                    SetSelectedPlugin(new AudioFileRecorderInterface(StompboxClient.Instance.AudioRecorder));
+                    SetSelectedPlugin(new AudioFileRecorderInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("AudioRecorder")));
                 }
             });
 
@@ -200,7 +200,7 @@ namespace Stompbox
             //    VerticalAlignment = EVerticalAlignment.Bottom,
             //    ClickAction = delegate
             //    {
-            //        StompboxGame.Instance.SetInterfaceType(EStompboxInterfaceType.Pedalboard);
+            //        StompboxLayout.Instance.SetInterfaceType(EStompboxInterfaceType.Pedalboard);
             //        StompboxClient.Instance.NeedUIReload = true;
             //    }
             //});
@@ -228,8 +228,8 @@ namespace Stompbox
 
             float desiredScale = (Layout.Current as MonoGameLayout).UnscaledBounds.Height / 1920.0f;
 
-            if (StompboxGame.Instance.Scale != desiredScale)
-                StompboxGame.Instance.Scale = desiredScale;
+            if (StompboxLayout.Instance.Scale != desiredScale)
+                StompboxLayout.Instance.Scale = desiredScale;
 
 
             if (StompboxClient.Instance.NeedUIReload)
@@ -249,22 +249,22 @@ namespace Stompbox
         {
             ampStack.Children.Clear();
 
-            AddAmpPlugin(StompboxClient.Instance.Amp, "Amp");
-            AddAmpPlugin(StompboxClient.Instance.Tonestack, "Tonestack");
-            AddAmpPlugin(StompboxClient.Instance.Cabinet, "Cabinet");
+            AddAmpPlugin("Amp");
+            AddAmpPlugin("Tonestack");
+            AddAmpPlugin("Cabinet");
 
             topUIStack.Children.Clear();
 
-            topUIStack.Children.Add(new GainPluginInterface(StompboxClient.Instance.InputGain));
+            topUIStack.Children.Add(new GainPluginInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("Input")));
 
             topUIStack.Children.Add(programStack);
 
-            topUIStack.Children.Add(new GainPluginInterface(StompboxClient.Instance.MasterVolume));
+            topUIStack.Children.Add(new GainPluginInterface(StompboxClient.Instance.PluginFactory.CreatePlugin("Master")));
 
 
-            inputChainDisplay.SetChain(StompboxClient.Instance.InputPlugins);
-            fxLoopDisplay.SetChain(StompboxClient.Instance.FxLoopPlugins);
-            outputChainDisplay.SetChain(StompboxClient.Instance.OutputPlugins);
+            inputChainDisplay.SetChain(StompboxClient.Instance.GetChain("Input"));
+            fxLoopDisplay.SetChain(StompboxClient.Instance.GetChain("FxLoop"));
+            outputChainDisplay.SetChain(StompboxClient.Instance.GetChain("Output"));
 
             currentProgramInterface.SetEnumValues(StompboxClient.Instance.PresetNames);
             currentProgramInterface.SetSelectedIndex(StompboxClient.Instance.CurrentPresetIndex);
@@ -280,8 +280,10 @@ namespace Stompbox
             UpdateContentLayout();
         }
 
-        void AddAmpPlugin(IAudioPlugin plugin, string slotName)
+        void AddAmpPlugin(string slotName)
         {
+            IAudioPlugin plugin = StompboxClient.Instance.PluginFactory.CreatePlugin(StompboxClient.Instance.GetSlotPlugin(slotName));
+
             if (plugin == null)
                 return;
 

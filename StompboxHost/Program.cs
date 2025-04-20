@@ -8,8 +8,10 @@ namespace Stompbox
         [STAThread]
         static void Main(string[] args)
         {
-            MiniPlugins.AmpPlugin plugin = new();
+            //StompboxPlugin plugin = new();
+            //var host = new WindowsFormsHost<StompboxPlugin>(plugin);
 
+            MiniPlugins.AmpPlugin plugin = new();
             var host = new WindowsFormsHost<MiniPlugins.AmpPlugin>(plugin);
 
             host.Run();

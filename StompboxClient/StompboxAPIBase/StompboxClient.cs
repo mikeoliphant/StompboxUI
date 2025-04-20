@@ -95,6 +95,11 @@ namespace Stompbox
            
         }
 
+        public virtual string GetGlobalChain()
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual IEnumerable<String> GetAllPluginNames()
         {
             return null;

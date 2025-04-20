@@ -51,9 +51,9 @@ namespace MiniPlugins
 
             DefaultDragImage = GetImage("ButtonPressed");
 
-            RootUIElement = new MiniPluginInterface();
-
             Initialize();
+
+            RootUIElement = new MiniPluginInterface();
         }
 
         void Initialize()
@@ -62,8 +62,8 @@ namespace MiniPlugins
 
             StompboxClient.Instance.UpdateProgram();
 
-            StompboxClient.Instance.SendCommand("SetSlot InputGain Input");
-            StompboxClient.Instance.SendCommand("SetChain MasterVolume Master");
+            StompboxClient.Instance.SendCommand("SetPluginSlot InputGain Input");
+            StompboxClient.Instance.SendCommand("SetPluginSlot MasterVolume Master");
             StompboxClient.Instance.SendCommand("SetPluginSlot Amp NAM");
             StompboxClient.Instance.SendCommand("SetPluginSlot Tonestack EQ-7");
             StompboxClient.Instance.SendCommand("SetPluginSlot Cabinet Cabinet");

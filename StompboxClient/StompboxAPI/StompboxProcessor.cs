@@ -47,6 +47,11 @@ namespace StompboxAPI
             return NativeApi.GetListFromStringVector(NativeApi.GetAllPlugins(nativeProcessor));
         }
 
+        public string GetGlobalChain()
+        {
+            return NativeApi.GetGlobalChain(nativeProcessor);
+        }
+
         public string GetPluginSlot(string slotName)
         {
             return Marshal.PtrToStringAnsi(NativeApi.GetPluginSlot(nativeProcessor, slotName));

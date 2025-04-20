@@ -51,6 +51,10 @@ namespace StompboxAPI
         public static extern IntPtr GetAllPlugins(IntPtr processor);
 
         [DllImport(STOMPBOX_LIB_NAME)]
+        [return: MarshalAs(UnmanagedType.LPStr)]
+        public static extern string GetGlobalChain(IntPtr processor);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
         public static extern IntPtr GetPluginSlot(IntPtr processor, [MarshalAs(UnmanagedType.LPStr)] string slotName);
 
         [DllImport(STOMPBOX_LIB_NAME)]

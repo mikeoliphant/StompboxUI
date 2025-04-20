@@ -106,6 +106,11 @@ namespace StompboxAPI
             UpdateProgram();
         }
 
+        public override string GetGlobalChain()
+        {
+            return processor.GetGlobalChain();
+        }
+
         public override IEnumerable<string> GetAllPluginNames()
         {
             return processor.GetAllPlugins();

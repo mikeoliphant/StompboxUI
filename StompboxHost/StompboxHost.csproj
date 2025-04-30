@@ -20,4 +20,5 @@
 	  <ProjectReference Include="..\MiniPlugins\MiniPlugins.csproj" />
 	  <ProjectReference Include="..\StompboxPlugin\StompboxPlugin.csproj" />
 	</ItemGroup>
+	<Import Project="..\StompboxContent\StompboxContent.projitems" Label="Shared" />
 </Project>

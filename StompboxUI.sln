@@ -50,6 +50,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StompboxRemoteClient", "Sto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniPlugins", "MiniPlugins\MiniPlugins.csproj", "{2EBE19F9-83F1-4209-9189-FD552C959DD7}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "StompboxContent", "StompboxContent\StompboxContent.shproj", "{CF151649-8E57-4A65-881C-56EFDBEF320C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -508,11 +510,13 @@ Global
 		Dependencies\UILayout\UILayout\UILayout.projitems*{96f4600b-d3da-4ac3-89ed-67ce6f9c9578}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{96f4600b-d3da-4ac3-89ed-67ce6f9c9578}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{a0cdbd0e-3a41-42b7-9425-a838bc2c7383}*SharedItemsImports = 13
+		StompboxContent\StompboxContent.projitems*{cf151649-8e57-4a65-881c-56efdbef320c}*SharedItemsImports = 13
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{d13a3cb1-9948-4942-bddc-6a5153c9fed9}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.WindowsNative\UILayout.WindowsNative.projitems*{d13a3cb1-9948-4942-bddc-6a5153c9fed9}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{d13a3cb1-9948-4942-bddc-6a5153c9fed9}*SharedItemsImports = 5
 		StompboxClient\StompboxAPIBase\StompboxAPIBase.projitems*{d4a1d097-2484-09e2-6932-9a06b16e4370}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{d7307594-237f-43da-bd6b-d0bc2bd9b276}*SharedItemsImports = 13
 		StompboxClient\StompboxAPIBase\StompboxAPIBase.projitems*{ef794465-7976-4ad3-b2cc-dea7a85a80ae}*SharedItemsImports = 13
+		StompboxContent\StompboxContent.projitems*{f5cdb85d-70bc-46dd-be8b-8e483000dc99}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

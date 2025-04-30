@@ -14,7 +14,11 @@ namespace MiniPlugins
 
         public MiniPluginInterface()
         {
-            pluginStack = new HorizontalStack();
+            pluginStack = new HorizontalStack()
+            {
+                HorizontalAlignment = EHorizontalAlignment.Center,
+                VerticalAlignment = EVerticalAlignment.Center
+            };
             Children.Add(pluginStack);
 
             UpdateUI();

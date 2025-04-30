@@ -45,7 +45,7 @@ namespace Stompbox
             }
         }
 
-        public virtual int CurrentPresetIndex { get; set;  }
+        public virtual int CurrentPresetIndex { get; set; } = -1;
 
         public virtual bool NeedUIReload { get; set; }
 

@@ -9,6 +9,10 @@
     <Import_RootNamespace>Stompbox</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+    <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Interface\AudioFilePlayerInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\AudioFileRecorderInterface.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Interface\DAWInterface.cs" />

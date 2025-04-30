@@ -103,14 +103,9 @@ namespace Stompbox
             StompboxClient.Instance.SendCommand("SetChain MasterIn AudioRecorder Tuner Input");
             StompboxClient.Instance.SendCommand("SetChain MasterOut AudioFilePlayer Master");
 
-            if (StompboxClient.Instance.GetSlotPlugin("Amp") == null)
-                StompboxClient.Instance.SetSlotPlugin("Amp", "NAM");
-
-            if (StompboxClient.Instance.GetSlotPlugin("Tonestack") == null)
-                StompboxClient.Instance.SetSlotPlugin("Tonestack", "EQ-7");
-
-            if (StompboxClient.Instance.GetSlotPlugin("Cabinet") == null)
-                StompboxClient.Instance.SetSlotPlugin("Cabint", "Cabinet");
+            StompboxClient.Instance.SetDefaultSlotPlugin("Amp", "NAM");
+            StompboxClient.Instance.SetDefaultSlotPlugin("Tonestack", "EQ-7");
+            StompboxClient.Instance.SetDefaultSlotPlugin("Cabint", "Cabinet");
         }
 
         public override void Update(float secondsElapsed)

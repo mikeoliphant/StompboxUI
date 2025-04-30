@@ -38,19 +38,21 @@ namespace MiniPlugins
             {
                 if ((split[pos] == "Slot") || (split[pos] == "MasterSlot"))
                 {
-                    AddPlugin(StompboxClient.Instance.PluginFactory.CreatePlugin(StompboxClient.Instance.GetSlotPlugin(split[pos + 1])));
+                    string slotName = split[pos + 1];
+
+                    AddPlugin(StompboxClient.Instance.PluginFactory.CreatePlugin(StompboxClient.Instance.GetSlotPlugin(split[pos + 1])), slotName);
                 }
                 else
                 {
                     foreach (IAudioPlugin plugin in StompboxClient.Instance.GetChain(split[pos]))
                     {
-                        AddPlugin(plugin);
+                        AddPlugin(plugin, null);
                     }
                 }
             }
         }
 
-        void AddPlugin(IAudioPlugin plugin)
+        void AddPlugin(IAudioPlugin plugin, string slotName)
         {
             if ((plugin.Name == "Input") || (plugin.Name == "Master"))
             {
@@ -58,7 +60,7 @@ namespace MiniPlugins
             }
             else
             {
-                pluginStack.Children.Add(new PluginInterface(plugin) { VerticalAlignment = EVerticalAlignment.Stretch });
+                pluginStack.Children.Add(new PluginInterface(plugin, slotName) { VerticalAlignment = EVerticalAlignment.Stretch });
             }
         }
     }

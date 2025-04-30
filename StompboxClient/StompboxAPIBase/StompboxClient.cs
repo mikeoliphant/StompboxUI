@@ -199,6 +199,13 @@ namespace Stompbox
             return PluginFactory.CreatePlugin(pluginID);
         }
 
+        public virtual void SetDefaultSlotPlugin(string slotName, string pluginID)
+        {
+            if (GetSlotPlugin(slotName) == null)
+                SetSlotPlugin(slotName, pluginID);
+
+        }
+
         public virtual void SetSlotPlugin(string slotName, string pluginID)
         {
 

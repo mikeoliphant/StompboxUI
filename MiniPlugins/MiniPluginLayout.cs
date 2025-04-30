@@ -64,9 +64,10 @@ namespace MiniPlugins
 
             StompboxClient.Instance.SendCommand("SetPluginSlot InputGain Input");
             StompboxClient.Instance.SendCommand("SetPluginSlot MasterVolume Master");
-            StompboxClient.Instance.SendCommand("SetPluginSlot Amp NAM");
-            StompboxClient.Instance.SendCommand("SetPluginSlot Tonestack EQ-7");
-            StompboxClient.Instance.SendCommand("SetPluginSlot Cabinet Cabinet");
+
+            StompboxClient.Instance.SetDefaultSlotPlugin("Amp", "NAM");
+            StompboxClient.Instance.SetDefaultSlotPlugin("Tonestack", "EQ-7");
+            StompboxClient.Instance.SetDefaultSlotPlugin("Cabint", "Cabinet");
         }
     }
 }

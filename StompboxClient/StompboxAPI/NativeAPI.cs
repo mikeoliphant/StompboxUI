@@ -111,9 +111,6 @@ namespace StompboxAPI
         public static extern void SetPluginEnabled(IntPtr plugin, bool enabled);
 
         [DllImport(STOMPBOX_LIB_NAME)]
-        public static extern float GetOutputValue(IntPtr plugin);
-
-        [DllImport(STOMPBOX_LIB_NAME)]
         public static extern uint GetPluginNumParameters(IntPtr plugin);
 
         [DllImport(STOMPBOX_LIB_NAME)]
@@ -168,6 +165,10 @@ namespace StompboxAPI
         [DllImport(STOMPBOX_LIB_NAME)]
         [return: MarshalAs(UnmanagedType.I1)]
         public static extern bool GetParameterIsAdvanced(IntPtr parameter);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
+        [return: MarshalAs(UnmanagedType.I1)]
+        public static extern bool GetParameterIsOutput(IntPtr parameter);
 
         [DllImport(STOMPBOX_LIB_NAME)]
         public static extern IntPtr GetParameterFilePath(IntPtr parameter);

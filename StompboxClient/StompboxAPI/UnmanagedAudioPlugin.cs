@@ -39,14 +39,6 @@ namespace StompboxAPI
             set { NativeApi.SetPluginEnabled(nativePlugin, value); }
         }
 
-        public override float OutputValue
-        {
-            get
-            {
-                return NativeApi.GetOutputValue(nativePlugin);
-            }
-        }
-
         Dictionary<string, float> cachedParameters = new Dictionary<string, float>();
 
         internal void SetNativePlugin(IntPtr nativePlugin)
@@ -137,6 +129,7 @@ namespace StompboxAPI
                     RangePower = NativeApi.GetParameterRangePower(nativeParameter),
                     ParameterType = paramType,
                     IsAdvanced = NativeApi.GetParameterIsAdvanced(nativeParameter),
+                    IsOutput = NativeApi.GetParameterIsOutput(nativeParameter),
                     CanSyncToHostBPM = NativeApi.GetParameterCanSyncToHostBPM(nativeParameter),
                     HostBPMSyncNumerator = NativeApi.GetParameterBPMSyncNumerator(nativeParameter),
                     HostBPMSyncDenominator = NativeApi.GetParameterBPMSyncDenominator(nativeParameter),

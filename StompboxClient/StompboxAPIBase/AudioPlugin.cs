@@ -11,7 +11,8 @@ namespace Stompbox
         Int,
         VSlider,
         Enum,
-        File
+        File,
+        Power
     };
 
     public class BPMSync
@@ -105,6 +106,7 @@ namespace Stompbox
         public int HostBPMSyncNumerator { get; set; }
         public int HostBPMSyncDenominator { get; set; }
         public bool IsAdvanced { get; set; }
+        public bool IsOutput { get; set; }
         public bool IsVisible { get; set; }
         public virtual float Value { get; set; }
         public float NormalizedValue
@@ -176,7 +178,6 @@ namespace Stompbox
         String ID { get; }
         String Description { get; set; }
         bool Enabled { get; set; }
-        float OutputValue { get; set; }
         bool EnabledIsSwitchable { get; set; }
         String BackgroundColor { get; set; }
         String ForegroundColor { get; set; }
@@ -186,7 +187,6 @@ namespace Stompbox
         ObservableCollection<PluginParameter> Parameters { get; set; }
         PluginParameter EnumParameter { get; set; }
         Action<bool> SetEnabled { get; set; }
-        Action<double> SetOutputValue { get; set; }
 
         PluginParameter GetParameter(string parameterName);
     }
@@ -210,22 +210,6 @@ namespace Stompbox
                     SetEnabled(enabled);
             }
         }
-        public virtual float OutputValue
-        {
-            get
-            {
-                return outputValue;
-            }
-            set
-            {
-                outputValue = value;
-
-                if (SetOutputValue != null)
-                {
-                    SetOutputValue(value);
-                }
-            }
-        }
         public String BackgroundColor { get; set; }
         public String ForegroundColor { get; set; }
         public bool IsUserSelectable { get; set; }
@@ -235,7 +219,6 @@ namespace Stompbox
         public ObservableCollection<PluginParameter> Parameters { get; set; }
         public PluginParameter EnumParameter { get; set; }
         public Action<bool> SetEnabled { get; set; }
-        public Action<double> SetOutputValue { get; set; }
 
         protected bool enabled;
         float outputValue;

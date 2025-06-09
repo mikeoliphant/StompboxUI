@@ -56,8 +56,12 @@ namespace Stompbox
         Action<Point> tunerPointDrawAction;
 
         public TunerInterface(IAudioPlugin plugin)
-            : base(plugin)
+            : base()
         {
+            ShowOutputParameters = false;
+
+            SetPlugin(plugin);
+
             lineDrawAction = delegate (Point p)
             {
                 tunerImage.SetPixel(p.X, p.Y, lineColor);
@@ -343,7 +347,7 @@ namespace Stompbox
 
             if (Plugin.Enabled)
             {
-                UpdateTuner(Plugin.OutputValue);
+                UpdateTuner(Plugin.GetParameter("Pitch").Value);
             }
         }
 

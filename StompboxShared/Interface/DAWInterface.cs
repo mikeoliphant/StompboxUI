@@ -69,7 +69,7 @@ namespace Stompbox
             };
             programHStack.Children.Add(currentProgramInterface);
 
-            HorizontalStack programHStack2 = new HorizontalStack() { ChildSpacing = 10, HorizontalAlignment = EHorizontalAlignment.Center }; ;
+            HorizontalStack programHStack2 = new HorizontalStack() { ChildSpacing = 10, HorizontalAlignment = EHorizontalAlignment.Center };
             programStack.Children.Add(programHStack2);
 
             programHStack2.Children.Add(new TextButton("Save")
@@ -166,7 +166,7 @@ namespace Stompbox
         {
             base.DrawContents();
 
-            float desiredScale = (Layout.Current as MonoGameLayout).UnscaledBounds.Height / 1600.0f;
+            float desiredScale = (Layout.Current as MonoGameLayout).UnscaledBounds.Height / 1700.0f;
 
             if (StompboxGame.Instance.Scale != desiredScale)
                 StompboxGame.Instance.Scale = desiredScale;

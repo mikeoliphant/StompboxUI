@@ -286,25 +286,6 @@ namespace StompboxAPI
                             }
                             break;
 
-                        case "SetOutput":
-                            if (cmdWords.Length > 2)
-                            {
-                                IAudioPlugin plugin = StompboxClient.PluginFactory.GetPlugin(cmdWords[1]);
-
-                                if (plugin != null)
-                                {
-                                    float outputValue = 0;
-
-                                    if (float.TryParse(cmdWords[2], out outputValue))
-                                    {
-                                        plugin.OutputValue = outputValue;
-                                    }
-                                }
-
-                                break;
-                            }
-                            break;
-
                         case "DSPLoad":
                             if (cmdWords.Length > 2)
                             {

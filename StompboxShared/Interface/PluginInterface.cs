@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Drawing;
+using System.Collections;
 using System.Collections.Generic;
-using UILayout;
-using System.Reflection;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Reflection;
+using UILayout;
 
 namespace Stompbox
 {
@@ -220,6 +222,7 @@ namespace Stompbox
     {
         public IAudioPlugin Plugin { get; private set; }
         public Action ClickAction { get; set; }
+        public bool ShowOutputParameters { get; set; } = true;
 
         protected UIColor backgroundColor;
         protected UIColor foregroundColor;
@@ -403,10 +406,24 @@ namespace Stompbox
                             }
                         };
                     }
-
                 }
 
                 controlDock.Children.Add(valueDisplay);
+            }
+            else if (parameter.ParameterType == EParameterType.Power)
+            {
+                PowerLevel levelDisplay = new()
+                {
+                    HorizontalAlignment = EHorizontalAlignment.Center,
+                    VerticalAlignment = EVerticalAlignment.Center
+                };
+
+                parameter.SetValue = delegate (float value)
+                {
+                    levelDisplay.SetLevel(parameter.GetNormalizedValue(value));
+                };
+
+                controlDock.Children.Add(levelDisplay);
             }
 
             return controlVStack;
@@ -554,6 +571,9 @@ namespace Stompbox
 
             foreach (PluginParameter parameter in Plugin.Parameters)
             {
+                if (!ShowOutputParameters && parameter.IsOutput)
+                    continue;
+
                 if (!parameter.IsAdvanced && !(parameter.ParameterType == EParameterType.Enum) && !(parameter.ParameterType == EParameterType.File) && !(parameter.ParameterType == EParameterType.Int))
                 {
                     if (parameter.ParameterType == EParameterType.VSlider)
@@ -603,7 +623,7 @@ namespace Stompbox
 
     public class PluginInterface : PluginInterfaceBase
     {
-        public static float DefaultHeight = 500;
+        public static float DefaultHeight = 550;
 
         public UIColor DefaultBackgroundColor { get; private set; }
         public float MinWidth { get; set; } = 320;
@@ -611,11 +631,15 @@ namespace Stompbox
         public PluginChainDisplay ChainDisplay { get; set; }
 
         string slotName;
-        HorizontalStack controlStack;
+        VerticalStack controlStack;
         Menu menu = new Menu();
         List<MenuItem> menuItems = new List<MenuItem>();
         protected bool showOptionsMenu = true;
         protected bool showAdvancedControls = false;
+
+        public PluginInterface()
+        {
+        }
 
         public PluginInterface(IAudioPlugin plugin)
             : this(plugin, new UIColor(200, 200, 200), null)
@@ -695,61 +719,10 @@ namespace Stompbox
                 }
             });
 
-            VerticalStack vStack = new VerticalStack { HorizontalAlignment = EHorizontalAlignment.Stretch, VerticalAlignment = EVerticalAlignment.Stretch, ChildSpacing = 5 };
-            dock.Children.Add(vStack);
+            controlStack = new VerticalStack { HorizontalAlignment = EHorizontalAlignment.Stretch, VerticalAlignment = EVerticalAlignment.Stretch, ChildSpacing = 5 };
+            dock.Children.Add(controlStack);
 
-            vStack.Children.Add(new TextBlock(Plugin.Name) { HorizontalAlignment = EHorizontalAlignment.Center, TextColor = foregroundColor });
-
-            controlStack = new HorizontalStack { HorizontalAlignment = EHorizontalAlignment.Center };
-            vStack.Children.Add(controlStack);
-
-            HorizontalStack textStack = new HorizontalStack { HorizontalAlignment = EHorizontalAlignment.Stretch, VerticalAlignment = EVerticalAlignment.Center };
-
-            bool haveTextParams = false;
-
-            foreach (PluginParameter parameter in Plugin.Parameters)
-            {
-                if (!parameter.IsAdvanced || showAdvancedControls)
-                {
-                    if ((parameter.ParameterType == EParameterType.Enum) || (parameter.ParameterType == EParameterType.File) || (parameter.ParameterType == EParameterType.Int))
-                    {
-                        if (parameter.ParameterType == EParameterType.Enum)
-                        {
-                            textStack.Children.Add(CreateEnumControl(parameter));
-
-                            haveTextParams = true;
-                        }
-                        else if (parameter.ParameterType == EParameterType.File)
-                        {
-                            textStack.Children.Add(CreateFileControl(parameter));
-
-                            haveTextParams = true;
-                        }
-                        else if (parameter.ParameterType == EParameterType.Int)
-                        {
-                            if (parameter.MinValue != parameter.MaxValue)
-                            {
-                                textStack.Children.Add(CreateIntControl(parameter));
-
-                                haveTextParams = true;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        controlStack.Children.Add(CreateControl(parameter));
-                    }
-                }
-            }
-
-            if (haveTextParams)
-            {
-                vStack.Children.Add(textStack);
-            }
-
-            //if (Plugin.EnumParameter != null)
-            //{
-            //}
+            UpdateControlDisplay();
 
             PowerButton powerButton = new PowerButton()
             {
@@ -959,18 +932,99 @@ namespace Stompbox
         {
             controlStack.Children.Clear();
 
+            controlStack.Children.Add(new TextBlock(Plugin.Name) { HorizontalAlignment = EHorizontalAlignment.Center, TextColor = foregroundColor });
+
+            HorizontalStack currentControlStack = null;
+
+            bool haveTextParams = false;
+            bool haveVerticalSliders = false;
+
+            HorizontalStack textStack = null;
+
+            int paramCount = 0;
+
             foreach (PluginParameter parameter in Plugin.Parameters)
             {
                 if (!parameter.IsAdvanced || showAdvancedControls)
                 {
                     if ((parameter.ParameterType == EParameterType.Enum) || (parameter.ParameterType == EParameterType.File) || (parameter.ParameterType == EParameterType.Int))
                     {
+                        haveTextParams = true;
+                    }
+                    else if (parameter.ParameterType == EParameterType.VSlider)
+                    {
+                        haveVerticalSliders = true;
                     }
                     else
                     {
-                        controlStack.Children.Add(CreateControl(parameter));
+                        paramCount++;
                     }
                 }
+            }
+
+            if (haveTextParams)
+            {
+                textStack = new HorizontalStack { HorizontalAlignment = EHorizontalAlignment.Stretch, VerticalAlignment = EVerticalAlignment.Center };
+            }
+
+            int controlsPerLine = 0;
+
+            if (!haveTextParams && (paramCount > 2))
+            {
+                controlsPerLine = (int)Math.Ceiling((float)paramCount / 2.0f);
+            }
+
+            int controlsOnLine = 0;
+
+            foreach (PluginParameter parameter in Plugin.Parameters)
+            {
+                if (!ShowOutputParameters && parameter.IsOutput)
+                    continue;
+
+                if (!parameter.IsAdvanced || showAdvancedControls)
+                {
+                    if ((parameter.ParameterType == EParameterType.Enum) || (parameter.ParameterType == EParameterType.File) || (parameter.ParameterType == EParameterType.Int))
+                    {
+                        if (parameter.ParameterType == EParameterType.Enum)
+                        {
+                            textStack.Children.Add(CreateEnumControl(parameter));
+                        }
+                        else if (parameter.ParameterType == EParameterType.File)
+                        {
+                            textStack.Children.Add(CreateFileControl(parameter));
+                        }
+                        else if (parameter.ParameterType == EParameterType.Int)
+                        {
+                            if (parameter.MinValue != parameter.MaxValue)
+                            {
+                                textStack.Children.Add(CreateIntControl(parameter));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (currentControlStack == null)
+                        {
+                            currentControlStack = new HorizontalStack { HorizontalAlignment = EHorizontalAlignment.Center };
+                            controlStack.Children.Add(currentControlStack);
+                        }
+
+                        currentControlStack.Children.Add(CreateControl(parameter));
+
+                        controlsOnLine++;
+
+                        if (controlsOnLine == controlsPerLine)
+                        {
+                            controlsOnLine = 0;
+                            currentControlStack = null;
+                        }
+                    }
+                }
+            }
+
+            if (haveTextParams)
+            {
+                controlStack.Children.Add(textStack);
             }
 
             UpdateContentLayout();
@@ -986,6 +1040,22 @@ namespace Stompbox
 
             if (width < MinWidth)
                 width = MinWidth;
+        }
+
+        protected override void DrawContents()
+        {
+            base.DrawContents();
+
+            if (Plugin.Enabled)
+            {
+                foreach (PluginParameter param in Plugin.Parameters)
+                {
+                    if (param.IsOutput)
+                    {
+                        param.Value = param.Value;
+                    }
+                }
+            }
         }
     }
 
@@ -1052,6 +1122,8 @@ namespace Stompbox
 
         protected override void AddControls(Dock dock)
         {
+            ShowOutputParameters = false;
+
             showOptionsMenu = false;
 
             HorizontalStack stack = new HorizontalStack
@@ -1074,7 +1146,7 @@ namespace Stompbox
 
         protected override void DrawContents()
         {
-            levelDisplay.SetValue(Plugin.OutputValue);
+            levelDisplay.SetValue(Plugin.GetParameter("Level").Value);
 
             base.DrawContents();
         }
@@ -1581,6 +1653,25 @@ namespace Stompbox
         //}
     }
 
+    public class PowerLevel : Dock
+    {
+        ImageElement onElement;
+
+        public PowerLevel()
+        {
+            Children.Add(new ImageElement("PowerOff"));
+            Children.Add(onElement = new ImageElement("PowerOn"));
+
+            onElement.Color = UIColor.Transparent;
+        }
+
+        public void SetLevel(float level)
+        {
+            onElement.Color = new UIColor(1.0f, 1.0f, 1.0f, level);
+        }
+    }
+
+
     public class PowerButton : Button
     {
         public Action HoldAction { get; set; }
@@ -1591,11 +1682,6 @@ namespace Stompbox
             UnpressedElement = new ImageElement("PowerOff");
 
             IsToggleButton = true;
-        }
-
-        protected override void GetContentSize(out float width, out float height)
-        {
-            base.GetContentSize(out width, out height);
         }
     }
 

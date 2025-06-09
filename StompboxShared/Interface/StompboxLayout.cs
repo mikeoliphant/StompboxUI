@@ -96,16 +96,20 @@ namespace Stompbox
 
         void Initialize()
         {
-            StompboxClient.Instance.SendCommand("SetGlobalChain MasterChain MasterIn Chain Input Slot Amp Slot Tonestack Chain FxLoop Slot Cabinet Chain Output MasterChain MasterOut");
+            // If we are running locally, make sure to set up the default global chain
+            if (!StompboxClient.Instance.InClientMode)
+            {
+                StompboxClient.Instance.SendCommand("SetGlobalChain MasterChain MasterIn Chain Input Slot Amp Slot Tonestack Chain FxLoop Slot Cabinet Chain Output MasterChain MasterOut");
 
-            StompboxClient.Instance.UpdateProgram();
+                StompboxClient.Instance.UpdateProgram();
 
-            StompboxClient.Instance.SendCommand("SetChain MasterIn AudioFileRecorder Tuner Input");
-            StompboxClient.Instance.SendCommand("SetChain MasterOut AudioFilePlayer Master");
+                StompboxClient.Instance.SendCommand("SetChain MasterIn Tuner Input");
+                StompboxClient.Instance.SendCommand("SetChain MasterOut AudioFilePlayer Master");
 
-            StompboxClient.Instance.SetDefaultSlotPlugin("Amp", "NAM");
-            StompboxClient.Instance.SetDefaultSlotPlugin("Tonestack", "EQ-7");
-            StompboxClient.Instance.SetDefaultSlotPlugin("Cabint", "Cabinet");
+                StompboxClient.Instance.SetDefaultSlotPlugin("Amp", "NAM");
+                StompboxClient.Instance.SetDefaultSlotPlugin("Tonestack", "EQ-7");
+                StompboxClient.Instance.SetDefaultSlotPlugin("Cabinet", "Cabinet");
+            }
         }
 
         public override void Update(float secondsElapsed)

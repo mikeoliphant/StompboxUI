@@ -37,7 +37,7 @@ namespace Stompbox
         public bool StopSimulateAudio { get; set; }
         public List<string> PresetNames { get; private set; }
 
-        public IEnumerable<IAudioPlugin> AllActivePlugins
+        public virtual IEnumerable<IAudioPlugin> AllActivePlugins
         {
             get
             {

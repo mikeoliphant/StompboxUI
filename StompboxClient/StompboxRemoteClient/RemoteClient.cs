@@ -14,6 +14,35 @@ namespace StompboxAPI
         Dictionary<string, string> slotPlugins = new();
         Dictionary<string, List<IAudioPlugin>> chains = new();
 
+        public override IEnumerable<IAudioPlugin> AllActivePlugins
+        {
+            get
+            {
+                foreach (string slot in slotPlugins.Keys)
+                {
+                    string pluginID = GetSlotPlugin(slot);
+
+                    if (pluginID != null)
+                    {
+                        IAudioPlugin plugin = GetPluginDefinition(pluginID);
+
+                        if (plugin != null)
+                        {
+                            yield return plugin;
+                        }
+                    }
+                }
+
+                foreach (var chain in chains.Values)
+                {
+                    foreach (IAudioPlugin plugin in chain)
+                    {
+                        yield return plugin;
+                    }
+                }
+            }
+        }
+
         NetworkClient networkClient;
         ProtocolClient protocolClient;
 

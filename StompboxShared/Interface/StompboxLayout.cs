@@ -100,7 +100,7 @@ namespace Stompbox
 
             StompboxClient.Instance.UpdateProgram();
 
-            StompboxClient.Instance.SendCommand("SetChain MasterIn AudioRecorder Tuner Input");
+            StompboxClient.Instance.SendCommand("SetChain MasterIn AudioFileRecorder Tuner Input");
             StompboxClient.Instance.SendCommand("SetChain MasterOut AudioFilePlayer Master");
 
             StompboxClient.Instance.SetDefaultSlotPlugin("Amp", "NAM");

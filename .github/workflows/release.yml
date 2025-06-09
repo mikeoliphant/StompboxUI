@@ -40,7 +40,7 @@ jobs:
         cmake.exe -G "Visual Studio 17 2022" -A x64  ..
 
     - name: Setup MSBuild and add to PATH
-      uses: microsoft/setup-msbuild@v1.3.1
+      uses: microsoft/setup-msbuild@v2
 
     - name: Restore NuGet Packages
       run: dotnet restore
@@ -48,7 +48,7 @@ jobs:
     - name: Run Image Processor
       working-directory: ${{github.workspace}}
       run: |
-        msbuild .\StompboxUI.sln /t:StompboxImageProcessor /p:Configuration="Release"
+        msbuild .\StompboxUI.sln /restore /t:Rebuild /t:StompboxImageProcessor /p:Configuration="Release"
         cd StompboxImageProcessor\bin\Release\net8.0
         .\StompboxImageProcessor.exe
         

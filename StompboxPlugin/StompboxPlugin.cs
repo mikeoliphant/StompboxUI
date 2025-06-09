@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Text;
 using System.Threading;
 using AudioPlugSharp;
 using UILayout;
@@ -22,11 +21,11 @@ namespace Stompbox
         public StompboxPlugin()
 		{
 			Company = "Nostatic Software";
-			Website = "www.nostaticsoftware.com";
+			Website = "nostatic.org";
 			Contact = "contact@nostatic.org";
 			PluginName = "stompbox";
 			PluginCategory = "Fx";
-			PluginVersion = "1.0.0";
+			PluginVersion = "0.1.14";
 
 			PluginID = 0x43D53D93648B49CA;
 
@@ -47,25 +46,8 @@ namespace Stompbox
 			InputPorts = new AudioIOPort[] { monoInput = new FloatAudioIOPort("Mono Input", EAudioChannelConfiguration.Mono) };
 			OutputPorts = new AudioIOPort[] { monoOutput = new FloatAudioIOPort("Mono Output", EAudioChannelConfiguration.Mono) };
 
-			//if (StompboxGame.DAWMode)
-			//{
                 EditorWidth = 1000;
                 EditorHeight = 540;
-            //         }
-            //else
-            //{
-            //             EditorWidth = 378;
-            //             EditorHeight = 672;
-            //         }
-
-
-            //SampleFormatsSupported = EAudioBitsPerSample.Bits64;
-
-            //string codeBase = Assembly.GetExecutingAssembly().CodeBase;
-            //UriBuilder uri = new UriBuilder(codeBase);
-            //string path = Uri.UnescapeDataString(uri.Path);
-            //PluginPath = Path.GetDirectoryName(path);
-
 
             //GCSettings.LatencyMode = GCLatencyMode.LowLatency;// GCLatencyMode.Batch; // SustainedLowLatency;
 
@@ -73,7 +55,7 @@ namespace Stompbox
 
 			StompboxClient = new StompboxAPI.APIClient();
 
-			StompboxClient.MidiCallback = SendMidiCommand;
+            StompboxClient.MidiCallback = SendMidiCommand;
 		}
 
 		public override void Stop()
@@ -129,12 +111,9 @@ namespace Stompbox
 				int screenWidth = (int)EditorWidth;
 				int screenHeight = (int)EditorHeight;
 
-                StompboxGame game = new StompboxGame();
+                StompboxLayout game = new StompboxLayout();
 
-				//if (StompboxGame.DAWMode)
-					game.Scale = 0.35f;
-				//else
-				//	game.Scale = (float)EditorWidth / 1080;
+				game.Scale = 0.35f;
 
                 using (GameHost = new MonoGameHost(parentWindow, screenWidth, screenHeight, fullscreen: false))
                 {

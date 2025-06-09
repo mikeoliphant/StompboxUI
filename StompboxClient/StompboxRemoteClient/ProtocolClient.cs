@@ -11,7 +11,7 @@ namespace StompboxAPI
     {
         public List<String> PluginNames { get; private set; }
 
-        Dictionary<string, IAudioPlugin> pluginDefs = new Dictionary<string, IAudioPlugin>();
+        Dictionary<string, IAudioPlugin> pluginDefs = new();
 
         RemoteClient StompboxClient;
 
@@ -163,18 +163,7 @@ namespace StompboxAPI
                                     plugins.Add(plugin);
                                 }
 
-                                switch (cmdWords[1])
-                                {
-                                    case "Input":
-                                        StompboxClient.SetInputChain(plugins);
-                                        break;
-                                    case "FxLoop":
-                                        StompboxClient.SetFxLoop(plugins);
-                                        break;
-                                    case "Output":
-                                        StompboxClient.SetOutputChain(plugins);
-                                        break;
-                                }
+                                StompboxClient.SetChain(cmdWords[1], plugins);
                             }
 
                             break;

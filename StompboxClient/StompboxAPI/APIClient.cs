@@ -59,7 +59,7 @@ namespace StompboxAPI
 
             //processorWrapper.SetMidiCallback(HandleMidi);
 
-            UpdateProgram();
+            //UpdateProgram();
         }
 
         public void StartServer()
@@ -106,6 +106,11 @@ namespace StompboxAPI
             UpdateProgram();
         }
 
+        public override string GetGlobalChain()
+        {
+            return processor.GetGlobalChain();
+        }
+
         public override IEnumerable<string> GetAllPluginNames()
         {
             return processor.GetAllPlugins();
@@ -126,25 +131,18 @@ namespace StompboxAPI
             processor.HandleCommand(command);
         }
 
-        public override void UpdateUI()
+        public override List<IAudioPlugin> GetChain(string chainName)
         {
-            LoadChainEffects(InputPlugins, processor.GetInputChainPlugins());
-            LoadChainEffects(FxLoopPlugins, processor.GetFxLoopPlugins());
-            LoadChainEffects(OutputPlugins, processor.GetOutputChainPlugins());
+            List<IAudioPlugin> chain = new();
 
-            base.UpdateUI();
-        }
-
-        void LoadChainEffects(List<IAudioPlugin> chain, IEnumerable<UnmanagedAudioPlugin> plugins)
-        {
-            chain.Clear();
-
-            chain.AddRange(plugins);
+            chain.AddRange(processor.GetChainPlugins(chainName));
 
             foreach (IAudioPlugin plugin in chain)
             {
                 PluginFactory.RegisterPlugin(plugin);
             }
+
+            return chain;
         }
 
         public override string GetSlotPlugin(string slotName)

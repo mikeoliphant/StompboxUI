@@ -47,6 +47,11 @@ namespace StompboxAPI
             return NativeApi.GetListFromStringVector(NativeApi.GetAllPlugins(nativeProcessor));
         }
 
+        public string GetGlobalChain()
+        {
+            return NativeApi.GetGlobalChain(nativeProcessor);
+        }
+
         public string GetPluginSlot(string slotName)
         {
             return Marshal.PtrToStringAnsi(NativeApi.GetPluginSlot(nativeProcessor, slotName));
@@ -57,19 +62,9 @@ namespace StompboxAPI
             NativeApi.SetPluginSlot(nativeProcessor, slotName, pluginID);
         }
 
-        public List<UnmanagedAudioPlugin> GetInputChainPlugins()
+        public List<UnmanagedAudioPlugin> GetChainPlugins(string chainName)
         {
-            return GetChainPlugins(NativeApi.GetChainPlugins(nativeProcessor, "InputChain"));
-        }
-
-        public List<UnmanagedAudioPlugin> GetFxLoopPlugins()
-        {
-            return GetChainPlugins(NativeApi.GetChainPlugins(nativeProcessor, "FxLoopChain"));
-        }
-
-        public List<UnmanagedAudioPlugin> GetOutputChainPlugins()
-        {
-            return GetChainPlugins(NativeApi.GetChainPlugins(nativeProcessor, "OutputChain"));
+            return GetChainPlugins(NativeApi.GetChainPlugins(nativeProcessor, chainName));
         }
 
         public List<string> GetPresets()

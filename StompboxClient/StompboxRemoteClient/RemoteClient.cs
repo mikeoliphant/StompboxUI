@@ -11,7 +11,8 @@ namespace StompboxAPI
 
         public bool SuppressCommandUpdates { get; set; }
 
-        Dictionary<string, string> slotPlugins = new Dictionary<string, string>();
+        Dictionary<string, string> slotPlugins = new();
+        Dictionary<string, List<IAudioPlugin>> chains = new();
 
         NetworkClient networkClient;
         ProtocolClient protocolClient;
@@ -219,6 +220,21 @@ namespace StompboxAPI
             }
 
             return null;
+        }
+
+        public override void SetChain(string name, List<IAudioPlugin> plugins)
+        {
+            chains[name] = plugins;
+        }
+
+        public override List<IAudioPlugin> GetChain(string name)
+        {
+            if (chains.ContainsKey(name))
+            {
+                return chains[name];
+            }
+
+            return new List<IAudioPlugin>();
         }
     }
 }

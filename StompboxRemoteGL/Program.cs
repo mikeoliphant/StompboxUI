@@ -7,7 +7,7 @@ RemoteClient client = new RemoteClient();
 
 //client.MidiCallback = SendMidiCommand;
 
-StompboxGame game = new StompboxGame();
+StompboxLayout game = new StompboxLayout();
 
 //game.SetScreenScale(scale, resizeScreen: true);
 

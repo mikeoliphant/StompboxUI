@@ -57,7 +57,12 @@ jobs:
       run: msbuild .\StompboxUI.sln /t:StompboxPlugin /p:Configuration=Release
 
     - name: Add Plugin Archive
-      run: Compress-Archive -Path ${{github.workspace}}\StompboxPlugin\bin\Release\net8.0-windows\* -Destination StompboxVST3Plugin.zip
+      working-directory: ${{github.workspace}}
+      run: |
+        mkdir plugin-build
+        move StompboxPlugin\bin\Release\net8.0-windows plugin-build\StompboxPlugin
+        cp StompboxPlugin\README.txt plugin-build
+        Compress-Archive -Path plugin-build\* -Destination StompboxVST3Plugin.zip
     
     - name: Upload Plugin Asset
       uses: actions/upload-release-asset@v1

@@ -34,13 +34,13 @@ namespace Stompbox
 
             Instance = this;
 
-            //StompboxGame.DAWMode = false;
+            //StompboxLayout.DAWMode = false;
 
             guitarClient = new RemoteClient();
 
-            StompboxGame.InterfaceType = EStompboxInterfaceType.Mobile;
+            InterfaceBase.InterfaceType = EStompboxInterfaceType.Mobile;
 
-            StompboxGame game = new StompboxGame();
+            StompboxLayout game = new StompboxLayout();
 
             //game.SetScreenScale(scale, resizeScreen: true);
 

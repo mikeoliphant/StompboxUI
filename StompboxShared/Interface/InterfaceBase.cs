@@ -6,8 +6,17 @@ using UILayout;
 
 namespace Stompbox
 {
+    public enum EStompboxInterfaceType
+    {
+        DAW,
+        Mobile,
+        Pedalboard
+    }
+
     public class InterfaceBase : Dock
     {
+        public static EStompboxInterfaceType InterfaceType { get; set; } = EStompboxInterfaceType.DAW;
+
         protected void DoSavePresetAs()
         {
             Layout.Current.ShowTextInputPopup("File Name:", null, delegate (string presetName)
@@ -17,6 +26,34 @@ namespace Stompbox
                     StompboxClient.Instance.SavePresetAs(presetName);
                 }
             });
+        }
+
+        public static InterfaceBase GetInterface()
+        {
+            switch (InterfaceType)
+            {
+                case EStompboxInterfaceType.DAW:
+                    return new DAWInterface();
+                case EStompboxInterfaceType.Mobile:
+#if ANDROID
+                    Activity1.Instance.RequestedOrientation = Android.Content.PM.ScreenOrientation.UserPortrait;
+#endif
+                    return new MobileInterface();
+                case EStompboxInterfaceType.Pedalboard:
+#if ANDROID
+                    Activity1.Instance.RequestedOrientation = Android.Content.PM.ScreenOrientation.UserLandscape;
+#endif
+                    return new PedalboardInterface();
+            }
+
+            throw new InvalidOperationException();
+        }
+
+        public static void SetInterfaceType(EStompboxInterfaceType interfaceType)
+        {
+            InterfaceType = interfaceType;
+
+            StompboxLayout.Instance.RootUIElement = GetInterface();
         }
     }
 
@@ -47,7 +84,7 @@ namespace Stompbox
                         Text = "Switch to " + type.ToString() + " interface",
                         AfterCloseAction = delegate
                         {
-                            StompboxGame.Instance.SetInterfaceType(type);
+                            InterfaceBase.SetInterfaceType(type);
                             StompboxClient.Instance.NeedUIReload = true;
                         }
                     });

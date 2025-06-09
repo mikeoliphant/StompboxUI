@@ -388,6 +388,11 @@ namespace StompboxAPI
                                                 int.TryParse(propValue, out isAdvanced);
                                                 newParameter.IsAdvanced = (isAdvanced == 1);
                                                 break;
+                                            case "IsOutput":
+                                                int isOutput = 0;
+                                                int.TryParse(propValue, out isOutput);
+                                                newParameter.IsOutput = (isOutput == 1);
+                                                break;
                                             case "Description":
                                                 newParameter.Description = propValue;
                                                 break;

@@ -56,9 +56,20 @@ namespace Stompbox
 			StompboxClient = new StompboxAPI.APIClient();
 
             StompboxClient.MidiCallback = SendMidiCommand;
-		}
 
-		public override void Stop()
+            StompboxClient.SendCommand("SetGlobalChain MasterChain MasterIn Chain Input Slot Amp Slot Tonestack Chain FxLoop Slot Cabinet Chain Output MasterChain MasterOut");
+
+            StompboxClient.UpdateProgram();
+
+            StompboxClient.SendCommand("SetChain MasterIn Tuner Input");
+            StompboxClient.SendCommand("SetChain MasterOut AudioFilePlayer Master");
+
+            StompboxClient.SetDefaultSlotPlugin("Amp", "NAM");
+            StompboxClient.SetDefaultSlotPlugin("Tonestack", "EQ-7");
+            StompboxClient.SetDefaultSlotPlugin("Cabinet", "Cabinet");
+        }
+
+        public override void Stop()
 		{
 			base.Stop();
 
@@ -191,7 +202,7 @@ namespace Stompbox
 				}
 			}
 
-			UpdateUI();
+            UpdateUI();
 		}
 
 		Stopwatch processWatch = new Stopwatch();

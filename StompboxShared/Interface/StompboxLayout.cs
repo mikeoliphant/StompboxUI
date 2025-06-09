@@ -57,11 +57,6 @@ namespace Stompbox
             InputManager.AddMapping("Stomp3", new KeyMapping(InputKey.D4));
 
             InterfaceBase.SetInterfaceType(InterfaceBase.InterfaceType);
-
-            if (!StompboxClient.Instance.InClientMode)
-            {
-                Initialize();
-            }
         }
 
         public void Connect()
@@ -89,26 +84,6 @@ namespace Stompbox
             else
             {
                 clientConnected = true;
-
-                Initialize();
-            }
-        }
-
-        void Initialize()
-        {
-            // If we are running locally, make sure to set up the default global chain
-            if (!StompboxClient.Instance.InClientMode)
-            {
-                StompboxClient.Instance.SendCommand("SetGlobalChain MasterChain MasterIn Chain Input Slot Amp Slot Tonestack Chain FxLoop Slot Cabinet Chain Output MasterChain MasterOut");
-
-                StompboxClient.Instance.UpdateProgram();
-
-                StompboxClient.Instance.SendCommand("SetChain MasterIn Tuner Input");
-                StompboxClient.Instance.SendCommand("SetChain MasterOut AudioFilePlayer Master");
-
-                StompboxClient.Instance.SetDefaultSlotPlugin("Amp", "NAM");
-                StompboxClient.Instance.SetDefaultSlotPlugin("Tonestack", "EQ-7");
-                StompboxClient.Instance.SetDefaultSlotPlugin("Cabinet", "Cabinet");
             }
         }
 

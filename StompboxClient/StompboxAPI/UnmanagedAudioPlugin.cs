@@ -137,10 +137,6 @@ namespace StompboxAPI
                     FilePath = filePath,
                     EnumValues = enumValues,
                     IntValues = intValues,
-                    GetValue = delegate
-                    {
-                        return NativeApi.GetParameterValue(nativeParameter);
-                    },
                 };
 
                 if (parameter.CanSyncToHostBPM)

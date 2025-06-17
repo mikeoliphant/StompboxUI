@@ -34,13 +34,16 @@ namespace StompboxAPI
 
             set
             {
-                base.CurrentPresetIndex = value;
-
-                if (CurrentPresetIndex >= 0)
+                if (value != CurrentPresetIndex)
                 {
-                    processor.LoadPreset(PresetNames[base.CurrentPresetIndex]);
+                    base.CurrentPresetIndex = value;
 
-                    needPresetLoad = true;
+                    if (CurrentPresetIndex >= 0)
+                    {
+                        processor.LoadPreset(PresetNames[base.CurrentPresetIndex]);
+
+                        needPresetLoad = true;
+                    }
                 }
             }
         }

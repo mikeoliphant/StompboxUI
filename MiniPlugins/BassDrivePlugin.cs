@@ -18,6 +18,9 @@ namespace MiniPlugins
             PluginVersion = "0.0.1";
 
             PluginID = 0x58C1ABE4972C4EC8;
+
+            EditorWidth = 680;
+            EditorHeight = 400;
         }
 
         public override void Initialize()
@@ -31,8 +34,8 @@ namespace MiniPlugins
             StompboxClient.SendCommand("SetChain MasterIn Input");
             StompboxClient.SendCommand("SetChain MasterOut Master");
 
-            StompboxClient.SendCommand("SetChain Drive BEQ-7 NoiseGate NAM Cabinet");
-            StompboxClient.SendCommand("SetChain Clean BEQ-7_2 Compressor");
+            StompboxClient.SendCommand("SetChain Drive HighLow NoiseGate NAM Cabinet");
+            StompboxClient.SendCommand("SetChain Clean HighLow_2 Compressor");
         }
     }
 }

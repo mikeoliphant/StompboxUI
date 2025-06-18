@@ -34,33 +34,49 @@ namespace MiniPlugins
 
             int num = (split.Length / 2) * 2;
 
+            ListUIElement currentStack = pluginStack;
+
             for (int pos = 0; pos < num; pos+=2)
             {
                 if ((split[pos] == "Slot") || (split[pos] == "MasterSlot"))
                 {
                     string slotName = split[pos + 1];
 
-                    AddPlugin(StompboxClient.Instance.PluginFactory.CreatePlugin(StompboxClient.Instance.GetSlotPlugin(split[pos + 1])), slotName);
+                    AddPlugin(currentStack, StompboxClient.Instance.PluginFactory.CreatePlugin(StompboxClient.Instance.GetSlotPlugin(split[pos + 1])), slotName);
                 }
                 else
                 {
+                    if (split[pos] == "SplitChain")
+                    {
+                        currentStack = new VerticalStack();
+                        pluginStack.Children.Add(currentStack);
+                    }
+
+                    HorizontalStack hStack = new HorizontalStack();
+                    currentStack.Children.Add(hStack);
+
                     foreach (IAudioPlugin plugin in StompboxClient.Instance.GetChain(split[pos + 1]))
                     {
-                        AddPlugin(plugin, null);
+                        AddPlugin(hStack, plugin, null);
+                    }
+
+                    if (split[pos] != "SplitChain")
+                    {
+                        currentStack = pluginStack;
                     }
                 }
             }
         }
 
-        void AddPlugin(IAudioPlugin plugin, string slotName)
+        void AddPlugin(ListUIElement stack, IAudioPlugin plugin, string slotName)
         {
             if ((plugin.Name == "Input") || (plugin.Name == "Master"))
             {
-                pluginStack.Children.Add(new GainPluginInterface(plugin) { VerticalAlignment = EVerticalAlignment.Stretch });
+                stack.Children.Add(new GainPluginInterface(plugin) { VerticalAlignment = EVerticalAlignment.Stretch });
             }
             else
             {
-                pluginStack.Children.Add(new PluginInterface(plugin, slotName) { VerticalAlignment = EVerticalAlignment.Stretch });
+                stack.Children.Add(new PluginInterface(plugin, slotName) { VerticalAlignment = EVerticalAlignment.Stretch });
             }
         }
     }

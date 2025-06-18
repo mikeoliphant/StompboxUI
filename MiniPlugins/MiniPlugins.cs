@@ -37,9 +37,6 @@ namespace MiniPlugins
             InputPorts = new AudioIOPort[] { monoInput = new FloatAudioIOPort("Mono Input", EAudioChannelConfiguration.Mono) };
             OutputPorts = new AudioIOPort[] { monoOutput = new FloatAudioIOPort("Mono Output", EAudioChannelConfiguration.Mono) };
 
-            EditorWidth = 680;
-            EditorHeight = 190;
-
             //GCSettings.LatencyMode = GCLatencyMode.LowLatency;// GCLatencyMode.Batch; // SustainedLowLatency;
 
             StompboxAPI.APIClient.DebugAction = Debug;

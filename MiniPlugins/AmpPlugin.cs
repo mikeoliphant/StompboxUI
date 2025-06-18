@@ -18,6 +18,9 @@ namespace MiniPlugins
             PluginVersion = "0.0.1";
 
             PluginID = 0x66D6F61F1DE14831;
+
+            EditorWidth = 680;
+            EditorHeight = 190;
         }
 
         public override void Initialize()

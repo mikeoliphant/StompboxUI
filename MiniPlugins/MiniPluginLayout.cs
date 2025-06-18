@@ -51,23 +51,7 @@ namespace MiniPlugins
 
             DefaultDragImage = GetImage("ButtonPressed");
 
-            Initialize();
-
             RootUIElement = new MiniPluginInterface();
-        }
-
-        void Initialize()
-        {
-            StompboxClient.Instance.SendCommand("SetGlobalChain MasterSlot InputGain Slot Amp Slot Tonestack Slot Cabinet MasterSlot MasterVolume");
-
-            StompboxClient.Instance.UpdateProgram();
-
-            StompboxClient.Instance.SendCommand("SetPluginSlot InputGain Input");
-            StompboxClient.Instance.SendCommand("SetPluginSlot MasterVolume Master");
-
-            StompboxClient.Instance.SetDefaultSlotPlugin("Amp", "NAM");
-            StompboxClient.Instance.SetDefaultSlotPlugin("Tonestack", "EQ-7");
-            StompboxClient.Instance.SetDefaultSlotPlugin("Cabint", "Cabinet");
         }
     }
 }

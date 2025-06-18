@@ -27,6 +27,9 @@ namespace StompboxAPI
         public static extern void InitProcessor(IntPtr processor, float sampleRate);
 
         [DllImport(STOMPBOX_LIB_NAME)]
+        public static extern void SetMaxAudioBufferSize(IntPtr processor, uint numSamples);
+
+        [DllImport(STOMPBOX_LIB_NAME)]
         public static extern void StartServer(IntPtr processor);
 
         [DllImport(STOMPBOX_LIB_NAME)]

@@ -163,6 +163,11 @@ namespace StompboxAPI
             processor.Init(sampleRate);
         }
 
+        public void SetMaxAudioBufferSize(uint numSamples)
+        {
+            processor.SetMaxAudioBufferSize(numSamples);
+        }
+
         public String GetProgramState()
         {
             String settingsString = processor.DumpSettings();

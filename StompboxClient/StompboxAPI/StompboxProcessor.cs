@@ -19,10 +19,14 @@ namespace StompboxAPI
             NativeApi.InitProcessor(nativeProcessor, sampleRate);
         }
 
+        public void SetMaxAudioBufferSize(uint numSamples)
+        {
+            NativeApi.SetMaxAudioBufferSize(nativeProcessor, numSamples);
+        }
+
         public UnmanagedAudioPlugin CreatePlugin(string id)
         {
             return CreatePluginFromNative(NativeApi.CreatePlugin(nativeProcessor, id));
-
         }
 
         public bool IsPresetLoading { get { return NativeApi.IsPresetLoading(nativeProcessor); } }

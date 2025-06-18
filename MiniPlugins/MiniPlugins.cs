@@ -6,7 +6,7 @@ using UILayout;
 
 namespace MiniPlugins
 {
-    public unsafe class AmpPlugin : AudioPlugSharp.AudioPluginBase
+    public unsafe class MiniPlugin : AudioPlugSharp.AudioPluginBase
     {
         public int CurrentProgram { get; private set; }
 
@@ -18,17 +18,8 @@ namespace MiniPlugins
         IntPtr bitConvertBuffer = IntPtr.Zero;
         uint bitConvertBufferSize = 0;
 
-        public AmpPlugin()
+        public MiniPlugin()
         {
-            Company = "Nostatic Software";
-            Website = "nostatic.org";
-            Contact = "contact@nostatic.org";
-            PluginName = "SB-Amp";
-            PluginCategory = "Fx";
-            PluginVersion = "0.0.1";
-
-            PluginID = 0x66D6F61F1DE14831;
-
             HasUserInterface = true;
 
             //Logger.ImmediateMode = true;
@@ -56,6 +47,13 @@ namespace MiniPlugins
             StompboxClient = new StompboxAPI.APIClient();
 
             StompboxClient.MidiCallback = SendMidiCommand;
+        }
+
+        public override void SetMaxAudioBufferSize(uint maxSamples, EAudioBitsPerSample bitsPerSample)
+        {
+            base.SetMaxAudioBufferSize(maxSamples, bitsPerSample);
+
+            StompboxClient.SetMaxAudioBufferSize(maxSamples);
         }
 
         public override void Stop()

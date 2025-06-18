@@ -46,8 +46,8 @@ namespace Stompbox
 			InputPorts = new AudioIOPort[] { monoInput = new FloatAudioIOPort("Mono Input", EAudioChannelConfiguration.Mono) };
 			OutputPorts = new AudioIOPort[] { monoOutput = new FloatAudioIOPort("Mono Output", EAudioChannelConfiguration.Mono) };
 
-                EditorWidth = 1000;
-                EditorHeight = 540;
+            EditorWidth = 1000;
+            EditorHeight = 540;
 
             //GCSettings.LatencyMode = GCLatencyMode.LowLatency;// GCLatencyMode.Batch; // SustainedLowLatency;
 
@@ -56,17 +56,6 @@ namespace Stompbox
 			StompboxClient = new StompboxAPI.APIClient();
 
             StompboxClient.MidiCallback = SendMidiCommand;
-
-            StompboxClient.SendCommand("SetGlobalChain MasterChain MasterIn Chain Input Slot Amp Slot Tonestack Chain FxLoop Slot Cabinet Chain Output MasterChain MasterOut");
-
-            StompboxClient.UpdateProgram();
-
-            StompboxClient.SendCommand("SetChain MasterIn Tuner Input");
-            StompboxClient.SendCommand("SetChain MasterOut AudioFilePlayer Master");
-
-            StompboxClient.SetDefaultSlotPlugin("Amp", "NAM");
-            StompboxClient.SetDefaultSlotPlugin("Tonestack", "EQ-7");
-            StompboxClient.SetDefaultSlotPlugin("Cabinet", "Cabinet");
         }
 
         public override void Stop()
@@ -83,11 +72,6 @@ namespace Stompbox
 		public void Debug(String debugStr)
 		{
 			Logger.Log(debugStr);
-		}
-
-
-		public void ReportDSPLoad(float maxDSPLoad, float minDSPLoad)
-		{
 		}
 
 		public virtual void UpdateUI()
@@ -161,7 +145,14 @@ namespace Stompbox
             GameHost.Exit();
         }
 
-		public override void InitializeProcessing()
+        public override void SetMaxAudioBufferSize(uint maxSamples, EAudioBitsPerSample bitsPerSample)
+        {
+            base.SetMaxAudioBufferSize(maxSamples, bitsPerSample);
+
+			StompboxClient.SetMaxAudioBufferSize(maxSamples);
+        }
+
+        public override void InitializeProcessing()
 		{
 			base.InitializeProcessing();
 

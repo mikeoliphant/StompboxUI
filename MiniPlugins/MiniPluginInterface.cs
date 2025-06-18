@@ -44,7 +44,7 @@ namespace MiniPlugins
                 }
                 else
                 {
-                    foreach (IAudioPlugin plugin in StompboxClient.Instance.GetChain(split[pos]))
+                    foreach (IAudioPlugin plugin in StompboxClient.Instance.GetChain(split[pos + 1]))
                     {
                         AddPlugin(plugin, null);
                     }

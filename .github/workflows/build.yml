@@ -16,24 +16,17 @@ jobs:
       working-directory: ${{github.workspace}}/Dependencies/stompbox/build
       run: |
         cmake.exe -G "Visual Studio 17 2022" -A x64  ..
-
-    - name: Setup MSBuild and add to PATH
-      uses: microsoft/setup-msbuild@v2
-
-    - name: Restore NuGet Packages
-      run:
-        dotnet restore
         
     - name: Run Image Processor
       working-directory: ${{github.workspace}}
       run: |
-        msbuild .\StompboxUI.sln /restore /t:Rebuild /t:StompboxImageProcessor /p:Configuration="Release" 
+        dotnet build -c Release StompboxImageProcessor
         cd StompboxImageProcessor\bin\Release\net8.0
         .\StompboxImageProcessor.exe
         
-    - name: Run MSBuild for Plugin
+    - name: Build Plugin
       working-directory: ${{github.workspace}}
-      run: msbuild .\StompboxUI.sln /t:StompboxPlugin /p:Configuration=Release
+      run: dotnet build -c Release ChartPlayerPlugin StompboxPlugin
 
     - name: Create Plugin Artifact
       uses: actions/upload-artifact@v4
@@ -41,9 +34,9 @@ jobs:
         name: StompboxVST3Plugin
         path: ${{github.workspace}}\StompboxPlugin\bin\Release\net8.0-windows
 
-    - name: Run MSBuild for Windows Remote
+    - name: Build for Windows Remote
       working-directory: ${{github.workspace}}
-      run: msbuild .\StompboxUI.sln /t:StompboxRemote /p:Configuration=Release
+      run: dotnet build -c Release CStompboxRemote
 
     - name: Create Windows Remote Artifact
       uses: actions/upload-artifact@v4

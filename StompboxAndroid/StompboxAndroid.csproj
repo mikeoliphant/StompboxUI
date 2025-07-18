@@ -17,8 +17,8 @@
     <AndroidPackageFormat>apk</AndroidPackageFormat>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
-    <PackageReference Include="MonoGame.Framework.Android" Version="3.8.2.1105" />
+    <PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.4" />
+    <PackageReference Include="MonoGame.Framework.Android" Version="3.8.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StompboxClient\StompboxRemoteClient\StompboxRemoteClient.csproj" />

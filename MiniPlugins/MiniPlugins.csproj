@@ -11,9 +11,9 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AudioPlugSharp" Version="0.6.10" />
-		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.2.1105" />
-		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.2.1105" />
+		<PackageReference Include="AudioPlugSharp" Version="0.7.3" />
+		<PackageReference Include="MonoGame.Framework.WindowsDX" Version="3.8.4" />
+		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.4" />
 	</ItemGroup>
 
 	<ItemGroup>

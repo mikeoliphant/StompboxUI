@@ -1632,7 +1632,7 @@ namespace Stompbox
                     break;
             }
 
-            if (IsDoubleTap(touch))
+            if (IsDoubleTap(touch, this))
             {
                 SetValue(DefaultValue);
 

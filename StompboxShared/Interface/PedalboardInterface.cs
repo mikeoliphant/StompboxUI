@@ -187,7 +187,7 @@ namespace Stompbox
         {
             if (!base.HandleTouch(touch))
             {
-                if (IsDoubleTap(touch))
+                if (IsDoubleTap(touch, this))
                 {
                     Layout.Current.ShowPopup(new ExtraOptionsMenu(EStompboxInterfaceType.Pedalboard), ContentBounds.Center);
                 }

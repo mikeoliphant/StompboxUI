@@ -14,6 +14,8 @@ namespace MiniPlugins
 
         public MiniPluginInterface()
         {
+            BackgroundColor = new UIColor(80, 80, 80);
+
             pluginStack = new HorizontalStack()
             {
                 HorizontalAlignment = EHorizontalAlignment.Center,

@@ -26,7 +26,7 @@ jobs:
         
     - name: Build Plugin
       working-directory: ${{github.workspace}}
-      run: dotnet build -c Release ChartPlayerPlugin StompboxPlugin
+      run: dotnet build -c Release StompboxPlugin
 
     - name: Create Plugin Artifact
       uses: actions/upload-artifact@v4

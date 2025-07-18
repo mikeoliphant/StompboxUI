@@ -51,7 +51,7 @@ jobs:
         distribution: 'microsoft'
         java-version: '17'
 
-    - name: run MSBuild for Android Remote
+    - name: Build Android Remote
       run: |
         echo -n ${{ secrets.KEYSTORE }} | base64 --ignore-garbage --decode > ${{github.workspace}}\android.keystore
         dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{github.workspace}}\android.keystore" -p:AndroidSigningKeyAlias=stompboxkeystore -p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASS }}"  -p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASS }}" StompboxAndroid

@@ -54,7 +54,7 @@ jobs:
     - name: run MSBuild for Android Remote
       run: |
         echo -n ${{ secrets.KEYSTORE }} | base64 --ignore-garbage --decode > ${{github.workspace}}\android.keystore
-        msbuild .\StompboxAndroid\StompboxAndroid.csproj /p:Configuration=RELEASE /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias=stompboxkeystore  /p:AndroidSigningKeyStore="${{github.workspace}}\android.keystore" /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASS }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASS }}"
+        dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{github.workspace}}\android.keystore" -p:AndroidSigningKeyAlias=stompboxkeystore -p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASS }}"  -p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASS }}" StompboxAndroid
       
     - name: Create Android Remote Artifact
       uses: actions/upload-artifact@v4

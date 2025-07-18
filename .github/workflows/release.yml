@@ -38,23 +38,18 @@ jobs:
       working-directory: ${{github.workspace}}/Dependencies/stompbox/build
       run: |
         cmake.exe -G "Visual Studio 17 2022" -A x64  ..
-
-    - name: Setup MSBuild and add to PATH
-      uses: microsoft/setup-msbuild@v2
-
-    - name: Restore NuGet Packages
-      run: dotnet restore
+        cmake --build . --config Release
 
     - name: Run Image Processor
       working-directory: ${{github.workspace}}
       run: |
-        msbuild .\StompboxUI.sln /restore /t:Rebuild /t:StompboxImageProcessor /p:Configuration="Release"
+        dotnet build -c Release StompboxImageProcessor
         cd StompboxImageProcessor\bin\Release\net8.0
         .\StompboxImageProcessor.exe
         
-    - name: Run MSBuild for VST Plugin
+    - name: Build Plugin
       working-directory: ${{github.workspace}}
-      run: msbuild .\StompboxUI.sln /t:StompboxPlugin /p:Configuration=Release
+      run: dotnet build -c Release StompboxPlugin
 
     - name: Add Plugin Archive
       working-directory: ${{github.workspace}}
@@ -74,9 +69,9 @@ jobs:
         asset_name: StompboxVST3Plugin.zip
         asset_content_type: application/zip
 
-    - name: Run MSBuild for Windows Remote
+    - name: Build for Windows Remote
       working-directory: ${{github.workspace}}
-      run: msbuild .\StompboxUI.sln /t:StompboxRemote /p:Configuration=Release
+      run: dotnet build -c Release StompboxRemote
 
     - name: Add Windows Remote Archive
       run: Compress-Archive -Path ${{github.workspace}}\StompboxRemote\bin\Release\net8.0-windows\* -Destination StompboxRemote.zip
@@ -97,10 +92,10 @@ jobs:
         distribution: 'microsoft'
         java-version: '17'
 
-    - name: run MSBuild for Android Remote
+    - name: Build Android Remote
       run: |
         echo -n ${{ secrets.KEYSTORE }} | base64 --ignore-garbage --decode > ${{github.workspace}}\android.keystore
-        msbuild .\StompboxAndroid\StompboxAndroid.csproj /p:Configuration=RELEASE /p:AndroidKeyStore=true /p:AndroidSigningKeyAlias=stompboxkeystore  /p:AndroidSigningKeyStore="${{github.workspace}}\android.keystore" /p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASS }}" /p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASS }}"
+        dotnet publish -f net8.0-android -c Release -p:AndroidKeyStore=true -p:AndroidSigningKeyStore="${{github.workspace}}\android.keystore" -p:AndroidSigningKeyAlias=stompboxkeystore -p:AndroidSigningKeyPass="${{ secrets.KEYSTORE_PASS }}"  -p:AndroidSigningStorePass="${{ secrets.KEYSTORE_PASS }}" StompboxAndroid
 
     - name: Upload Android Remote Asset
       uses: actions/upload-release-asset@v1

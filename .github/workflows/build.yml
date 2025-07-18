@@ -16,6 +16,7 @@ jobs:
       working-directory: ${{github.workspace}}/Dependencies/stompbox/build
       run: |
         cmake.exe -G "Visual Studio 17 2022" -A x64  ..
+        cmake --build . --config Release
         
     - name: Run Image Processor
       working-directory: ${{github.workspace}}

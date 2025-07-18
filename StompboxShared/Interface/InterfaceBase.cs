@@ -36,12 +36,12 @@ namespace Stompbox
                     return new DAWInterface();
                 case EStompboxInterfaceType.Mobile:
 #if ANDROID
-                    Activity1.Instance.RequestedOrientation = Android.Content.PM.ScreenOrientation.UserPortrait;
+                    StompboxActivity.Instance.RequestedOrientation = Android.Content.PM.ScreenOrientation.UserPortrait;
 #endif
                     return new MobileInterface();
                 case EStompboxInterfaceType.Pedalboard:
 #if ANDROID
-                    Activity1.Instance.RequestedOrientation = Android.Content.PM.ScreenOrientation.UserLandscape;
+                    StompboxActivity.Instance.RequestedOrientation = Android.Content.PM.ScreenOrientation.UserLandscape;
 #endif
                     return new PedalboardInterface();
             }

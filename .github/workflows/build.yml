@@ -37,7 +37,7 @@ jobs:
 
     - name: Build for Windows Remote
       working-directory: ${{github.workspace}}
-      run: dotnet build -c Release CStompboxRemote
+      run: dotnet build -c Release StompboxRemote
 
     - name: Create Windows Remote Artifact
       uses: actions/upload-artifact@v4

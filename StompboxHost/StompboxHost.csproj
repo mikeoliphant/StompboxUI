@@ -17,7 +17,6 @@
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.4" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\MiniPlugins\MiniPlugins.csproj" />
 	  <ProjectReference Include="..\StompboxPlugin\StompboxPlugin.csproj" />
 	</ItemGroup>
 </Project>

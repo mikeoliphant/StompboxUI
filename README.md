@@ -56,11 +56,31 @@ Files, such as NAM models, impulse responses, etc. go in your local user roaming
 
 Make sure you clone this github repo recursively:
 
-```bash
+```
 git clone --recurse-submodules https://github.com/mikeoliphant/StompboxUI
 ```
 
-Building should be straightforward using Visual Studio.
+In Windows, building should be straightforward using Visual Studio.
 
 **NOTE:** Build and run the "StompboxImageProcessor" project first - it creates texture assets that are required for the main build.
 
+## Building On Linux
+
+To build StompboxRemoteGL on Linux, do the following:
+
+Build StompboxImageProcessor:
+```
+dotnet build -c Release StompboxImageProcessor
+```
+
+Run it:
+```
+StompboxImageProcessor/bin/Release/net8.0/StompboxImageProcessor
+```
+
+Build StompboxRemoteGL:
+```
+dotnet build -c Release StompboxRemoteGL
+```
+
+and your executable will be: ```StompboxRemoteGL/bin/Release/net8.0/StompboxRemoteGL```

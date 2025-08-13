@@ -124,7 +124,7 @@ namespace StompboxImageProcessor
         {
             var processor = new StompboxImageProcessor();
 
-            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"..\..\..\..");
+            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "..", "..", "..", "..");
 
             processor.ForceRegen = false;
 

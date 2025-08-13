@@ -17,13 +17,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Dependencies\UILayout\UILayout.MonoGame.WindowsDX\UILayout.MonoGame.WindowsDX.csproj" />
 		<ProjectReference Include="..\StompboxClient\StompboxAPI\StompboxAPI.csproj" />
 	</ItemGroup>
 	<Target Name="RestoreDotnetTools" BeforeTargets="Restore">
 		<Message Text="Restoring dotnet tools" Importance="High" />
 		<Exec Command="dotnet tool restore" />
 	</Target>
-	<Import Project="..\Dependencies\UILayout\UILayout\UILayout.projitems" Label="Shared" />
-	<Import Project="..\Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems" Label="Shared" />
 	<Import Project="..\StompboxShared\StompboxShared.projitems" Label="Shared" />
 </Project>

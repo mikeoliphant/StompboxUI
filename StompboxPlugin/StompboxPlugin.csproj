@@ -23,6 +23,7 @@
 		<PackageReference Include="MonoGame.Content.Builder.Task" Version="3.8.4" />
 	</ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\Dependencies\UILayout\UILayout.MonoGame.WindowsDX\UILayout.MonoGame.WindowsDX.csproj" />
 	  <ProjectReference Include="..\StompboxClient\StompboxAPI\StompboxAPI.csproj" />
 	</ItemGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -36,6 +37,4 @@
 		<Exec Command="dotnet tool restore" />
 	</Target>
 	<Import Project="..\StompboxShared\StompboxShared.projitems" Label="Shared" />
-	<Import Project="..\Dependencies\UILayout\UILayout\UILayout.projitems" Label="Shared" />
-	<Import Project="..\Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems" Label="Shared" />
 </Project>

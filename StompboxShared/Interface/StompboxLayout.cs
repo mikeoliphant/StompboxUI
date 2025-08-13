@@ -20,13 +20,17 @@ namespace Stompbox
 
         public override void SetHost(MonoGameHost host)
         {
+            host.UsePremultipliedAlpha = true;
+
             base.SetHost(host);
 
             Host.InactiveSleepTime = TimeSpan.Zero;
 
             host.Window.Title = "stompbox";
 
-            LoadImageManifest("ImageManifest.xml");
+            var loader = new MonoGameContentLoader(Host.Content);
+
+            LoadImageManifest(loader, "ImageManifest.xml");
 
             GraphicsContext.SingleWhitePixelImage = GetImage("SingleWhitePixel");
             GraphicsContext.SamplerState = new Microsoft.Xna.Framework.Graphics.SamplerState()

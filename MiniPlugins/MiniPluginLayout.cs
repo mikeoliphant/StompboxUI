@@ -26,7 +26,9 @@ namespace MiniPlugins
 
             host.Window.Title = "stompbox";
 
-            LoadImageManifest("ImageManifest.xml");
+            var loader = new MonoGameContentLoader(Host.Content);
+
+            LoadImageManifest(loader, "ImageManifest.xml");
 
             GraphicsContext.SingleWhitePixelImage = GetImage("SingleWhitePixel");
             GraphicsContext.SamplerState = new Microsoft.Xna.Framework.Graphics.SamplerState()

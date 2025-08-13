@@ -490,6 +490,7 @@ Global
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		Dependencies\UILayout\UILayout.CrossPlatform\UILayout.CrossPlatform.projitems*{05648042-001b-477c-a7af-aa38d8b0106c}*SharedItemsImports = 5
+		Dependencies\UILayout\UILayout.DefaultTextures\UILayout.DefaultTextures.projitems*{05648042-001b-477c-a7af-aa38d8b0106c}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{05648042-001b-477c-a7af-aa38d8b0106c}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{05648042-001b-477c-a7af-aa38d8b0106c}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{1ff3b5c3-44e2-464a-a15f-55ad4b41cea0}*SharedItemsImports = 5
@@ -502,12 +503,14 @@ Global
 		StompboxShared\StompboxShared.projitems*{49305251-662e-459a-9adf-9866ceb6c4d2}*SharedItemsImports = 5
 		StompboxClient\StompboxAPIBase\StompboxAPIBase.projitems*{71c8dc9a-fe7f-516c-5f91-abda855b9d26}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{7da2b397-a39f-4e5b-96ed-f206329982c9}*SharedItemsImports = 13
+		Dependencies\UILayout\UILayout.DefaultTextures\UILayout.DefaultTextures.projitems*{8f0c191b-da0c-4af6-9e0b-c325d48a1a42}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{8f0c191b-da0c-4af6-9e0b-c325d48a1a42}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{8f0c191b-da0c-4af6-9e0b-c325d48a1a42}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{96f4600b-d3da-4ac3-89ed-67ce6f9c9578}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{96f4600b-d3da-4ac3-89ed-67ce6f9c9578}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{96f4600b-d3da-4ac3-89ed-67ce6f9c9578}*SharedItemsImports = 5
 		StompboxShared\StompboxShared.projitems*{a0cdbd0e-3a41-42b7-9425-a838bc2c7383}*SharedItemsImports = 13
+		Dependencies\UILayout\UILayout.DefaultTextures\UILayout.DefaultTextures.projitems*{d13a3cb1-9948-4942-bddc-6a5153c9fed9}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.MonoGame\UILayout.MonoGame.projitems*{d13a3cb1-9948-4942-bddc-6a5153c9fed9}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout.WindowsNative\UILayout.WindowsNative.projitems*{d13a3cb1-9948-4942-bddc-6a5153c9fed9}*SharedItemsImports = 5
 		Dependencies\UILayout\UILayout\UILayout.projitems*{d13a3cb1-9948-4942-bddc-6a5153c9fed9}*SharedItemsImports = 5

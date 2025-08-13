@@ -130,7 +130,7 @@ namespace StompboxImageProcessor
 
             processor.SrcPath = Path.Combine(path, "SrcTextures");
 
-            processor.RenderImages(Path.Combine(path, @"StompboxShared\Content\Textures"));
+            processor.RenderImages(Path.Combine(path, "StompboxShared", "Content", "Textures"));
         }
 
     }

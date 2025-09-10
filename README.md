@@ -84,3 +84,5 @@ dotnet build -c Release StompboxRemoteGL
 ```
 
 and your executable will be: ```StompboxRemoteGL/bin/Release/net8.0/StompboxRemoteGL```
+
+**Note:** For file browser input to work, you need to have [Zenity](https://help.gnome.org/users/zenity/stable/index.html.en) installed.

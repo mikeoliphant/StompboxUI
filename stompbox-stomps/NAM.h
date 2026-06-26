@@ -23,7 +23,7 @@ class NAMLoader : public FileLoader<NeuralAudio::NeuralModel>
 protected:
 	NeuralAudio::NeuralModel* LoadFromFile(const std::filesystem::path& loadPath)
 	{
-		return NeuralAudio::NeuralModel::CreateFromFile(loadPath);
+		return modelLoader.CreateFromFile(loadPath);
 	}
 
 public:
@@ -31,6 +31,9 @@ public:
 		FileLoader<NeuralAudio::NeuralModel>(fileType)
 	{
 	}
+
+private:
+	NeuralAudio::NeuralModelLoader modelLoader;
 };
 
 class NAM : public StompBox

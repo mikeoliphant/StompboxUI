@@ -222,7 +222,7 @@ jobs:
     - name: Add Archive
       working-directory: ${{github.workspace}}/build
       run: |
-        tar -czf ${{ env.ARCHIVE_NAME }} stompbox-jack
+        tar -czf ${{ env.ARCHIVE_NAME }} stompbox-jack/stompbox-jack
       
     - name: Upload Asset
       uses: actions/upload-release-asset@v1
